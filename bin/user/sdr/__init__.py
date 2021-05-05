@@ -64,17 +64,25 @@ in the JSON data, for example 'wind_speed_mph' instead of just 'wind_speed'.
 """
 
 from __future__ import with_statement
+
+import fnmatch
+import os
+import re
+import subprocess
+import threading
+
+import weewx.drivers
+import weewx.units
+from weeutil.weeutil import tobool
+
+from .packets import PacketFactory
+
 try:
     # Python 3
     import queue
 except ImportError:
     # Python 2:
     import Queue as queue
-import fnmatch
-import os
-import re
-import subprocess
-import threading
 
 try:
     import cjson as json
@@ -86,9 +94,6 @@ except (ImportError, AttributeError):
     except ImportError:
         import json
 
-import weewx.drivers
-import weewx.units
-from weeutil.weeutil import tobool
 
 try:
     # New-style weewx logging
@@ -121,7 +126,6 @@ except ImportError:
     def logerr(msg):
         logmsg(syslog.LOG_ERR, msg)
 
-from .packets import PacketFactory
 
 DRIVER_NAME = 'SDR'
 DRIVER_VERSION = '0.78'
