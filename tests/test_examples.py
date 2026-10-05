@@ -7,7 +7,6 @@ these cases catch any behaviour drift introduced by the refactor.
 """
 
 import inspect
-from typing import NamedTuple
 
 import pytest
 import user.brands as brands
@@ -97,16 +96,11 @@ from user.brands import (
     WT0124Packet,
 )
 
-
-class PacketCase(NamedTuple):
-    example: dict
-    expected: dict
-
-
 TEST_CASES = (
-    PacketCase(
-        example=Acurite00275MPacket.EXAMPLES[0],
-        expected={
+    pytest.param(
+        Acurite00275MPacket,
+        Acurite00275MPacket.EXAMPLES[0],
+        {
             'battery.0F66.Acurite00275MPacket': 0,
             'dateTime': 1489096751,
             'humidity.0F66.Acurite00275MPacket': 34.0,
@@ -115,10 +109,12 @@ TEST_CASES = (
             'temperature_probe.0F66.Acurite00275MPacket': 22.7,
             'usUnits': 16,
         },
+        id='Acurite00275MPacket.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=Acurite00275MPacket.EXAMPLES[1],
-        expected={
+    pytest.param(
+        Acurite00275MPacket,
+        Acurite00275MPacket.EXAMPLES[1],
+        {
             'battery.0F66.Acurite00275MPacket': 0,
             'dateTime': 1489096751,
             'humidity.0F66.Acurite00275MPacket': 34.0,
@@ -127,10 +123,12 @@ TEST_CASES = (
             'temperature_probe.0F66.Acurite00275MPacket': 22.7,
             'usUnits': 16,
         },
+        id='Acurite00275MPacket.EXAMPLES[1]',
     ),
-    PacketCase(
-        example=Acurite3n1PacketV2.EXAMPLES[0],
-        expected={
+    pytest.param(
+        Acurite3n1PacketV2,
+        Acurite3n1PacketV2.EXAMPLES[0],
+        {
             'battery.1C34.Acurite3n1PacketV2': 0,
             'channel.1C34.Acurite3n1PacketV2': 'B',
             'dateTime': 1640573618,
@@ -142,10 +140,12 @@ TEST_CASES = (
             'usUnits': 1,
             'wind_speed.1C34.Acurite3n1PacketV2': 5.0,
         },
+        id='Acurite3n1PacketV2.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=Acurite5n1Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        Acurite5n1Packet,
+        Acurite5n1Packet.EXAMPLES[0],
+        {
             'battery.0BFA.Acurite5n1Packet': 0,
             'channel.0BFA.Acurite5n1Packet': 'C',
             'dateTime': 1484534052,
@@ -155,10 +155,12 @@ TEST_CASES = (
             'wind_dir.0BFA.Acurite5n1Packet': 67.5,
             'wind_speed.0BFA.Acurite5n1Packet': None,
         },
+        id='Acurite5n1Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=Acurite5n1Packet.EXAMPLES[1],
-        expected={
+    pytest.param(
+        Acurite5n1Packet,
+        Acurite5n1Packet.EXAMPLES[1],
+        {
             'battery.0BFA.Acurite5n1Packet': 0,
             'channel.0BFA.Acurite5n1Packet': 'C',
             'dateTime': 1484534253,
@@ -168,10 +170,12 @@ TEST_CASES = (
             'usUnits': 1,
             'wind_speed.0BFA.Acurite5n1Packet': None,
         },
+        id='Acurite5n1Packet.EXAMPLES[1]',
     ),
-    PacketCase(
-        example=Acurite5n1Packet.EXAMPLES[2],
-        expected={
+    pytest.param(
+        Acurite5n1Packet,
+        Acurite5n1Packet.EXAMPLES[2],
+        {
             'battery.0A66.Acurite5n1Packet': 0,
             'channel.0A66.Acurite5n1Packet': 'A',
             'dateTime': 1514081220,
@@ -181,10 +185,12 @@ TEST_CASES = (
             'usUnits': 1,
             'wind_speed.0A66.Acurite5n1Packet': 0.0,
         },
+        id='Acurite5n1Packet.EXAMPLES[2]',
     ),
-    PacketCase(
-        example=Acurite5n1Packet.EXAMPLES[3],
-        expected={
+    pytest.param(
+        Acurite5n1Packet,
+        Acurite5n1Packet.EXAMPLES[3],
+        {
             'battery.0A66.Acurite5n1Packet': 0,
             'channel.0A66.Acurite5n1Packet': 'A',
             'dateTime': 1514081238,
@@ -194,10 +200,12 @@ TEST_CASES = (
             'wind_dir.0A66.Acurite5n1Packet': 157.5,
             'wind_speed.0A66.Acurite5n1Packet': 0.0,
         },
+        id='Acurite5n1Packet.EXAMPLES[3]',
     ),
-    PacketCase(
-        example=Acurite5n1Packet.EXAMPLES[4],
-        expected={
+    pytest.param(
+        Acurite5n1Packet,
+        Acurite5n1Packet.EXAMPLES[4],
+        {
             'battery.0A66.Acurite5n1Packet': 0,
             'channel.0A66.Acurite5n1Packet': 'A',
             'dateTime': 1546569430,
@@ -207,10 +215,12 @@ TEST_CASES = (
             'usUnits': 1,
             'wind_speed.0A66.Acurite5n1Packet': 0.0,
         },
+        id='Acurite5n1Packet.EXAMPLES[4]',
     ),
-    PacketCase(
-        example=Acurite5n1Packet.EXAMPLES[5],
-        expected={
+    pytest.param(
+        Acurite5n1Packet,
+        Acurite5n1Packet.EXAMPLES[5],
+        {
             'battery.0A66.Acurite5n1Packet': 1,
             'channel.0A66.Acurite5n1Packet': 'A',
             'dateTime': 1546569448,
@@ -220,10 +230,12 @@ TEST_CASES = (
             'wind_dir.0A66.Acurite5n1Packet': 180.0,
             'wind_speed.0A66.Acurite5n1Packet': 0.0,
         },
+        id='Acurite5n1Packet.EXAMPLES[5]',
     ),
-    PacketCase(
-        example=Acurite5n1PacketV2.EXAMPLES[0],
-        expected={
+    pytest.param(
+        Acurite5n1PacketV2,
+        Acurite5n1PacketV2.EXAMPLES[0],
+        {
             'battery.04D2.Acurite5n1PacketV2': 0,
             'channel.04D2.Acurite5n1PacketV2': 'B',
             'dateTime': 1564386382,
@@ -241,10 +253,12 @@ TEST_CASES = (
             'usUnits': 1,
             'wind_speed.04D2.Acurite5n1PacketV2': 0.0,
         },
+        id='Acurite5n1PacketV2.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=Acurite5n1PacketV2.EXAMPLES[1],
-        expected={
+    pytest.param(
+        Acurite5n1PacketV2,
+        Acurite5n1PacketV2.EXAMPLES[1],
+        {
             'battery.03BC.Acurite5n1PacketV2': 0,
             'channel.03BC.Acurite5n1PacketV2': 'A',
             'dateTime': 1580869254,
@@ -262,10 +276,12 @@ TEST_CASES = (
             'usUnits': 1,
             'wind_speed.03BC.Acurite5n1PacketV2': 2.164235193,
         },
+        id='Acurite5n1PacketV2.EXAMPLES[1]',
     ),
-    PacketCase(
-        example=Acurite5n1PacketV2.EXAMPLES[2],
-        expected={
+    pytest.param(
+        Acurite5n1PacketV2,
+        Acurite5n1PacketV2.EXAMPLES[2],
+        {
             'battery.0A66.Acurite5n1PacketV2': 0,
             'channel.0A66.Acurite5n1PacketV2': 'A',
             'dateTime': 1603750152,
@@ -283,10 +299,12 @@ TEST_CASES = (
             'wind_dir.0A66.Acurite5n1PacketV2': 337.5,
             'wind_speed.0A66.Acurite5n1PacketV2': 9.8797989,
         },
+        id='Acurite5n1PacketV2.EXAMPLES[2]',
     ),
-    PacketCase(
-        example=Acurite5n1PacketV2.EXAMPLES[3],
-        expected={
+    pytest.param(
+        Acurite5n1PacketV2,
+        Acurite5n1PacketV2.EXAMPLES[3],
+        {
             'battery.0A66.Acurite5n1PacketV2': 0,
             'channel.0A66.Acurite5n1PacketV2': 'A',
             'dateTime': 1603750134,
@@ -304,57 +322,69 @@ TEST_CASES = (
             'usUnits': 1,
             'wind_speed.0A66.Acurite5n1PacketV2': 5.765080138,
         },
+        id='Acurite5n1PacketV2.EXAMPLES[3]',
     ),
-    PacketCase(
-        example=Acurite606TXPacket.EXAMPLES[0],
-        expected={
+    pytest.param(
+        Acurite606TXPacket,
+        Acurite606TXPacket.EXAMPLES[0],
+        {
             'battery.48.Acurite606TXPacket': 0,
             'dateTime': 1488644292,
             'temperature.48.Acurite606TXPacket': 30.02,
             'usUnits': 1,
         },
+        id='Acurite606TXPacket.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=Acurite606TXPacketV2.EXAMPLES[0],
-        expected={
+    pytest.param(
+        Acurite606TXPacketV2,
+        Acurite606TXPacketV2.EXAMPLES[0],
+        {
             'battery.153.Acurite606TXPacketV2': 0,
             'dateTime': 1614097447,
             'temperature.153.Acurite606TXPacketV2': 65.84,
             'usUnits': 1,
         },
+        id='Acurite606TXPacketV2.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=Acurite606TXPacketV2.EXAMPLES[1],
-        expected={
+    pytest.param(
+        Acurite606TXPacketV2,
+        Acurite606TXPacketV2.EXAMPLES[1],
+        {
             'battery.194.Acurite606TXPacketV2': 0,
             'dateTime': 1635291589,
             'temperature.194.Acurite606TXPacketV2': 66.56,
             'usUnits': 1,
         },
+        id='Acurite606TXPacketV2.EXAMPLES[1]',
     ),
-    PacketCase(
-        example=Acurite986Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        Acurite986Packet,
+        Acurite986Packet.EXAMPLES[0],
+        {
             'battery.43248.Acurite986Packet': 0,
             'channel.43248.Acurite986Packet': '1R',
             'dateTime': 1524420063,
             'temperature.43248.Acurite986Packet': 69.0,
             'usUnits': 1,
         },
+        id='Acurite986Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=Acurite986Packet.EXAMPLES[1],
-        expected={
+    pytest.param(
+        Acurite986Packet,
+        Acurite986Packet.EXAMPLES[1],
+        {
             'battery.9534.Acurite986Packet': 0,
             'channel.9534.Acurite986Packet': '2F',
             'dateTime': 1603090832,
             'temperature.9534.Acurite986Packet': -10.0,
             'usUnits': 1,
         },
+        id='Acurite986Packet.EXAMPLES[1]',
     ),
-    PacketCase(
-        example=AcuriteAtlasPacket.EXAMPLES[0],
-        expected={
+    pytest.param(
+        AcuriteAtlasPacket,
+        AcuriteAtlasPacket.EXAMPLES[0],
+        {
             'battery.0380.AcuriteAtlasPacket': 0,
             'channel.0380.AcuriteAtlasPacket': 'A',
             'dateTime': 1576342617,
@@ -366,10 +396,12 @@ TEST_CASES = (
             'usUnits': 1,
             'wind_speed.0380.AcuriteAtlasPacket': 5.0,
         },
+        id='AcuriteAtlasPacket.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=AcuriteAtlasPacket.EXAMPLES[1],
-        expected={
+    pytest.param(
+        AcuriteAtlasPacket,
+        AcuriteAtlasPacket.EXAMPLES[1],
+        {
             'battery.0380.AcuriteAtlasPacket': 0,
             'channel.0380.AcuriteAtlasPacket': 'A',
             'dateTime': 1576342678,
@@ -381,10 +413,12 @@ TEST_CASES = (
             'uv.0380.AcuriteAtlasPacket': 0,
             'wind_speed.0380.AcuriteAtlasPacket': 6.0,
         },
+        id='AcuriteAtlasPacket.EXAMPLES[1]',
     ),
-    PacketCase(
-        example=AcuriteAtlasPacket.EXAMPLES[2],
-        expected={
+    pytest.param(
+        AcuriteAtlasPacket,
+        AcuriteAtlasPacket.EXAMPLES[2],
+        {
             'battery.0380.AcuriteAtlasPacket': 0,
             'channel.0380.AcuriteAtlasPacket': 'A',
             'dateTime': 1576342627,
@@ -396,10 +430,12 @@ TEST_CASES = (
             'wind_dir.0380.AcuriteAtlasPacket': 291.0,
             'wind_speed.0380.AcuriteAtlasPacket': 6.0,
         },
+        id='AcuriteAtlasPacket.EXAMPLES[2]',
     ),
-    PacketCase(
-        example=AcuriteLightningPacket.EXAMPLES[0],
-        expected={
+    pytest.param(
+        AcuriteLightningPacket,
+        AcuriteLightningPacket.EXAMPLES[0],
+        {
             'active.0097.AcuriteLightningPacket': 1,
             'battery.0097.AcuriteLightningPacket': 1,
             'channel.0097.AcuriteLightningPacket': 'C',
@@ -412,10 +448,12 @@ TEST_CASES = (
             'temperature.0097.AcuriteLightningPacket': 66.9,
             'usUnits': 1,
         },
+        id='AcuriteLightningPacket.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=AcuriteLightningPacket.EXAMPLES[1],
-        expected={
+    pytest.param(
+        AcuriteLightningPacket,
+        AcuriteLightningPacket.EXAMPLES[1],
+        {
             'active.3C47.AcuriteLightningPacket': 1,
             'battery.3C47.AcuriteLightningPacket': 1,
             'channel.3C47.AcuriteLightningPacket': 'A',
@@ -428,10 +466,12 @@ TEST_CASES = (
             'temperature.3C47.AcuriteLightningPacket': 91.8,
             'usUnits': 1,
         },
+        id='AcuriteLightningPacket.EXAMPLES[1]',
     ),
-    PacketCase(
-        example=AcuriteRain899Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        AcuriteRain899Packet,
+        AcuriteRain899Packet.EXAMPLES[0],
+        {
             'battery.06A3.AcuriteRain899Packet': 1,
             'channel.06A3.AcuriteRain899Packet': 0,
             'dateTime': 1575563540,
@@ -439,10 +479,12 @@ TEST_CASES = (
             'rain_total.06A3.AcuriteRain899Packet': 0.24000000000000002,
             'usUnits': 1,
         },
+        id='AcuriteRain899Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=AcuriteRain899Packet.EXAMPLES[1],
-        expected={
+    pytest.param(
+        AcuriteRain899Packet,
+        AcuriteRain899Packet.EXAMPLES[1],
+        {
             'battery.06A3.AcuriteRain899Packet': 1,
             'channel.06A3.AcuriteRain899Packet': 0,
             'dateTime': 1575563540,
@@ -450,10 +492,12 @@ TEST_CASES = (
             'rain_total.06A3.AcuriteRain899Packet': 0.24000000000000002,
             'usUnits': 1,
         },
+        id='AcuriteRain899Packet.EXAMPLES[1]',
     ),
-    PacketCase(
-        example=AcuriteRain899Packet.EXAMPLES[2],
-        expected={
+    pytest.param(
+        AcuriteRain899Packet,
+        AcuriteRain899Packet.EXAMPLES[2],
+        {
             'battery.06A3.AcuriteRain899Packet': 1,
             'channel.06A3.AcuriteRain899Packet': 0,
             'dateTime': 1575563540,
@@ -461,10 +505,12 @@ TEST_CASES = (
             'rain_total.06A3.AcuriteRain899Packet': 0.24000000000000002,
             'usUnits': 1,
         },
+        id='AcuriteRain899Packet.EXAMPLES[2]',
     ),
-    PacketCase(
-        example=AcuriteTowerPacket.EXAMPLES[0],
-        expected={
+    pytest.param(
+        AcuriteTowerPacket,
+        AcuriteTowerPacket.EXAMPLES[0],
+        {
             'battery.32D1.AcuriteTowerPacket': 1,
             'channel.32D1.AcuriteTowerPacket': 'A',
             'dateTime': 1532138036,
@@ -473,10 +519,12 @@ TEST_CASES = (
             'temperature.32D1.AcuriteTowerPacket': 59.0,
             'usUnits': 1,
         },
+        id='AcuriteTowerPacket.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=AcuriteTowerPacket.EXAMPLES[1],
-        expected={
+    pytest.param(
+        AcuriteTowerPacket,
+        AcuriteTowerPacket.EXAMPLES[1],
+        {
             'battery.32D1.AcuriteTowerPacket': 0,
             'channel.32D1.AcuriteTowerPacket': 'A',
             'dateTime': 1532137944,
@@ -485,10 +533,12 @@ TEST_CASES = (
             'temperature.32D1.AcuriteTowerPacket': 60.08,
             'usUnits': 1,
         },
+        id='AcuriteTowerPacket.EXAMPLES[1]',
     ),
-    PacketCase(
-        example=AcuriteTowerPacket.EXAMPLES[2],
-        expected={
+    pytest.param(
+        AcuriteTowerPacket,
+        AcuriteTowerPacket.EXAMPLES[2],
+        {
             'battery.0209.AcuriteTowerPacket': 1,
             'channel.0209.AcuriteTowerPacket': 'A',
             'dateTime': 1484192585,
@@ -497,10 +547,12 @@ TEST_CASES = (
             'temperature.0209.AcuriteTowerPacket': 33.44,
             'usUnits': 1,
         },
+        id='AcuriteTowerPacket.EXAMPLES[2]',
     ),
-    PacketCase(
-        example=AcuriteTowerPacket.EXAMPLES[3],
-        expected={
+    pytest.param(
+        AcuriteTowerPacket,
+        AcuriteTowerPacket.EXAMPLES[3],
+        {
             'battery.15D1.AcuriteTowerPacket': 1,
             'channel.15D1.AcuriteTowerPacket': 'C',
             'dateTime': 1484192591,
@@ -509,10 +561,12 @@ TEST_CASES = (
             'temperature.15D1.AcuriteTowerPacket': 69.98,
             'usUnits': 1,
         },
+        id='AcuriteTowerPacket.EXAMPLES[3]',
     ),
-    PacketCase(
-        example=AcuriteTowerPacketV2.EXAMPLES[0],
-        expected={
+    pytest.param(
+        AcuriteTowerPacketV2,
+        AcuriteTowerPacketV2.EXAMPLES[0],
+        {
             'battery.04D2.AcuriteTowerPacketV2': 1,
             'channel.04D2.AcuriteTowerPacketV2': 'A',
             'dateTime': 1564386263,
@@ -528,10 +582,12 @@ TEST_CASES = (
             'temperature.04D2.AcuriteTowerPacketV2': 72.68,
             'usUnits': 1,
         },
+        id='AcuriteTowerPacketV2.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=AcuriteTowerPacketV2.EXAMPLES[1],
-        expected={
+    pytest.param(
+        AcuriteTowerPacketV2,
+        AcuriteTowerPacketV2.EXAMPLES[1],
+        {
             'battery.2B21.AcuriteTowerPacketV2': 0,
             'channel.2B21.AcuriteTowerPacketV2': 'B',
             'dateTime': 1640030459,
@@ -547,10 +603,12 @@ TEST_CASES = (
             'temperature.2B21.AcuriteTowerPacketV2': 25.7,
             'usUnits': 1,
         },
+        id='AcuriteTowerPacketV2.EXAMPLES[1]',
     ),
-    PacketCase(
-        example=AcuriteWT450Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        AcuriteWT450Packet,
+        AcuriteWT450Packet.EXAMPLES[0],
+        {
             'battery.1:2.AcuriteWT450Packet': 0,
             'channel.1:2.AcuriteWT450Packet': 2,
             'dateTime': 1505420683,
@@ -559,10 +617,12 @@ TEST_CASES = (
             'temperature.1:2.AcuriteWT450Packet': 25.09,
             'usUnits': 16,
         },
+        id='AcuriteWT450Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=AcuriteWT450Packet.EXAMPLES[1],
-        expected={
+    pytest.param(
+        AcuriteWT450Packet,
+        AcuriteWT450Packet.EXAMPLES[1],
+        {
             'battery.1:2.AcuriteWT450Packet': 0,
             'channel.1:2.AcuriteWT450Packet': 2,
             'dateTime': 1505420684,
@@ -571,10 +631,12 @@ TEST_CASES = (
             'temperature.1:2.AcuriteWT450Packet': 25.11,
             'usUnits': 16,
         },
+        id='AcuriteWT450Packet.EXAMPLES[1]',
     ),
-    PacketCase(
-        example=AcuriteWT450Packet.EXAMPLES[2],
-        expected={
+    pytest.param(
+        AcuriteWT450Packet,
+        AcuriteWT450Packet.EXAMPLES[2],
+        {
             'battery.1:2.AcuriteWT450Packet': 0,
             'channel.1:2.AcuriteWT450Packet': 2,
             'dateTime': 1505420684,
@@ -583,20 +645,24 @@ TEST_CASES = (
             'temperature.1:2.AcuriteWT450Packet': 25.12,
             'usUnits': 16,
         },
+        id='AcuriteWT450Packet.EXAMPLES[2]',
     ),
-    PacketCase(
-        example=AlectoV1RainPacket.EXAMPLES[0],
-        expected={
+    pytest.param(
+        AlectoV1RainPacket,
+        AlectoV1RainPacket.EXAMPLES[0],
+        {
             'battery.202.AlectoV1RainPacket': 0,
             'channel.202.AlectoV1RainPacket': 0,
             'dateTime': 1735376791,
             'rain_total.202.AlectoV1RainPacket': 54.75,
             'usUnits': 17,
         },
+        id='AlectoV1RainPacket.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=AlectoV1TemperaturePacket.EXAMPLES[0],
-        expected={
+    pytest.param(
+        AlectoV1TemperaturePacket,
+        AlectoV1TemperaturePacket.EXAMPLES[0],
+        {
             'battery.33.AlectoV1TemperaturePacket': 0,
             'channel.33.AlectoV1TemperaturePacket': 1,
             'dateTime': 1735376770,
@@ -604,10 +670,12 @@ TEST_CASES = (
             'temperature.33.AlectoV1TemperaturePacket': -2.2,
             'usUnits': 17,
         },
+        id='AlectoV1TemperaturePacket.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=AlectoV1WindPacket.EXAMPLES[0],
-        expected={
+    pytest.param(
+        AlectoV1WindPacket,
+        AlectoV1WindPacket.EXAMPLES[0],
+        {
             'battery.33.AlectoV1WindPacket': 0,
             'channel.33.AlectoV1WindPacket': 1,
             'dateTime': 1735376801,
@@ -616,10 +684,12 @@ TEST_CASES = (
             'wind_gust.33.AlectoV1WindPacket': 1.0,
             'wind_speed.33.AlectoV1WindPacket': 0.8,
         },
+        id='AlectoV1WindPacket.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=AmbientF007THPacket.EXAMPLES[0],
-        expected={
+    pytest.param(
+        AmbientF007THPacket,
+        AmbientF007THPacket.EXAMPLES[0],
+        {
             'battery.1:0.AmbientF007THPacket': None,
             'dateTime': 1485003690,
             'freq.1:0.AmbientF007THPacket': None,
@@ -631,10 +701,12 @@ TEST_CASES = (
             'temperature.1:0.AmbientF007THPacket': 61.8,
             'usUnits': 1,
         },
+        id='AmbientF007THPacket.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=AmbientF007THPacket.EXAMPLES[1],
-        expected={
+    pytest.param(
+        AmbientF007THPacket,
+        AmbientF007THPacket.EXAMPLES[1],
+        {
             'battery.5:201.AmbientF007THPacket': 0,
             'dateTime': 1580931191,
             'freq.5:201.AmbientF007THPacket': None,
@@ -646,20 +718,24 @@ TEST_CASES = (
             'temperature.5:201.AmbientF007THPacket': 39.4,
             'usUnits': 1,
         },
+        id='AmbientF007THPacket.EXAMPLES[1]',
     ),
-    PacketCase(
-        example=AmbientTX8300Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        AmbientTX8300Packet,
+        AmbientTX8300Packet.EXAMPLES[0],
+        {
             'battery.116.AmbientTX8300Packet': 1,
             'channel.116.AmbientTX8300Packet': 1,
             'dateTime': 1623706723,
             'temperature.116.AmbientTX8300Packet': 28.5,
             'usUnits': 16,
         },
+        id='AmbientTX8300Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=AmbientWH31BPacket.EXAMPLES[0],
-        expected={
+    pytest.param(
+        AmbientWH31BPacket,
+        AmbientWH31BPacket.EXAMPLES[0],
+        {
             'battery.196.AmbientWH31BPacket': 0,
             'channel.196.AmbientWH31BPacket': 3,
             'dateTime': 1709573780,
@@ -670,10 +746,12 @@ TEST_CASES = (
             'temperature.196.AmbientWH31BPacket': 21.6,
             'usUnits': 17,
         },
+        id='AmbientWH31BPacket.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=AmbientWH31EPacket.EXAMPLES[0],
-        expected={
+    pytest.param(
+        AmbientWH31EPacket,
+        AmbientWH31EPacket.EXAMPLES[0],
+        {
             'battery.24.AmbientWH31EPacket': 0,
             'channel.24.AmbientWH31EPacket': 1,
             'dateTime': 1550165081,
@@ -684,10 +762,12 @@ TEST_CASES = (
             'temperature.24.AmbientWH31EPacket': 6.0,
             'usUnits': 17,
         },
+        id='AmbientWH31EPacket.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=AuriolHG02832Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        AuriolHG02832Packet,
+        AuriolHG02832Packet.EXAMPLES[0],
+        {
             'battery.1:2.AuriolHG02832Packet': 0,
             'channel.1:2.AuriolHG02832Packet': 2,
             'dateTime': 1505420683,
@@ -696,10 +776,12 @@ TEST_CASES = (
             'temperature.1:2.AuriolHG02832Packet': 25.09,
             'usUnits': 16,
         },
+        id='AuriolHG02832Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=AuriolHG02832Packet.EXAMPLES[1],
-        expected={
+    pytest.param(
+        AuriolHG02832Packet,
+        AuriolHG02832Packet.EXAMPLES[1],
+        {
             'battery.1:2.AuriolHG02832Packet': 0,
             'channel.1:2.AuriolHG02832Packet': 2,
             'dateTime': 1505420684,
@@ -708,10 +790,12 @@ TEST_CASES = (
             'temperature.1:2.AuriolHG02832Packet': 25.11,
             'usUnits': 16,
         },
+        id='AuriolHG02832Packet.EXAMPLES[1]',
     ),
-    PacketCase(
-        example=AuriolHG02832Packet.EXAMPLES[2],
-        expected={
+    pytest.param(
+        AuriolHG02832Packet,
+        AuriolHG02832Packet.EXAMPLES[2],
+        {
             'battery.1:2.AuriolHG02832Packet': 0,
             'channel.1:2.AuriolHG02832Packet': 2,
             'dateTime': 1505420684,
@@ -720,10 +804,12 @@ TEST_CASES = (
             'temperature.1:2.AuriolHG02832Packet': 25.12,
             'usUnits': 16,
         },
+        id='AuriolHG02832Packet.EXAMPLES[2]',
     ),
-    PacketCase(
-        example=Bresser5in1Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        Bresser5in1Packet,
+        Bresser5in1Packet.EXAMPLES[0],
+        {
             'battery.118.Bresser5in1Packet': None,
             'dateTime': 1544889844,
             'humidity.118.Bresser5in1Packet': 87.0,
@@ -736,10 +822,12 @@ TEST_CASES = (
             'wind_gust.118.Bresser5in1Packet': 2.8,
             'wind_speed.118.Bresser5in1Packet': 2.9,
         },
+        id='Bresser5in1Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=Bresser5in1Packet.EXAMPLES[1],
-        expected={
+    pytest.param(
+        Bresser5in1Packet,
+        Bresser5in1Packet.EXAMPLES[1],
+        {
             'battery.182.Bresser5in1Packet': 0,
             'dateTime': 1587416326,
             'humidity.182.Bresser5in1Packet': 92.0,
@@ -752,10 +840,12 @@ TEST_CASES = (
             'wind_gust.182.Bresser5in1Packet': 4.0,
             'wind_speed.182.Bresser5in1Packet': 2.4,
         },
+        id='Bresser5in1Packet.EXAMPLES[1]',
     ),
-    PacketCase(
-        example=Bresser6in1Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        Bresser6in1Packet,
+        Bresser6in1Packet.EXAMPLES[0],
+        {
             'battery.118.Bresser6in1Packet': None,
             'dateTime': 1544889844,
             'humidity.118.Bresser6in1Packet': 87.0,
@@ -765,10 +855,12 @@ TEST_CASES = (
             'wind_dir.118.Bresser6in1Packet': 315.0,
             'wind_speed.118.Bresser6in1Packet': 2.9,
         },
+        id='Bresser6in1Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=Bresser7in1Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        Bresser7in1Packet,
+        Bresser7in1Packet.EXAMPLES[0],
+        {
             'battery.50437.Bresser7in1Packet': 0,
             'dateTime': 1686503345,
             'humidity.50437.Bresser7in1Packet': 67.0,
@@ -781,20 +873,24 @@ TEST_CASES = (
             'wind_gust.50437.Bresser7in1Packet': 0.0,
             'wind_speed.50437.Bresser7in1Packet': 0.0,
         },
+        id='Bresser7in1Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=BresserProRainGaugePacket.EXAMPLES[0],
-        expected={
+    pytest.param(
+        BresserProRainGaugePacket,
+        BresserProRainGaugePacket.EXAMPLES[0],
+        {
             'battery.17.BresserProRainGaugePacket': 0,
             'dateTime': 1615735828,
             'rain_total.17.BresserProRainGaugePacket': 122.0,
             'temperature.17.BresserProRainGaugePacket': 9.8,
             'usUnits': 17,
         },
+        id='BresserProRainGaugePacket.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=Cotech367959Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        Cotech367959Packet,
+        Cotech367959Packet.EXAMPLES[0],
+        {
             'battery.24.Cotech367959Packet': 0,
             'dateTime': 1646143902,
             'humidity.24.Cotech367959Packet': 62.0,
@@ -807,10 +903,12 @@ TEST_CASES = (
             'wind_gust.24.Cotech367959Packet': 0.7,
             'wind_speed.24.Cotech367959Packet': 0.6,
         },
+        id='Cotech367959Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=EM3551HPacket.EXAMPLES[0],
-        expected={
+    pytest.param(
+        EM3551HPacket,
+        EM3551HPacket.EXAMPLES[0],
+        {
             'battery.1001.EM3551HPacket': 0,
             'dateTime': 1729878693,
             'humidity.1001.EM3551HPacket': 95.0,
@@ -821,10 +919,12 @@ TEST_CASES = (
             'wind_gust.1001.EM3551HPacket': 0.0,
             'wind_speed.1001.EM3551HPacket': 0.0,
         },
+        id='EM3551HPacket.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=EcoWittWH40Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        EcoWittWH40Packet,
+        EcoWittWH40Packet.EXAMPLES[0],
+        {
             'battery.52591.EcoWittWH40Packet': None,
             'dateTime': 1580906225,
             'freq1.52591.EcoWittWH40Packet': None,
@@ -836,10 +936,12 @@ TEST_CASES = (
             'supplyVoltage.52591.EcoWittWH40Packet': None,
             'usUnits': 17,
         },
+        id='EcoWittWH40Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=EcoWittWS68Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        EcoWittWS68Packet,
+        EcoWittWS68Packet.EXAMPLES[0],
+        {
             'battery.388.EcoWittWS68Packet': 0,
             'dateTime': 1664153261,
             'luminosity.388.EcoWittWS68Packet': 0.0,
@@ -849,40 +951,48 @@ TEST_CASES = (
             'wind_gust.388.EcoWittWS68Packet': 0.0,
             'wind_speed.388.EcoWittWS68Packet': 0.0,
         },
+        id='EcoWittWS68Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=EsperanzaEWSPacket.EXAMPLES[0],
-        expected={
+    pytest.param(
+        EsperanzaEWSPacket,
+        EsperanzaEWSPacket.EXAMPLES[0],
+        {
             'channel.198.EsperanzaEWSPacket': 2,
             'dateTime': 1656577765,
             'humidity.198.EsperanzaEWSPacket': 0.0,
             'temperature.198.EsperanzaEWSPacket': 69.2,
             'usUnits': 1,
         },
+        id='EsperanzaEWSPacket.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=FOWH0290Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        FOWH0290Packet,
+        FOWH0290Packet.EXAMPLES[0],
+        {
             'battery.204.FOWH0290Packet': None,
             'dateTime': None,
             'pm10_0_atm.204.FOWH0290Packet': None,
             'pm2_5_atm.204.FOWH0290Packet': 9.0,
             'usUnits': 16,
         },
+        id='FOWH0290Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=FOWH0290Packet.EXAMPLES[1],
-        expected={
+    pytest.param(
+        FOWH0290Packet,
+        FOWH0290Packet.EXAMPLES[1],
+        {
             'battery.None.FOWH0290Packet': None,
             'dateTime': 1662666518,
             'pm10_0_atm.None.FOWH0290Packet': None,
             'pm2_5_atm.None.FOWH0290Packet': None,
             'usUnits': 16,
         },
+        id='FOWH0290Packet.EXAMPLES[1]',
     ),
-    PacketCase(
-        example=FOWH1080Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        FOWH1080Packet,
+        FOWH1080Packet.EXAMPLES[0],
+        {
             'battery.38.FOWH1080Packet': 0,
             'dateTime': 1478270438,
             'humidity.38.FOWH1080Packet': 68.0,
@@ -894,10 +1004,12 @@ TEST_CASES = (
             'wind_gust.38.FOWH1080Packet': 12.24,
             'wind_speed.38.FOWH1080Packet': 8.568,
         },
+        id='FOWH1080Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=FOWH24BPacket.EXAMPLES[0],
-        expected={
+    pytest.param(
+        FOWH24BPacket,
+        FOWH24BPacket.EXAMPLES[0],
+        {
             'battery.247.FOWH24BPacket': 0,
             'dateTime': 1596290632,
             'humidity.247.FOWH24BPacket': 45.0,
@@ -910,10 +1022,12 @@ TEST_CASES = (
             'wind_gust.247.FOWH24BPacket': 0.0,
             'wind_speed.247.FOWH24BPacket': 0.0,
         },
+        id='FOWH24BPacket.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=FOWH24Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        FOWH24Packet,
+        FOWH24Packet.EXAMPLES[0],
+        {
             'battery.140.FOWH24Packet': 0,
             'dateTime': 1549856672,
             'humidity.140.FOWH24Packet': 80.0,
@@ -926,10 +1040,12 @@ TEST_CASES = (
             'wind_gust.140.FOWH24Packet': 1.12,
             'wind_speed.140.FOWH24Packet': 0.28,
         },
+        id='FOWH24Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=FOWH24Packet.EXAMPLES[1],
-        expected={
+    pytest.param(
+        FOWH24Packet,
+        FOWH24Packet.EXAMPLES[1],
+        {
             'battery.140.FOWH24Packet': 0,
             'dateTime': 1549856688,
             'humidity.140.FOWH24Packet': 80.0,
@@ -942,10 +1058,12 @@ TEST_CASES = (
             'wind_gust.140.FOWH24Packet': 1.12,
             'wind_speed.140.FOWH24Packet': 0.98,
         },
+        id='FOWH24Packet.EXAMPLES[1]',
     ),
-    PacketCase(
-        example=FOWH25Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        FOWH25Packet,
+        FOWH25Packet.EXAMPLES[0],
+        {
             'battery.239.FOWH25Packet': None,
             'dateTime': 1490420037,
             'humidity.239.FOWH25Packet': 68.0,
@@ -953,10 +1071,12 @@ TEST_CASES = (
             'temperature.239.FOWH25Packet': 30.2,
             'usUnits': 16,
         },
+        id='FOWH25Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=FOWH25Packet.EXAMPLES[1],
-        expected={
+    pytest.param(
+        FOWH25Packet,
+        FOWH25Packet.EXAMPLES[1],
+        {
             'battery.21.FOWH25Packet': 0,
             'dateTime': 1539178631,
             'humidity.21.FOWH25Packet': 66.0,
@@ -964,10 +1084,12 @@ TEST_CASES = (
             'temperature.21.FOWH25Packet': 21.6,
             'usUnits': 16,
         },
+        id='FOWH25Packet.EXAMPLES[1]',
     ),
-    PacketCase(
-        example=FOWH25Packet.EXAMPLES[2],
-        expected={
+    pytest.param(
+        FOWH25Packet,
+        FOWH25Packet.EXAMPLES[2],
+        {
             'battery.170.FOWH25Packet': 1,
             'dateTime': 1602631775,
             'humidity.170.FOWH25Packet': 36.0,
@@ -975,10 +1097,12 @@ TEST_CASES = (
             'temperature.170.FOWH25Packet': 26.2,
             'usUnits': 16,
         },
+        id='FOWH25Packet.EXAMPLES[2]',
     ),
-    PacketCase(
-        example=FOWH25Packet.EXAMPLES[3],
-        expected={
+    pytest.param(
+        FOWH25Packet,
+        FOWH25Packet.EXAMPLES[3],
+        {
             'battery.121.FOWH25Packet': 0,
             'dateTime': 1617905461,
             'humidity.121.FOWH25Packet': 48.0,
@@ -986,10 +1110,12 @@ TEST_CASES = (
             'temperature.121.FOWH25Packet': 20.0,
             'usUnits': 16,
         },
+        id='FOWH25Packet.EXAMPLES[3]',
     ),
-    PacketCase(
-        example=FOWH25Packet.EXAMPLES[4],
-        expected={
+    pytest.param(
+        FOWH25Packet,
+        FOWH25Packet.EXAMPLES[4],
+        {
             'battery.19.FOWH25Packet': 0,
             'dateTime': 1596290596,
             'humidity.19.FOWH25Packet': 49.0,
@@ -997,14 +1123,18 @@ TEST_CASES = (
             'temperature.19.FOWH25Packet': 26.1,
             'usUnits': 16,
         },
+        id='FOWH25Packet.EXAMPLES[4]',
     ),
-    PacketCase(
-        example=FOWH2Packet.EXAMPLES[0],
-        expected={'dateTime': 1535562513, 'temperature.129.FOWH2Packet': 24.2, 'usUnits': 16},
+    pytest.param(
+        FOWH2Packet,
+        FOWH2Packet.EXAMPLES[0],
+        {'dateTime': 1535562513, 'temperature.129.FOWH2Packet': 24.2, 'usUnits': 16},
+        id='FOWH2Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=FOWH3080Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        FOWH3080Packet,
+        FOWH3080Packet.EXAMPLES[0],
+        {
             'dateTime': 1494868867,
             'illumination.225.FOWH3080Packet': 728.346,
             'luminosity.225.FOWH3080Packet': 7837.0,
@@ -1014,10 +1144,12 @@ TEST_CASES = (
             'uv_index.225.FOWH3080Packet': 1.0,
             'uv_status.225.FOWH3080Packet': 0,
         },
+        id='FOWH3080Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=FOWH31LPacket.EXAMPLES[0],
-        expected={
+    pytest.param(
+        FOWH31LPacket,
+        FOWH31LPacket.EXAMPLES[0],
+        {
             'battery.67016.FOWH31LPacket': 1,
             'dateTime': 1625085431,
             'distance.67016.FOWH31LPacket': 10,
@@ -1026,10 +1158,12 @@ TEST_CASES = (
             'strikes_total.67016.FOWH31LPacket': 2,
             'usUnits': 16,
         },
+        id='FOWH31LPacket.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=FOWH32BPacket.EXAMPLES[0],
-        expected={
+    pytest.param(
+        FOWH32BPacket,
+        FOWH32BPacket.EXAMPLES[0],
+        {
             'battery.146.FOWH32BPacket': 0,
             'dateTime': 1554707163,
             'freq1.146.FOWH32BPacket': None,
@@ -1042,10 +1176,12 @@ TEST_CASES = (
             'temperature.146.FOWH32BPacket': 16.9,
             'usUnits': 16,
         },
+        id='FOWH32BPacket.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=FOWH32BPacket.EXAMPLES[1],
-        expected={
+    pytest.param(
+        FOWH32BPacket,
+        FOWH32BPacket.EXAMPLES[1],
+        {
             'battery.114.FOWH32BPacket': 0,
             'dateTime': 1648088847,
             'freq1.114.FOWH32BPacket': 914.964,
@@ -1058,10 +1194,12 @@ TEST_CASES = (
             'temperature.114.FOWH32BPacket': 20.7,
             'usUnits': 16,
         },
+        id='FOWH32BPacket.EXAMPLES[1]',
     ),
-    PacketCase(
-        example=FOWH32Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        FOWH32Packet,
+        FOWH32Packet.EXAMPLES[0],
+        {
             'battery.35.FOWH32Packet': 0,
             'channel.35.FOWH32Packet': None,
             'dateTime': 1709574115,
@@ -1069,10 +1207,12 @@ TEST_CASES = (
             'temperature.35.FOWH32Packet': 3.2,
             'usUnits': 17,
         },
+        id='FOWH32Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=FOWH45Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        FOWH45Packet,
+        FOWH45Packet.EXAMPLES[0],
+        {
             'battery.18034.FOWH45Packet': 0,
             'co2_atm.18034.FOWH45Packet': 718.0,
             'dateTime': 1688821574,
@@ -1082,10 +1222,12 @@ TEST_CASES = (
             'temperature.18034.FOWH45Packet': 20.4,
             'usUnits': 16,
         },
+        id='FOWH45Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=FOWH51Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        FOWH51Packet,
+        FOWH51Packet.EXAMPLES[0],
+        {
             'battery.00df73.FOWH51Packet': 0,
             'battery_mV.00df73.FOWH51Packet': 1600.0,
             'boost.00df73.FOWH51Packet': 0.0,
@@ -1099,19 +1241,23 @@ TEST_CASES = (
             'soil_moisture_raw.00df73.FOWH51Packet': 17.0,
             'usUnits': 16,
         },
+        id='FOWH51Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=FOWH5Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        FOWH5Packet,
+        FOWH5Packet.EXAMPLES[0],
+        {
             'dateTime': 1572187881,
             'humidity.48.FOWH5Packet': 62.0,
             'temperature.48.FOWH5Packet': 11.7,
             'usUnits': 16,
         },
+        id='FOWH5Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=FOWH65BAltPacket.EXAMPLES[0],
-        expected={
+    pytest.param(
+        FOWH65BAltPacket,
+        FOWH65BAltPacket.EXAMPLES[0],
+        {
             'battery.16.FOWH65BAltPacket': 0,
             'dateTime': 1587930070,
             'humidity.16.FOWH65BAltPacket': 50.0,
@@ -1128,10 +1274,12 @@ TEST_CASES = (
             'wind_gust.16.FOWH65BAltPacket': 3.06,
             'wind_speed.16.FOWH65BAltPacket': 1.658,
         },
+        id='FOWH65BAltPacket.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=FOWH65BAltPacket.EXAMPLES[1],
-        expected={
+    pytest.param(
+        FOWH65BAltPacket,
+        FOWH65BAltPacket.EXAMPLES[1],
+        {
             'battery.73.FOWH65BAltPacket': 0,
             'dateTime': 1595393267,
             'humidity.73.FOWH65BAltPacket': 53.0,
@@ -1148,10 +1296,12 @@ TEST_CASES = (
             'wind_gust.73.FOWH65BAltPacket': 0.0,
             'wind_speed.73.FOWH65BAltPacket': 0.0,
         },
+        id='FOWH65BAltPacket.EXAMPLES[1]',
     ),
-    PacketCase(
-        example=FOWH65BAltPacket.EXAMPLES[2],
-        expected={
+    pytest.param(
+        FOWH65BAltPacket,
+        FOWH65BAltPacket.EXAMPLES[2],
+        {
             'battery.86.FOWH65BAltPacket': 0,
             'dateTime': 1648088846,
             'humidity.86.FOWH65BAltPacket': 94.0,
@@ -1168,10 +1318,12 @@ TEST_CASES = (
             'wind_gust.86.FOWH65BAltPacket': 1.02,
             'wind_speed.86.FOWH65BAltPacket': 0.701,
         },
+        id='FOWH65BAltPacket.EXAMPLES[2]',
     ),
-    PacketCase(
-        example=FOWH65BPacket.EXAMPLES[0],
-        expected={
+    pytest.param(
+        FOWH65BPacket,
+        FOWH65BPacket.EXAMPLES[0],
+        {
             'battery.89.FOWH65BPacket': 0,
             'dateTime': 1539178622,
             'humidity.89.FOWH65BPacket': 93.0,
@@ -1185,14 +1337,18 @@ TEST_CASES = (
             'wind_gust.89.FOWH65BPacket': 2.24,
             'wind_speed.89.FOWH65BPacket': 1.54,
         },
+        id='FOWH65BPacket.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=FOWHx080Packet.EXAMPLES[0],
-        expected={'dateTime': 1602597888, 'msg_type.0000.FOWHx080Packet': None, 'usUnits': 16},
+    pytest.param(
+        FOWHx080Packet,
+        FOWHx080Packet.EXAMPLES[0],
+        {'dateTime': 1602597888, 'msg_type.0000.FOWHx080Packet': None, 'usUnits': 16},
+        id='FOWHx080Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=FOWHx080Packet.EXAMPLES[1],
-        expected={
+    pytest.param(
+        FOWHx080Packet,
+        FOWHx080Packet.EXAMPLES[1],
+        {
             'battery.14.FOWHx080Packet': 0,
             'dateTime': 1602597888,
             'humidity.14.FOWHx080Packet': 35.0,
@@ -1204,10 +1360,12 @@ TEST_CASES = (
             'wind_gust.14.FOWHx080Packet': 0.0,
             'wind_speed.14.FOWHx080Packet': 0.0,
         },
+        id='FOWHx080Packet.EXAMPLES[1]',
     ),
-    PacketCase(
-        example=FOWHx080Packet.EXAMPLES[2],
-        expected={
+    pytest.param(
+        FOWHx080Packet,
+        FOWHx080Packet.EXAMPLES[2],
+        {
             'battery.14.FOWHx080Packet': 0,
             'dateTime': 1660751922,
             'humidity.14.FOWHx080Packet': 36.0,
@@ -1219,10 +1377,12 @@ TEST_CASES = (
             'wind_gust.14.FOWHx080Packet': 1.224,
             'wind_speed.14.FOWHx080Packet': 0.0,
         },
+        id='FOWHx080Packet.EXAMPLES[2]',
     ),
-    PacketCase(
-        example=FOWHx080Packet.EXAMPLES[3],
-        expected={
+    pytest.param(
+        FOWHx080Packet,
+        FOWHx080Packet.EXAMPLES[3],
+        {
             'dateTime': 1660497750,
             'luminosity.225.FOWHx080Packet': 2223.2,
             'msg_type.225.FOWHx080Packet': 2,
@@ -1231,10 +1391,12 @@ TEST_CASES = (
             'uv_index.225.FOWHx080Packet': 1.0,
             'uv_status.225.FOWHx080Packet': 0,
         },
+        id='FOWHx080Packet.EXAMPLES[3]',
     ),
-    PacketCase(
-        example=FOWS80Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        FOWS80Packet,
+        FOWS80Packet.EXAMPLES[0],
+        {
             'dateTime': 1657141578,
             'humidity.589862.FOWS80Packet': 67.0,
             'light.589862.FOWS80Packet': 0.0,
@@ -1247,10 +1409,12 @@ TEST_CASES = (
             'wind_gust.589862.FOWS80Packet': 1.8,
             'wind_speed.589862.FOWS80Packet': 1.3,
         },
+        id='FOWS80Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=FOWS90Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        FOWS90Packet,
+        FOWS90Packet.EXAMPLES[0],
+        {
             'battery.13355.FOWS90Packet': 0,
             'dateTime': 1678312838,
             'freq1.13355.FOWS90Packet': 914.945,
@@ -1270,66 +1434,80 @@ TEST_CASES = (
             'wind_gust.13355.FOWS90Packet': 1.6,
             'wind_speed.13355.FOWS90Packet': 1.3,
         },
+        id='FOWS90Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=HidekiRainPacket.EXAMPLES[0],
-        expected={
+    pytest.param(
+        HidekiRainPacket,
+        HidekiRainPacket.EXAMPLES[0],
+        {
             'battery.4:None.HidekiRainPacket': 0,
             'dateTime': 1484541530,
             'rain_total.4:None.HidekiRainPacket': 2622.9,
             'usUnits': 16,
         },
+        id='HidekiRainPacket.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=HidekiRainPacket.EXAMPLES[1],
-        expected={
+    pytest.param(
+        HidekiRainPacket,
+        HidekiRainPacket.EXAMPLES[1],
+        {
             'battery.4:None.HidekiRainPacket': 0,
             'dateTime': 1574622832,
             'rain_total.4:None.HidekiRainPacket': 274.4,
             'usUnits': 16,
         },
+        id='HidekiRainPacket.EXAMPLES[1]',
     ),
-    PacketCase(
-        example=HidekiRainPacket.EXAMPLES[2],
-        expected={
+    pytest.param(
+        HidekiRainPacket,
+        HidekiRainPacket.EXAMPLES[2],
+        {
             'battery.4:0.HidekiRainPacket': 0,
             'dateTime': 1612669510,
             'rain_total.4:0.HidekiRainPacket': 1382.5,
             'usUnits': 16,
         },
+        id='HidekiRainPacket.EXAMPLES[2]',
     ),
-    PacketCase(
-        example=HidekiRainPacket.EXAMPLES[3],
-        expected={
+    pytest.param(
+        HidekiRainPacket,
+        HidekiRainPacket.EXAMPLES[3],
+        {
             'battery.4:0.HidekiRainPacket': 0,
             'dateTime': 1699627326,
             'rain_total.4:0.HidekiRainPacket': 2255.4,
             'usUnits': 16,
         },
+        id='HidekiRainPacket.EXAMPLES[3]',
     ),
-    PacketCase(
-        example=HidekiTS04Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        HidekiTS04Packet,
+        HidekiTS04Packet.EXAMPLES[0],
+        {
             'battery.1:None.HidekiTS04Packet': 0,
             'dateTime': 1478270677,
             'humidity.1:None.HidekiTS04Packet': 61.0,
             'temperature.1:None.HidekiTS04Packet': 12.4,
             'usUnits': 16,
         },
+        id='HidekiTS04Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=HidekiTS04Packet.EXAMPLES[1],
-        expected={
+    pytest.param(
+        HidekiTS04Packet,
+        HidekiTS04Packet.EXAMPLES[1],
+        {
             'battery.1:14.HidekiTS04Packet': 0,
             'dateTime': 1602746013,
             'humidity.1:14.HidekiTS04Packet': 10.0,
             'temperature.1:14.HidekiTS04Packet': 20.7,
             'usUnits': 16,
         },
+        id='HidekiTS04Packet.EXAMPLES[1]',
     ),
-    PacketCase(
-        example=HidekiWindPacket.EXAMPLES[0],
-        expected={
+    pytest.param(
+        HidekiWindPacket,
+        HidekiWindPacket.EXAMPLES[0],
+        {
             'battery.4:None.HidekiWindPacket': 0,
             'dateTime': 1484541519,
             'temperature.4:None.HidekiWindPacket': -4.4,
@@ -1337,10 +1515,12 @@ TEST_CASES = (
             'wind_dir.4:None.HidekiWindPacket': 292.5,
             'wind_speed.4:None.HidekiWindPacket': 2.897,
         },
+        id='HidekiWindPacket.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=HidekiWindPacket.EXAMPLES[1],
-        expected={
+    pytest.param(
+        HidekiWindPacket,
+        HidekiWindPacket.EXAMPLES[1],
+        {
             'battery.4:None.HidekiWindPacket': 0,
             'dateTime': 1574622821,
             'temperature.4:None.HidekiWindPacket': 11.0,
@@ -1349,10 +1529,12 @@ TEST_CASES = (
             'wind_gust.4:None.HidekiWindPacket': 0.16093400000000002,
             'wind_speed.4:None.HidekiWindPacket': 2.092142,
         },
+        id='HidekiWindPacket.EXAMPLES[1]',
     ),
-    PacketCase(
-        example=HidekiWindPacket.EXAMPLES[2],
-        expected={
+    pytest.param(
+        HidekiWindPacket,
+        HidekiWindPacket.EXAMPLES[2],
+        {
             'battery.4:8.HidekiWindPacket': 0,
             'dateTime': 1612669494,
             'temperature.4:8.HidekiWindPacket': 15.2,
@@ -1361,10 +1543,12 @@ TEST_CASES = (
             'wind_gust.4:8.HidekiWindPacket': 4.667086,
             'wind_speed.4:8.HidekiWindPacket': 4.184284,
         },
+        id='HidekiWindPacket.EXAMPLES[2]',
     ),
-    PacketCase(
-        example=HolmanWS5029Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        HolmanWS5029Packet,
+        HolmanWS5029Packet.EXAMPLES[0],
+        {
             'dateTime': 1565174107,
             'humidity.53761.HolmanWS5029Packet': 102.0,
             'rain_total.53761.HolmanWS5029Packet': 39.5,
@@ -1373,10 +1557,12 @@ TEST_CASES = (
             'wind_dir.53761.HolmanWS5029Packet': 338.0,
             'wind_speed.53761.HolmanWS5029Packet': 0.0,
         },
+        id='HolmanWS5029Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=InFactoryTHPacket.EXAMPLES[0],
-        expected={
+    pytest.param(
+        InFactoryTHPacket,
+        InFactoryTHPacket.EXAMPLES[0],
+        {
             'battery.195.InFactoryTHPacket': 0,
             'channel.195.InFactoryTHPacket': 1,
             'dateTime': 1614766793,
@@ -1384,10 +1570,12 @@ TEST_CASES = (
             'temperature.195.InFactoryTHPacket': 73.2,
             'usUnits': 1,
         },
+        id='InFactoryTHPacket.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=KedsumTHPacket.EXAMPLES[0],
-        expected={
+    pytest.param(
+        KedsumTHPacket,
+        KedsumTHPacket.EXAMPLES[0],
+        {
             'battery.235.KedsumTHPacket': 1,
             'channel.235.KedsumTHPacket': 1,
             'dateTime': 1655425439,
@@ -1396,10 +1584,12 @@ TEST_CASES = (
             'temperature.235.KedsumTHPacket': 59.0,
             'usUnits': 1,
         },
+        id='KedsumTHPacket.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=LaCrosseBreezeProPacket.EXAMPLES[0],
-        expected={
+    pytest.param(
+        LaCrosseBreezeProPacket,
+        LaCrosseBreezeProPacket.EXAMPLES[0],
+        {
             'dateTime': 1607984541,
             'humidity.561556.LaCrosseBreezeProPacket': 50.0,
             'model.561556.LaCrosseBreezeProPacket': 'LaCrosse-BreezePro',
@@ -1409,105 +1599,129 @@ TEST_CASES = (
             'wind_dir.561556.LaCrosseBreezeProPacket': 262.0,
             'wind_speed.561556.LaCrosseBreezeProPacket': 0.0,
         },
+        id='LaCrosseBreezeProPacket.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=LaCrosseTX141Bv3Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        LaCrosseTX141Bv3Packet,
+        LaCrosseTX141Bv3Packet.EXAMPLES[0],
+        {
             'battery.172.LaCrosseTX141Bv3Packet': 0,
             'dateTime': 1680123322,
             'temperature.172.LaCrosseTX141Bv3Packet': 3.7,
             'usUnits': 16,
         },
+        id='LaCrosseTX141Bv3Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=LaCrosseTX141THBv2Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        LaCrosseTX141THBv2Packet,
+        LaCrosseTX141THBv2Packet.EXAMPLES[0],
+        {
             'battery.221.LaCrosseTX141THBv2Packet': 0,
             'dateTime': 1484580283,
             'humidity.221.LaCrosseTX141THBv2Packet': 34.0,
             'temperature.221.LaCrosseTX141THBv2Packet': None,
             'usUnits': 17,
         },
+        id='LaCrosseTX141THBv2Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=LaCrosseTX141THBv2Packet.EXAMPLES[1],
-        expected={
+    pytest.param(
+        LaCrosseTX141THBv2Packet,
+        LaCrosseTX141THBv2Packet.EXAMPLES[1],
+        {
             'battery.50.LaCrosseTX141THBv2Packet': 0,
             'dateTime': 1603844545,
             'humidity.50.LaCrosseTX141THBv2Packet': 60.0,
             'temperature.50.LaCrosseTX141THBv2Packet': -0.6,
             'usUnits': 17,
         },
+        id='LaCrosseTX141THBv2Packet.EXAMPLES[1]',
     ),
-    PacketCase(
-        example=LaCrosseTX18Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        LaCrosseTX18Packet,
+        LaCrosseTX18Packet.EXAMPLES[0],
+        {
             'dateTime': 1587446479,
             'humidity.184.LaCrosseTX18Packet': None,
             'temperature.184.LaCrosseTX18Packet': 9.4,
             'usUnits': 16,
         },
+        id='LaCrosseTX18Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=LaCrosseTX18Packet.EXAMPLES[1],
-        expected={
+    pytest.param(
+        LaCrosseTX18Packet,
+        LaCrosseTX18Packet.EXAMPLES[1],
+        {
             'dateTime': 1587446479,
             'humidity.184.LaCrosseTX18Packet': 52.0,
             'temperature.184.LaCrosseTX18Packet': None,
             'usUnits': 16,
         },
+        id='LaCrosseTX18Packet.EXAMPLES[1]',
     ),
-    PacketCase(
-        example=LaCrosseTX18Packet.EXAMPLES[2],
-        expected={
+    pytest.param(
+        LaCrosseTX18Packet,
+        LaCrosseTX18Packet.EXAMPLES[2],
+        {
             'dateTime': 1587446480,
             'humidity.184.LaCrosseTX18Packet': None,
             'temperature.184.LaCrosseTX18Packet': None,
             'usUnits': 16,
         },
+        id='LaCrosseTX18Packet.EXAMPLES[2]',
     ),
-    PacketCase(
-        example=LaCrosseTXPacket.EXAMPLES[0],
-        expected={
+    pytest.param(
+        LaCrosseTXPacket,
+        LaCrosseTXPacket.EXAMPLES[0],
+        {
             'dateTime': 1501449079,
             'humidity.127.LaCrosseTXPacket': 34.0,
             'temperature.127.LaCrosseTXPacket': None,
             'usUnits': 16,
         },
+        id='LaCrosseTXPacket.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=LaCrosseTXPacket.EXAMPLES[1],
-        expected={
+    pytest.param(
+        LaCrosseTXPacket,
+        LaCrosseTXPacket.EXAMPLES[1],
+        {
             'dateTime': 1501449079,
             'humidity.127.LaCrosseTXPacket': None,
             'temperature.127.LaCrosseTXPacket': 27.1,
             'usUnits': 16,
         },
+        id='LaCrosseTXPacket.EXAMPLES[1]',
     ),
-    PacketCase(
-        example=LaCrosseWSPacket.EXAMPLES[0],
-        expected={
+    pytest.param(
+        LaCrosseWSPacket,
+        LaCrosseWSPacket.EXAMPLES[0],
+        {
             'dateTime': 1478270569,
             'temperature.9:202.LaCrosseWSPacket': 12.1,
             'usUnits': 17,
         },
+        id='LaCrosseWSPacket.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=LaCrosseWSPacket.EXAMPLES[1],
-        expected={'dateTime': 1478270698, 'humidity.9:202.LaCrosseWSPacket': 67.0, 'usUnits': 17},
+    pytest.param(
+        LaCrosseWSPacket,
+        LaCrosseWSPacket.EXAMPLES[1],
+        {'dateTime': 1478270698, 'humidity.9:202.LaCrosseWSPacket': 67.0, 'usUnits': 17},
+        id='LaCrosseWSPacket.EXAMPLES[1]',
     ),
-    PacketCase(
-        example=LaCrosseWSPacket.EXAMPLES[2],
-        expected={
+    pytest.param(
+        LaCrosseWSPacket,
+        LaCrosseWSPacket.EXAMPLES[2],
+        {
             'dateTime': 1478270956,
             'usUnits': 17,
             'wind_dir.9:202.LaCrosseWSPacket': 270.0,
             'wind_speed.9:202.LaCrosseWSPacket': 0.8,
         },
+        id='LaCrosseWSPacket.EXAMPLES[2]',
     ),
-    PacketCase(
-        example=OSBTHGN129Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        OSBTHGN129Packet,
+        OSBTHGN129Packet.EXAMPLES[0],
+        {
             'battery.5:146.OSBTHGN129Packet': 0,
             'dateTime': 1501782108,
             'humidity.5:146.OSBTHGN129Packet': 52.0,
@@ -1515,10 +1729,12 @@ TEST_CASES = (
             'temperature.5:146.OSBTHGN129Packet': 31.7,
             'usUnits': 16,
         },
+        id='OSBTHGN129Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=OSBTHR918Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        OSBTHR918Packet,
+        OSBTHR918Packet.EXAMPLES[0],
+        {
             'battery.0:20.OSBTHR918Packet': 0,
             'dateTime': 1627225871,
             'humidity.0:20.OSBTHR918Packet': 58.0,
@@ -1526,10 +1742,12 @@ TEST_CASES = (
             'temperature.0:20.OSBTHR918Packet': 22.2,
             'usUnits': 16,
         },
+        id='OSBTHR918Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=OSBTHR968Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        OSBTHR968Packet,
+        OSBTHR968Packet.EXAMPLES[0],
+        {
             'battery.0:111.OSBTHR968Packet': 0,
             'dateTime': 1484751363,
             'humidity.0:111.OSBTHR968Packet': 46.0,
@@ -1537,10 +1755,12 @@ TEST_CASES = (
             'temperature.0:111.OSBTHR968Packet': 27.2,
             'usUnits': 16,
         },
+        id='OSBTHR968Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=OSBTHR968Packet.EXAMPLES[1],
-        expected={
+    pytest.param(
+        OSBTHR968Packet,
+        OSBTHR968Packet.EXAMPLES[1],
+        {
             'battery.0:179.OSBTHR968Packet': 1,
             'dateTime': 1551878843,
             'humidity.0:179.OSBTHR968Packet': 54.0,
@@ -1548,144 +1768,174 @@ TEST_CASES = (
             'temperature.0:179.OSBTHR968Packet': 19.8,
             'usUnits': 16,
         },
+        id='OSBTHR968Packet.EXAMPLES[1]',
     ),
-    PacketCase(
-        example=OSPCR800Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        OSPCR800Packet,
+        OSPCR800Packet.EXAMPLES[0],
+        {
             'battery.0:236.OSPCR800Packet': 0,
             'dateTime': 1533396567,
             'rain_rate.0:236.OSPCR800Packet': None,
             'rain_total.0:236.OSPCR800Packet': None,
             'usUnits': 1,
         },
+        id='OSPCR800Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=OSPCR800Packet.EXAMPLES[1],
-        expected={
+    pytest.param(
+        OSPCR800Packet,
+        OSPCR800Packet.EXAMPLES[1],
+        {
             'battery.0:80.OSPCR800Packet': 0,
             'dateTime': 1597865473,
             'rain_rate.0:80.OSPCR800Packet': 0.0,
             'rain_total.0:80.OSPCR800Packet': 27.741,
             'usUnits': 1,
         },
+        id='OSPCR800Packet.EXAMPLES[1]',
     ),
-    PacketCase(
-        example=OSPCR800Packet.EXAMPLES[2],
-        expected={
+    pytest.param(
+        OSPCR800Packet,
+        OSPCR800Packet.EXAMPLES[2],
+        {
             'battery.0:32.OSPCR800Packet': 0,
             'dateTime': 1591474517,
             'rain_rate.0:32.OSPCR800Packet': 0.15,
             'rain_total.0:32.OSPCR800Packet': 0.082,
             'usUnits': 1,
         },
+        id='OSPCR800Packet.EXAMPLES[2]',
     ),
-    PacketCase(
-        example=OSRGR968Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        OSRGR968Packet,
+        OSRGR968Packet.EXAMPLES[0],
+        {
             'battery.0:48.OSRGR968Packet': 0,
             'dateTime': 1550241171,
             'rain_rate.0:48.OSRGR968Packet': 0.0,
             'rain_total.0:48.OSRGR968Packet': 6935.1,
             'usUnits': 16,
         },
+        id='OSRGR968Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=OSRGR968Packet.EXAMPLES[1],
-        expected={
+    pytest.param(
+        OSRGR968Packet,
+        OSRGR968Packet.EXAMPLES[1],
+        {
             'battery.0:48.OSRGR968Packet': 0,
             'dateTime': 1550241171,
             'rain_rate.0:48.OSRGR968Packet': 0.0,
             'rain_total.0:48.OSRGR968Packet': 6935.1,
             'usUnits': 16,
         },
+        id='OSRGR968Packet.EXAMPLES[1]',
     ),
-    PacketCase(
-        example=OSTHGR122NPacket.EXAMPLES[0],
-        expected={
+    pytest.param(
+        OSTHGR122NPacket,
+        OSTHGR122NPacket.EXAMPLES[0],
+        {
             'battery.1:211.OSTHGR122NPacket': 1,
             'dateTime': 1484751363,
             'humidity.1:211.OSTHGR122NPacket': 27.0,
             'temperature.1:211.OSTHGR122NPacket': 7.9,
             'usUnits': 16,
         },
+        id='OSTHGR122NPacket.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=OSTHGR810Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        OSTHGR810Packet,
+        OSTHGR810Packet.EXAMPLES[0],
+        {
             'battery.1:153.OSTHGR810Packet': 0,
             'dateTime': 1591474092,
             'humidity.1:153.OSTHGR810Packet': 49.0,
             'temperature.1:153.OSTHGR810Packet': 18.2,
             'usUnits': 16,
         },
+        id='OSTHGR810Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=OSTHGR968Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        OSTHGR968Packet,
+        OSTHGR968Packet.EXAMPLES[0],
+        {
             'battery.1:187.OSTHGR968Packet': 0,
             'dateTime': 1550238205,
             'humidity.1:187.OSTHGR968Packet': 11.0,
             'temperature.1:187.OSTHGR968Packet': 16.5,
             'usUnits': 16,
         },
+        id='OSTHGR968Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=OSTHN802Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        OSTHN802Packet,
+        OSTHN802Packet.EXAMPLES[0],
+        {
             'battery.3:157.OSTHN802Packet': 0,
             'dateTime': 1501782084,
             'temperature.3:157.OSTHN802Packet': 26.7,
             'usUnits': 16,
         },
+        id='OSTHN802Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=OSTHR128Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        OSTHR128Packet,
+        OSTHR128Packet.EXAMPLES[0],
+        {
             'battery.1:5.OSTHR128Packet': 0,
             'dateTime': 1556657040,
             'temperature.1:5.OSTHR128Packet': 18.8,
             'usUnits': 16,
         },
+        id='OSTHR128Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=OSUV800Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        OSUV800Packet,
+        OSUV800Packet.EXAMPLES[0],
+        {
             'battery.1:207.OSUV800Packet': 0,
             'dateTime': 1485814780,
             'usUnits': 16,
             'uv_index.1:207.OSUV800Packet': 0.0,
         },
+        id='OSUV800Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=OSUV800Packet.EXAMPLES[1],
-        expected={
+    pytest.param(
+        OSUV800Packet,
+        OSUV800Packet.EXAMPLES[1],
+        {
             'battery.1:255.OSUV800Packet': 0,
             'dateTime': 1646322713,
             'usUnits': 16,
             'uv_index.1:255.OSUV800Packet': 0.0,
         },
+        id='OSUV800Packet.EXAMPLES[1]',
     ),
-    PacketCase(
-        example=OSUVR128Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        OSUVR128Packet,
+        OSUVR128Packet.EXAMPLES[0],
+        {
             'battery.0:116.OSUVR128Packet': 0,
             'dateTime': 1572937627,
             'usUnits': 16,
             'uv_index.0:116.OSUVR128Packet': 0.0,
         },
+        id='OSUVR128Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=OSUVR128Packet.EXAMPLES[1],
-        expected={
+    pytest.param(
+        OSUVR128Packet,
+        OSUVR128Packet.EXAMPLES[1],
+        {
             'battery.0:116.OSUVR128Packet': 0,
             'dateTime': 1574145893,
             'usUnits': 16,
             'uv_index.0:116.OSUVR128Packet': 0.0,
         },
+        id='OSUVR128Packet.EXAMPLES[1]',
     ),
-    PacketCase(
-        example=OSWGR800Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        OSWGR800Packet,
+        OSWGR800Packet.EXAMPLES[0],
+        {
             'battery.0:245.OSWGR800Packet': 0,
             'dateTime': 1591479883,
             'usUnits': 17,
@@ -1693,10 +1943,12 @@ TEST_CASES = (
             'wind_gust.0:245.OSWGR800Packet': 3.1,
             'wind_speed.0:245.OSWGR800Packet': 0.0,
         },
+        id='OSWGR800Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=ProloguePacket.EXAMPLES[0],
-        expected={
+    pytest.param(
+        ProloguePacket,
+        ProloguePacket.EXAMPLES[0],
+        {
             'battery.166.ProloguePacket': 0,
             'channel.166.ProloguePacket': 1,
             'dateTime': 1489608859,
@@ -1704,28 +1956,34 @@ TEST_CASES = (
             'temperature.166.ProloguePacket': -0.7,
             'usUnits': 16,
         },
+        id='ProloguePacket.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=RubicsonTempPacket.EXAMPLES[0],
-        expected={
+    pytest.param(
+        RubicsonTempPacket,
+        RubicsonTempPacket.EXAMPLES[0],
+        {
             'battery.1:14.RubicsonTempPacket': 0,
             'dateTime': 1484686061,
             'temperature.1:14.RubicsonTempPacket': -1.8,
             'usUnits': 16,
         },
+        id='RubicsonTempPacket.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=RubicsonTempPacketV2.EXAMPLES[0],
-        expected={
+    pytest.param(
+        RubicsonTempPacketV2,
+        RubicsonTempPacketV2.EXAMPLES[0],
+        {
             'battery.3:183.RubicsonTempPacketV2': 0,
             'dateTime': 1680638248,
             'temperature.3:183.RubicsonTempPacketV2': 21.7,
             'usUnits': 16,
         },
+        id='RubicsonTempPacketV2.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=SpringfieldTMPacket.EXAMPLES[0],
-        expected={
+    pytest.param(
+        SpringfieldTMPacket,
+        SpringfieldTMPacket.EXAMPLES[0],
+        {
             'battery.224.SpringfieldTMPacket': 0,
             'channel.224.SpringfieldTMPacket': 3,
             'dateTime': 1547982840,
@@ -1734,28 +1992,34 @@ TEST_CASES = (
             'transmit.224.SpringfieldTMPacket': 'MANUAL',
             'usUnits': 16,
         },
+        id='SpringfieldTMPacket.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=TFADropPacket.EXAMPLES[0],
-        expected={
+    pytest.param(
+        TFADropPacket,
+        TFADropPacket.EXAMPLES[0],
+        {
             'battery.549565.TFADropPacket': 0,
             'dateTime': 1655630337,
             'rain_total.549565.TFADropPacket': 0.0,
             'usUnits': 17,
         },
+        id='TFADropPacket.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=TFADropPacket.EXAMPLES[1],
-        expected={
+    pytest.param(
+        TFADropPacket,
+        TFADropPacket.EXAMPLES[1],
+        {
             'battery.899964.TFADropPacket': 0,
             'dateTime': 1724507498,
             'rain_total.899964.TFADropPacket': 17.78,
             'usUnits': 17,
         },
+        id='TFADropPacket.EXAMPLES[1]',
     ),
-    PacketCase(
-        example=TFATwinPlus303049Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        TFATwinPlus303049Packet,
+        TFATwinPlus303049Packet.EXAMPLES[0],
+        {
             'battery.13.TFATwinPlus303049Packet': 0,
             'channel.13.TFATwinPlus303049Packet': 1,
             'dateTime': 1569431712,
@@ -1763,10 +2027,12 @@ TEST_CASES = (
             'temperature.13.TFATwinPlus303049Packet': 8.4,
             'usUnits': 16,
         },
+        id='TFATwinPlus303049Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=TSFT002Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        TSFT002Packet,
+        TSFT002Packet.EXAMPLES[0],
+        {
             'dateTime': 1577055298,
             'depth.127.TSFT002Packet': 186.0,
             'flags.127.TSFT002Packet': 8,
@@ -1774,10 +2040,12 @@ TEST_CASES = (
             'transmit.127.TSFT002Packet': 180.0,
             'usUnits': 16,
         },
+        id='TSFT002Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=Vevor7in1Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        Vevor7in1Packet,
+        Vevor7in1Packet.EXAMPLES[0],
+        {
             'battery.52266.Vevor7in1Packet': 0,
             'dateTime': 1731504479,
             'humidity.52266.Vevor7in1Packet': 76.0,
@@ -1790,10 +2058,12 @@ TEST_CASES = (
             'wind_gust.52266.Vevor7in1Packet': 0.7408333333333332,
             'wind_speed.52266.Vevor7in1Packet': 0.19444444444444442,
         },
+        id='Vevor7in1Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=WS2032Packet.EXAMPLES[0],
-        expected={
+    pytest.param(
+        WS2032Packet,
+        WS2032Packet.EXAMPLES[0],
+        {
             'dateTime': 1603147284,
             'humidity.11768.WS2032Packet': 48.0,
             'rain_total.11768.WS2032Packet': 256.0,
@@ -1803,39 +2073,27 @@ TEST_CASES = (
             'wind_gust.11768.WS2032Packet': 15.48,
             'wind_speed.11768.WS2032Packet': 7.74,
         },
+        id='WS2032Packet.EXAMPLES[0]',
     ),
-    PacketCase(
-        example=WT0124Packet.EXAMPLES[0],
-        expected={'dateTime': 1556022532, 'temperature.122.WT0124Packet': 22.8, 'usUnits': 16},
+    pytest.param(
+        WT0124Packet,
+        WT0124Packet.EXAMPLES[0],
+        {'dateTime': 1556022532, 'temperature.122.WT0124Packet': 22.8, 'usUnits': 16},
+        id='WT0124Packet.EXAMPLES[0]',
     ),
 )
 
 
-def _owner(example):
-    """Return the packet class whose EXAMPLES contains this example."""
-    for _, cls in inspect.getmembers(brands, inspect.isclass):
-        if any(ex is example for ex in getattr(cls, 'EXAMPLES', ())):
-            return cls
-    raise LookupError('no packet class owns this example')
-
-
-def _case_id(case):
-    cls = _owner(case.example)
-    i = next(n for n, ex in enumerate(cls.EXAMPLES) if ex is case.example)
-    return f'{cls.__name__}[{i}]'
-
-
 def test_cases_cover_every_example():
     """TEST_CASES stays in sync with every class EXAMPLES."""
-    all_examples = [
-        ex
-        for _, cls in inspect.getmembers(brands, inspect.isclass)
-        for ex in getattr(cls, 'EXAMPLES', ())
-    ]
-    assert sorted(map(id, (c.example for c in TEST_CASES))) == sorted(map(id, all_examples))
+    keys = {
+        f'{name}.EXAMPLES[{i}]'
+        for name, cls in inspect.getmembers(brands, inspect.isclass)
+        for i in range(len(getattr(cls, 'EXAMPLES', ())))
+    }
+    assert {case.id for case in TEST_CASES} == keys
 
 
-@pytest.mark.parametrize('case', TEST_CASES, ids=_case_id)
-def test_matches_master_output(case):
-    packet_cls = _owner(case.example)
-    assert packet_cls.parse_json(dict(case.example)) == case.expected
+@pytest.mark.parametrize('packet_cls, example, expected', TEST_CASES)
+def test_matches_master_output(packet_cls, example, expected):
+    assert packet_cls.parse_json(dict(example)) == expected
