@@ -26,7 +26,6 @@ class TFADropPacket(Packet):
         },
     )
 
-
     @staticmethod
     def parse_json(obj):
         sensor_id = obj.get('id', '0000')

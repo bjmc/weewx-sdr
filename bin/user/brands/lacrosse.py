@@ -7,7 +7,20 @@ from ..packet import Packet
 
 class LaCrosseBreezeProPacket(Packet):
     # sample json output from rtl_433
-    # {"time" : "2020-12-14 22:22:21", "model" : "LaCrosse-BreezePro", "id" : 561556, "seq" : 2, "flags" : 0, "temperature_C" : 19.800, "humidity" : 50, "wind_avg_km_h" : 0.000, "wind_dir_deg" : 262, "mic" : "CRC"}\n']
+    EXAMPLES = (
+        {
+            'time': '2020-12-14 22:22:21',
+            'model': 'LaCrosse-BreezePro',
+            'id': 561556,
+            'seq': 2,
+            'flags': 0,
+            'temperature_C': 19.800,
+            'humidity': 50,
+            'wind_avg_km_h': 0.000,
+            'wind_dir_deg': 262,
+            'mic': 'CRC',
+        },
+    )
 
     IDENTIFIER = 'LaCrosse-BreezePro'
 

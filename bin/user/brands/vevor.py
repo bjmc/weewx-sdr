@@ -8,7 +8,24 @@ class Vevor7in1Packet(Packet):
     # Vevor 7-in-1 weather station, thanks to ivan
     # https://sh.com.hr/weather-station/your-vevor-7-in-1-wi-fi-weather-station-yt60234-in-weewx/
 
-    # {"time" : "2024-11-13 13:27:59", "model" : "Vevor-7in1", "id" : 52266, "channel" : 0, "battery_ok" : 1, "temperature_C" : 5.400, "humidity" : 76, "wind_avg_km_h" : 0.700, "wind_max_km_h" : 2.667, "wind_dir_deg" : 87, "rain_mm" : 12.116, "uv" : 0, "light_lux" : 7213, "mic" : "CHECKSUM"}'
+    EXAMPLES = (
+        {
+            'time': '2024-11-13 13:27:59',
+            'model': 'Vevor-7in1',
+            'id': 52266,
+            'channel': 0,
+            'battery_ok': 1,
+            'temperature_C': 5.400,
+            'humidity': 76,
+            'wind_avg_km_h': 0.700,
+            'wind_max_km_h': 2.667,
+            'wind_dir_deg': 87,
+            'rain_mm': 12.116,
+            'uv': 0,
+            'light_lux': 7213,
+            'mic': 'CHECKSUM',
+        },
+    )
 
     IDENTIFIER = 'Vevor-7in1'
 
