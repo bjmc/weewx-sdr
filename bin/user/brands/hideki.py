@@ -29,8 +29,8 @@ class HidekiTS04Packet(Packet):
         'Rolling Code': ['rolling_code', None, lambda x: int(x)],
         'Channel': ['channel', None, lambda x: int(x)],
         'Battery': ['battery', None, lambda x: 0 if x == 'OK' else 1],
-        'Temperature': ['temperature', re.compile('([\d.-]+) C'), lambda x: float(x)],
-        'Humidity': ['humidity', re.compile('([\d.]+) %'), lambda x: float(x)],
+        'Temperature': ['temperature', re.compile(r'([\d.-]+) C'), lambda x: float(x)],
+        'Humidity': ['humidity', re.compile(r'([\d.]+) %'), lambda x: float(x)],
     }
 
     @staticmethod
@@ -74,9 +74,9 @@ class HidekiWindPacket(Packet):
         'Rolling Code': ['rolling_code', None, lambda x: int(x)],
         'Channel': ['channel', None, lambda x: int(x)],
         'Battery': ['battery', None, lambda x: 0 if x == 'OK' else 1],
-        'Temperature': ['temperature', re.compile('([\d.-]+) C'), lambda x: float(x)],
-        'Wind Strength': ['wind_speed', re.compile('([\d.]+) km/h'), lambda x: float(x)],
-        'Direction': ['wind_dir', re.compile('([\d.]+) '), lambda x: float(x)],
+        'Temperature': ['temperature', re.compile(r'([\d.-]+) C'), lambda x: float(x)],
+        'Wind Strength': ['wind_speed', re.compile(r'([\d.]+) km/h'), lambda x: float(x)],
+        'Direction': ['wind_dir', re.compile(r'([\d.]+) '), lambda x: float(x)],
     }
 
     @staticmethod
@@ -146,7 +146,7 @@ class HidekiRainPacket(Packet):
         'Rolling Code': ['rolling_code', None, lambda x: int(x)],
         'Channel': ['channel', None, lambda x: int(x)],
         'Battery': ['battery', None, lambda x: 0 if x == 'OK' else 1],
-        'Rain': ['rain_total', re.compile('([\d.]+) '), lambda x: float(x)],
+        'Rain': ['rain_total', re.compile(r'([\d.]+) '), lambda x: float(x)],
     }
 
     @staticmethod

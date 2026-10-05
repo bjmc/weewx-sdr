@@ -10,7 +10,7 @@ class Packet:
     def parse_json(obj):
         return None
 
-    TS_PATTERN = re.compile('(\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d)')
+    TS_PATTERN = re.compile(r'(\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d)')
 
     @staticmethod
     def parse_time(line):

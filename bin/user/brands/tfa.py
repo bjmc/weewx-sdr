@@ -34,8 +34,8 @@ class TFATwinPlus303049Packet(Packet):
     PARSEINFO = {
         'Channel': ['channel', None, lambda x: int(x)],
         'Battery': ['battery', None, lambda x: 0 if x == 'OK' else 1],
-        'Temperature': ['temperature', re.compile('([\d.-]+) C'), lambda x: float(x)],
-        'Humidity': ['humidity', re.compile('([\d.]+) %'), lambda x: float(x)],
+        'Temperature': ['temperature', re.compile(r'([\d.-]+) C'), lambda x: float(x)],
+        'Humidity': ['humidity', re.compile(r'([\d.]+) %'), lambda x: float(x)],
     }
 
     @staticmethod

@@ -25,8 +25,8 @@ class FOWH1080Packet(Packet):
     PARSEINFO = {
         #        'Msg type': ['msg_type', None, None],
         'StationID': ['station_id', None, None],
-        'Temperature': ['temperature', re.compile('([\d.-]+) C'), lambda x: float(x)],
-        'Humidity': ['humidity', re.compile('([\d.]+) %'), lambda x: float(x)],
+        'Temperature': ['temperature', re.compile(r'([\d.-]+) C'), lambda x: float(x)],
+        'Humidity': ['humidity', re.compile(r'([\d.]+) %'), lambda x: float(x)],
         #        'Wind string': ['wind_dir_ord', None, None],
         'Wind degrees': ['wind_dir', None, lambda x: int(x)],
         'Wind avg speed': ['wind_speed', None, lambda x: float(x)],
@@ -187,7 +187,7 @@ class FOWH2Packet(Packet):
     IDENTIFIER = 'Fine Offset Electronics, WH2'
     PARSEINFO = {
         'ID': ['station_id', None, lambda x: int(x)],
-        'Temperature': ['temperature', re.compile('([\d.-]+) C'), lambda x: float(x)],
+        'Temperature': ['temperature', re.compile(r'([\d.-]+) C'), lambda x: float(x)],
     }
 
     @staticmethod
@@ -219,7 +219,7 @@ class FOWH5Packet(Packet):
     IDENTIFIER = 'Fine Offset WH5 sensor'
     PARSEINFO = {
         'ID': ['station_id', None, lambda x: int(x)],
-        'Temperature': ['temperature', re.compile('([\d.-]+) C'), lambda x: float(x)],
+        'Temperature': ['temperature', re.compile(r'([\d.-]+) C'), lambda x: float(x)],
     }
 
     @staticmethod
@@ -325,9 +325,9 @@ class FOWH25Packet(Packet):
 
     PARSEINFO = {
         'ID': ['station_id', None, lambda x: int(x)],
-        'Temperature': ['temperature', re.compile('([\d.-]+) C'), lambda x: float(x)],
-        'Humidity': ['humidity', re.compile('([\d.]+) %'), lambda x: float(x)],
-        'Pressure': ['pressure', re.compile('([\d.-]+) hPa'), lambda x: float(x)],
+        'Temperature': ['temperature', re.compile(r'([\d.-]+) C'), lambda x: float(x)],
+        'Humidity': ['humidity', re.compile(r'([\d.]+) %'), lambda x: float(x)],
+        'Pressure': ['pressure', re.compile(r'([\d.-]+) hPa'), lambda x: float(x)],
     }
 
     @staticmethod

@@ -116,10 +116,10 @@ class Acurite5n1Packet(Packet):
 
     IDENTIFIER = 'Acurite 5n1 sensor'
     PATTERN = re.compile('0x([0-9a-fA-F]+) Ch ([A-C]), (.*)')
-    RAIN = re.compile('Total rain fall since last reset: ([\d.]+)')
-    MSG = re.compile('Msg (\d+), (.*)')
-    MSG31 = re.compile('Wind ([\d.]+) kmph / ([\d.]+) mph ([\d.]+).*rain gauge ([\d.]+) in')
-    MSG38 = re.compile('Wind ([\d.]+) kmph / ([\d.]+) mph, ([\d.-]+) C ([\d.-]+) F ([\d.]+) % RH')
+    RAIN = re.compile(r'Total rain fall since last reset: ([\d.]+)')
+    MSG = re.compile(r'Msg (\d+), (.*)')
+    MSG31 = re.compile(r'Wind ([\d.]+) kmph / ([\d.]+) mph ([\d.]+).*rain gauge ([\d.]+) in')
+    MSG38 = re.compile(r'Wind ([\d.]+) kmph / ([\d.]+) mph, ([\d.-]+) C ([\d.-]+) F ([\d.]+) % RH')
 
     @staticmethod
     def parse_text(ts, payload, lines):
@@ -294,7 +294,7 @@ class AcuriteTowerPacket(Packet):
     # : 68
 
     IDENTIFIER = 'Acurite tower sensor'
-    PATTERN = re.compile('0x([0-9a-fA-F]+) Ch ([A-C]): ([\d.-]+) C ([\d.-]+) F ([\d]+) % RH')
+    PATTERN = re.compile(r'0x([0-9a-fA-F]+) Ch ([A-C]): ([\d.-]+) C ([\d.-]+) F ([\d]+) % RH')
 
     @staticmethod
     def parse_text(ts, payload, lines):
@@ -454,7 +454,7 @@ class Acurite986Packet(Packet):
     # IDENTIFIER = "Acurite 986 sensor"
     # IDENTIFIER = "Acurite 986 Sensor"
     IDENTIFIER = 'Acurite-986'
-    PATTERN = re.compile('0x([0-9a-fA-F]+) - (1R|2F): ([\d.-]+) C ([\d.-]+) F')
+    PATTERN = re.compile(r'0x([0-9a-fA-F]+) - (1R|2F): ([\d.-]+) C ([\d.-]+) F')
 
     @staticmethod
     def parse_text(ts, payload, lines):
@@ -507,7 +507,7 @@ class AcuriteLightningPacket(Packet):
     #    IDENTIFIER = "Acurite Lightning 6045M"
     IDENTIFIER = 'Acurite-6045M'
     PATTERN = re.compile(
-        '0x([0-9a-fA-F]+) Ch (.) Msg Type 0x([0-9a-fA-F]+): ([\d.-]+) ([CF]) ([\d.]+) % RH Strikes ([\d]+) Distance ([\d.]+)'
+        r'0x([0-9a-fA-F]+) Ch (.) Msg Type 0x([0-9a-fA-F]+): ([\d.-]+) ([CF]) ([\d.]+) % RH Strikes ([\d]+) Distance ([\d.]+)'
     )
 
     @staticmethod

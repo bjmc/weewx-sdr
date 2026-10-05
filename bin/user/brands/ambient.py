@@ -10,8 +10,8 @@ class AmbientF007THPacket(Packet):
     PARSEINFO = {
         'House Code': ['house_code', None, lambda x: int(x)],
         'Channel': ['channel', None, lambda x: int(x)],
-        'Temperature': ['temperature', re.compile('([\d.-]+) F'), lambda x: float(x)],
-        'Humidity': ['humidity', re.compile('([\d.]+) %'), lambda x: float(x)],
+        'Temperature': ['temperature', re.compile(r'([\d.-]+) F'), lambda x: float(x)],
+        'Humidity': ['humidity', re.compile(r'([\d.]+) %'), lambda x: float(x)],
     }
 
     @staticmethod

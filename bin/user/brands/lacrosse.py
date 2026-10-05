@@ -42,11 +42,11 @@ class LaCrosseWSPacket(Packet):
 
     IDENTIFIER = 'LaCrosse WS'
     PARSEINFO = {
-        'Wind speed': ['wind_speed', re.compile('([\d.]+) m/s'), lambda x: float(x)],
+        'Wind speed': ['wind_speed', re.compile(r'([\d.]+) m/s'), lambda x: float(x)],
         'Direction': ['wind_dir', None, lambda x: float(x)],
-        'Temperature': ['temperature', re.compile('([\d.-]+) C'), lambda x: float(x)],
+        'Temperature': ['temperature', re.compile(r'([\d.-]+) C'), lambda x: float(x)],
         'Humidity': ['humidity', None, lambda x: int(x)],
-        'Rainfall': ['rain_total', re.compile('([\d.]+) mm'), lambda x: float(x)],
+        'Rainfall': ['rain_total', re.compile(r'([\d.]+) mm'), lambda x: float(x)],
     }
 
     @staticmethod

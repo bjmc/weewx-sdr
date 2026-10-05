@@ -245,7 +245,7 @@ class AsyncReader(threading.Thread):
 
 
 class ProcManager(object):
-    TS = re.compile('^\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d[\s]+')
+    TS = re.compile(r'^\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d[\s]+')
 
     def __init__(self):
         self._cmd = None
@@ -389,7 +389,7 @@ class PacketFactory(object):
         lines.pop(0)
         return None
 
-    TS_PATTERN = re.compile('(\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d)[\s]+:*(.*)')
+    TS_PATTERN = re.compile(r'(\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d)[\s]+:*(.*)')
 
     @staticmethod
     def parse_firstline(line):

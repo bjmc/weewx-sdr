@@ -16,7 +16,7 @@ class RubicsonTempPacket(Packet):
         'House Code': ['house_code', None, lambda x: int(x)],
         'Channel': ['channel', None, lambda x: int(x)],
         'Battery': ['battery', None, lambda x: 0 if x == 'OK' else 1],
-        'Temperature': ['temperature', re.compile('([\d.-]+) C'), lambda x: float(x)],
+        'Temperature': ['temperature', re.compile(r'([\d.-]+) C'), lambda x: float(x)],
     }
 
     @staticmethod

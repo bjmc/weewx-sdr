@@ -26,8 +26,8 @@ class OSPCR800Packet(Packet):
         'House Code': ['house_code', None, lambda x: int(x)],
         'Channel': ['channel', None, lambda x: int(x)],
         'Battery': ['battery', None, lambda x: 0 if x == 'OK' else 1],
-        'Rain Rate': ['rain_rate', re.compile('([\d.]+) in'), lambda x: float(x)],
-        'Total Rain': ['rain_total', re.compile('([\d.]+) in'), lambda x: float(x)],
+        'Rain Rate': ['rain_rate', re.compile(r'([\d.]+) in'), lambda x: float(x)],
+        'Total Rain': ['rain_total', re.compile(r'([\d.]+) in'), lambda x: float(x)],
     }
 
     @staticmethod
@@ -60,9 +60,9 @@ class OSBTHR918Packet(Packet):
         'House Code': ['house_code', None, lambda x: int(x)],
         'Channel': ['channel', None, lambda x: int(x)],
         'Battery': ['battery', None, lambda x: 0 if x == 'OK' else 1],
-        'Temperature': ['temperature', re.compile('([\d.-]+) C'), lambda x: float(x)],
-        'Humidity': ['humidity', re.compile('([\d.]+) %'), lambda x: float(x)],
-        'Pressure': ['pressure', re.compile('([\d.]+) mbar'), lambda x: float(x)],
+        'Temperature': ['temperature', re.compile(r'([\d.-]+) C'), lambda x: float(x)],
+        'Humidity': ['humidity', re.compile(r'([\d.]+) %'), lambda x: float(x)],
+        'Pressure': ['pressure', re.compile(r'([\d.]+) mbar'), lambda x: float(x)],
     }
 
     @staticmethod
@@ -110,9 +110,9 @@ class OSBTHR968Packet(Packet):
         'House Code': ['house_code', None, lambda x: int(x)],
         'Channel': ['channel', None, lambda x: int(x)],
         'Battery': ['battery', None, lambda x: 0 if x == 'OK' else 1],
-        'Temperature': ['temperature', re.compile('([\d.-]+) C'), lambda x: float(x)],
-        'Humidity': ['humidity', re.compile('([\d.]+) %'), lambda x: float(x)],
-        'Pressure': ['pressure', re.compile('([\d.]+) mbar'), lambda x: float(x)],
+        'Temperature': ['temperature', re.compile(r'([\d.-]+) C'), lambda x: float(x)],
+        'Humidity': ['humidity', re.compile(r'([\d.]+) %'), lambda x: float(x)],
+        'Pressure': ['pressure', re.compile(r'([\d.]+) mbar'), lambda x: float(x)],
     }
 
     @staticmethod
@@ -160,8 +160,8 @@ class OSTHGR122NPacket(Packet):
         'House Code': ['house_code', None, lambda x: int(x)],
         'Channel': ['channel', None, lambda x: int(x)],
         'Battery': ['battery', None, lambda x: 0 if x == 'OK' else 1],
-        'Temperature': ['temperature', re.compile('([\d.-]+) C'), lambda x: float(x)],
-        'Humidity': ['humidity', re.compile('([\d.]+) %'), lambda x: float(x)],
+        'Temperature': ['temperature', re.compile(r'([\d.-]+) C'), lambda x: float(x)],
+        'Humidity': ['humidity', re.compile(r'([\d.]+) %'), lambda x: float(x)],
     }
 
     @staticmethod
@@ -211,9 +211,9 @@ class OSTHGR810Packet(Packet):
         'House Code': ['house_code', None, lambda x: int(x)],
         'Channel': ['channel', None, lambda x: int(x)],
         'Battery': ['battery', None, lambda x: 0 if x == 'OK' else 1],
-        'Celcius': ['temperature', re.compile('([\d.-]+) C'), lambda x: float(x)],
-        'Fahrenheit': ['temperature_F', re.compile('([\d.-]+) F'), lambda x: float(x)],
-        'Humidity': ['humidity', re.compile('([\d.]+) %'), lambda x: float(x)],
+        'Celcius': ['temperature', re.compile(r'([\d.-]+) C'), lambda x: float(x)],
+        'Fahrenheit': ['temperature_F', re.compile(r'([\d.-]+) F'), lambda x: float(x)],
+        'Humidity': ['humidity', re.compile(r'([\d.]+) %'), lambda x: float(x)],
     }
 
     @staticmethod
@@ -251,7 +251,7 @@ class OSTHR128Packet(Packet):
         'House Code': ['house_code', None, lambda x: int(x)],
         'Channel': ['channel', None, lambda x: int(x)],
         'Battery': ['battery', None, lambda x: 0 if x == 'OK' else 1],
-        'Temperature': ['temperature', re.compile('([\d.-]+) C'), lambda x: float(x)],
+        'Temperature': ['temperature', re.compile(r'([\d.-]+) C'), lambda x: float(x)],
     }
 
     @staticmethod
@@ -287,7 +287,7 @@ class OSTHR228NPacket(Packet):
         'House Code': ['house_code', None, lambda x: int(x)],
         'Channel': ['channel', None, lambda x: int(x)],
         'Battery': ['battery', None, lambda x: 0 if x == 'OK' else 1],
-        'Temperature': ['temperature', re.compile('([\d.-]+) C'), lambda x: float(x)],
+        'Temperature': ['temperature', re.compile(r'([\d.-]+) C'), lambda x: float(x)],
     }
 
     @staticmethod
@@ -323,7 +323,7 @@ class OSUV800Packet(Packet):
         'House Code': ['house_code', None, lambda x: int(x)],
         'Channel': ['channel', None, lambda x: int(x)],
         'Battery': ['battery', None, lambda x: 0 if x == 'OK' else 1],
-        'UV Index': ['uv_index', re.compile('([\d.-]+) C'), lambda x: float(x)],
+        'UV Index': ['uv_index', re.compile(r'([\d.-]+) C'), lambda x: float(x)],
     }
 
     @staticmethod
@@ -359,7 +359,7 @@ class OSUVR128Packet(Packet):
     IDENTIFIER = 'UVR128'
     PARSEINFO = {
         'House Code': ['house_code', None, lambda x: int(x)],
-        'UV Index': ['uv_index', re.compile('([\d.-]+) C'), lambda x: float(x)],
+        'UV Index': ['uv_index', re.compile(r'([\d.-]+) C'), lambda x: float(x)],
         'Battery': ['battery', None, lambda x: 0 if x == 'OK' else 1],
     }
 
@@ -399,9 +399,9 @@ class OSWGR800Packet(Packet):
         'House Code': ['house_code', None, lambda x: int(x)],
         'Channel': ['channel', None, lambda x: int(x)],
         'Battery': ['battery', None, lambda x: 0 if x == 'OK' else 1],
-        'Gust': ['wind_gust', re.compile('([\d.]+) m'), lambda x: float(x)],
-        'Average': ['wind_speed', re.compile('([\d.]+) m'), lambda x: float(x)],
-        'Direction': ['wind_dir', re.compile('([\d.]+) degrees'), lambda x: float(x)],
+        'Gust': ['wind_gust', re.compile(r'([\d.]+) m'), lambda x: float(x)],
+        'Average': ['wind_speed', re.compile(r'([\d.]+) m'), lambda x: float(x)],
+        'Direction': ['wind_dir', re.compile(r'([\d.]+) degrees'), lambda x: float(x)],
     }
 
     @staticmethod
@@ -439,7 +439,7 @@ class OSTHN802Packet(Packet):
         'House Code': ['house_code', None, lambda x: int(x)],
         'Channel': ['channel', None, lambda x: int(x)],
         'Battery': ['battery', None, lambda x: 0 if x == 'OK' else 1],
-        'Celcius': ['temperature', re.compile('([\d.-]+) C'), lambda x: float(x)],
+        'Celcius': ['temperature', re.compile(r'([\d.-]+) C'), lambda x: float(x)],
     }
 
     @staticmethod
@@ -478,9 +478,9 @@ class OSBTHGN129Packet(Packet):
         'House Code': ['house_code', None, lambda x: int(x)],
         'Channel': ['channel', None, lambda x: int(x)],
         'Battery': ['battery', None, lambda x: 0 if x == 'OK' else 1],
-        'Celcius': ['temperature', re.compile('([\d.-]+) C'), lambda x: float(x)],
-        'Humidity': ['humidity', re.compile('([\d.]+) %'), lambda x: float(x)],
-        'Pressure': ['pressure', re.compile('([\d.]+) mPa'), lambda x: float(x)],
+        'Celcius': ['temperature', re.compile(r'([\d.-]+) C'), lambda x: float(x)],
+        'Humidity': ['humidity', re.compile(r'([\d.]+) %'), lambda x: float(x)],
+        'Pressure': ['pressure', re.compile(r'([\d.]+) mPa'), lambda x: float(x)],
     }
 
     @staticmethod
