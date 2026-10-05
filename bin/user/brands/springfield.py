@@ -4,6 +4,7 @@ from ..packet import Packet
 
 
 class SpringfieldTMPacket(Packet):
+    IDENTIFIER = 'Springfield Temperature & Moisture'
     EXAMPLES = (
         {
             'time': '2019-01-20 11:14:00',
@@ -17,8 +18,6 @@ class SpringfieldTMPacket(Packet):
             'mic': 'CHECKSUM',
         },
     )
-
-    IDENTIFIER = 'Springfield Temperature & Moisture'
 
     @staticmethod
     def parse_json(obj):

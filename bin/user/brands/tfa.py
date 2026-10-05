@@ -6,6 +6,7 @@ from ..packet import Packet
 
 
 class TFADropPacket(Packet):
+    IDENTIFIER = 'TFA-Drop'
     EXAMPLES = (
         {
             'time': '2022-06-19 09:18:57',
@@ -25,7 +26,6 @@ class TFADropPacket(Packet):
         },
     )
 
-    IDENTIFIER = 'TFA-Drop'
 
     @staticmethod
     def parse_json(obj):

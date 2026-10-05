@@ -17,6 +17,12 @@ class Acurite(object):
 
 
 class AcuriteAtlasPacket(Packet):
+    IDENTIFIER = 'Acurite-Atlas'
+    # for battery, 0 means OK (assuming that 1 for battery_ok means OK)
+    # message types: 37, 38, 39
+    #   37: wind_avg_mi_h, temperature_F, humidity
+    #   38: wind_avg_mi_h, wind_dir_deg, rain_in
+    #   39: wind_avg_mi_h, uv, lux
     EXAMPLES = (
         {
             'time': '2019-12-14 16:56:57',
@@ -48,16 +54,22 @@ class AcuriteAtlasPacket(Packet):
             'byte9': 37,
             'byte89': 37,
         },
+        {
+            'time': '2019-12-14 16:57:07',
+            'model': 'Acurite-Atlas',
+            'id': 896,
+            'channel': 'A',
+            'sequence_num': 0,
+            'battery_ok': 1,
+            'message_type': 38,
+            'wind_avg_mi_h': 6.000,
+            'wind_dir_deg': 291.000,
+            'rain_in': 0.290,
+            'byte8': 0,
+            'byte9': 37,
+            'byte89': 37,
+        },
     )
-    # {"time": "2019-12-14 16:57:07", "model": "Acurite-Atlas", "id": 896, "channel": "A", "sequence_num": 0, "battery_ok": 1, "message_type": 38, "wind_avg_mi_h": 6.000, "wind_dir_deg": 291.000, "rain_in": 0.290, "byte8": 0, "byte9": 37, "byte89": 37}}
-
-    # for battery, 0 means OK (assuming that 1 for battery_ok means OK)
-    # message types: 37, 38, 39
-    #   37: wind_avg_mi_h, temperature_F, humidity
-    #   38: wind_avg_mi_h, wind_dir_deg, rain_in
-    #   39: wind_avg_mi_h, uv, lux
-
-    IDENTIFIER = 'Acurite-Atlas'
 
     @staticmethod
     def parse_json(obj):

@@ -4,25 +4,21 @@ from ..packet import Packet
 
 
 class Bresser5in1Packet(Packet):
-    #  'time' => '2018-12-15 16:04:04',
-    #  'model' => 'Bresser-5in1',
-    #  'id' => 118,
-    #  'temperature_C' => 6.4000000000000003552713678800500929355621337890625,
-    #  'humidity' => 87,
-    #  'wind_gust' => 2.79999999999999982236431605997495353221893310546875,
-    #  'wind_speed' => 2.899999999999999911182158029987476766109466552734375,
-    #  'wind_dir_deg' => 315,
-    #  'rain_mm' => 10.800000000000000710542735760100185871124267578125,
-    #  'data' => 'e7897fd71fd6ef9bff78f7feff18768028e02910640087080100',
-    #  'mic' => 'CHECKSUM',
-
-    # {"time" : "2018-12-15 16:04:04", "model" : "Bresser-5in1", "id" : 118,
-    # "temperature_C" : 6.400, "humidity" : 87, "wind_gust" : 2.800,
-    # "wind_speed" : 2.900, "wind_dir_deg" : 315.000, "rain_mm" : 10.800,
-    # "data" : "e7897fd71fd6ef9bff78f7feff18768028e02910640087080100",
-    # "mic" : "CHECKSUM"}#012
-
+    IDENTIFIER = 'Bresser-5in1'
     EXAMPLES = (
+        {
+            'time': '2018-12-15 16:04:04',
+            'model': 'Bresser-5in1',
+            'id': 118,
+            'temperature_C': 6.400,
+            'humidity': 87,
+            'wind_gust': 2.800,
+            'wind_speed': 2.900,
+            'wind_dir_deg': 315.000,
+            'rain_mm': 10.800,
+            'data': 'e7897fd71fd6ef9bff78f7feff18768028e02910640087080100',
+            'mic': 'CHECKSUM',
+        },
         {
             'time': '2020-04-20 20:58:46',
             'model': 'Bresser-5in1',
@@ -73,25 +69,22 @@ class Bresser5in1Packet(Packet):
 
 
 class Bresser6in1Packet(Packet):
-    #  'time' => '2018-12-15 16:04:04',
-    #  'model' => 'Bresser-6in1',
-    #  'id' => 118,
-    #  'temperature_C' => 6.4000000000000003552713678800500929355621337890625,
-    #  'humidity' => 87,
-    #  'wind_gust' => 2.79999999999999982236431605997495353221893310546875,
-    #  'wind_speed' => 2.899999999999999911182158029987476766109466552734375,
-    #  'wind_dir_deg' => 315,
-    #  'rain_mm' => 10.800000000000000710542735760100185871124267578125,
-    #  'data' => 'e7897fd71fd6ef9bff78f7feff18768028e02910640087080100',
-    #  'mic' => 'CHECKSUM',
-
-    # {"time" : "2018-12-15 16:04:04", "model" : "Bresser-6in1", "id" : 118,
-    # "temperature_C" : 6.400, "humidity" : 87, "wind_gust" : 2.800,
-    # "wind_speed" : 2.900, "wind_dir_deg" : 315.000, "rain_mm" : 10.800,
-    # "data" : "e7897fd71fd6ef9bff78f7feff18768028e02910640087080100",
-    # "mic" : "CHECKSUM"}#012
-
     IDENTIFIER = 'Bresser-6in1'
+    EXAMPLES = (
+        {
+            'time': '2018-12-15 16:04:04',
+            'model': 'Bresser-6in1',
+            'id': 118,
+            'temperature_C': 6.400,
+            'humidity': 87,
+            'wind_gust': 2.800,
+            'wind_speed': 2.900,
+            'wind_dir_deg': 315.000,
+            'rain_mm': 10.800,
+            'data': 'e7897fd71fd6ef9bff78f7feff18768028e02910640087080100',
+            'mic': 'CHECKSUM',
+        },
+    )
 
     @staticmethod
     def parse_json(obj):
@@ -171,11 +164,18 @@ class Bresser7in1Packet(Packet):
 
 
 class BresserProRainGaugePacket(Packet):
-    # {"time" : "2021-03-14 15:30:28", "model" : "Bresser-ProRainGauge",
-    # "id" : 17, "battery_ok" : 1, "temperature_C" : 9.800,
-    # "rain_mm" : 122.000, "mic" : "CHECKSUM"
-
     IDENTIFIER = 'Bresser-ProRainGauge'
+    EXAMPLES = (
+        {
+            'time': '2021-03-14 15:30:28',
+            'model': 'Bresser-ProRainGauge',
+            'id': 17,
+            'battery_ok': 1,
+            'temperature_C': 9.800,
+            'rain_mm': 122.000,
+            'mic': 'CHECKSUM',
+        },
+    )
 
     @staticmethod
     def parse_json(obj):
