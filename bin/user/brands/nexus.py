@@ -1,6 +1,9 @@
+import re
+
 import weewx
 
 from ..packet import Packet
+from .oregon_scientific import OS
 
 
 class NexusTemperaturePacket(Packet):

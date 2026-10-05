@@ -127,7 +127,7 @@ try:
     # New-style weewx logging
     import logging
 
-    import weeutil.logger
+    import weeutil.logger  # noqa: F401  (imported for its logging side effects)
 
     log = logging.getLogger(__name__)
 
@@ -338,9 +338,10 @@ class PacketFactory(object):
     def known_packets():
         if not PacketFactory.KNOWN_PACKETS:
             import inspect
-            import sys
 
-            objs = inspect.getmembers(sys.modules[__name__], inspect.isclass)
+            from . import brands
+
+            objs = inspect.getmembers(brands, inspect.isclass)
             for name, obj in objs:
                 if hasattr(obj, 'IDENTIFIER'):
                     PacketFactory.KNOWN_PACKETS.append(obj)

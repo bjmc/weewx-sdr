@@ -1,5 +1,8 @@
+import re
+
 import weewx
 
+from ..core import to_v
 from ..packet import Packet
 
 

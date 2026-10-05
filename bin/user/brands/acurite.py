@@ -1,5 +1,8 @@
+import re
+
 import weewx
 
+from ..core import loginf, to_F, to_in, to_mph
 from ..packet import Packet
 
 

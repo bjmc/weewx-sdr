@@ -1,3 +1,10 @@
+import re
+
+import weewx
+
+from ..packet import Packet
+
+
 class AmbientF007THPacket(Packet):
     # 2017-01-21 18:17:16 : Ambient Weather F007TH Thermo-Hygrometer
     # House Code: 80

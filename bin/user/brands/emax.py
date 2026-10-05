@@ -1,5 +1,6 @@
 import weewx
 
+from ..core import to_C
 from ..packet import Packet
 
 

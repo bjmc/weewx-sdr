@@ -1,13 +1,11 @@
-"""SDR driver public API.
+"""Sensor packet subclasses, grouped by manufacturer.
 
-Historically all of this lived in ``user.sdr``.  It now re-exports the
-driver implementation from :mod:`user.core`, the base ``Packet`` class
-from :mod:`user.packet`, and every sensor class from :mod:`user.brands`,
-so existing ``from user.sdr import ...`` imports keep working.
+Importing this package pulls in every Packet subclass so that
+PacketFactory can discover them and so callers can do
+``from user.brands import SomePacket``.
 """
 
-from .brands import (
-    OS,
+from .acurite import (
     Acurite,
     Acurite00275MPacket,
     Acurite3n1PacketV2,
@@ -23,24 +21,44 @@ from .brands import (
     AcuriteTowerPacket,
     AcuriteTowerPacketV2,
     AcuriteWT450Packet,
+)
+from .alecto import (
     AlectoV1RainPacket,
     AlectoV1TemperaturePacket,
     AlectoV1WindPacket,
+)
+from .ambient import (
     AmbientF007THPacket,
     AmbientTX8300Packet,
     AmbientWH31BPacket,
     AmbientWH31EPacket,
+)
+from .auriol import (
     AuriolHG02832Packet,
+)
+from .bresser import (
     Bresser5in1Packet,
     Bresser6in1Packet,
     Bresser7in1Packet,
     BresserProRainGaugePacket,
+)
+from .calibeur import (
     CalibeurRF104Packet,
+)
+from .cotech import (
     Cotech367959Packet,
+)
+from .ecowitt import (
     EcoWittWH40Packet,
     EcoWittWS68Packet,
+)
+from .emax import (
     EM3551HPacket,
+)
+from .esperanza import (
     EsperanzaEWSPacket,
+)
+from .fine_offset import (
     FOWH0290Packet,
     FOWH2Packet,
     FOWH5Packet,
@@ -59,13 +77,23 @@ from .brands import (
     FOWHx080Packet,
     FOWS80Packet,
     FOWS90Packet,
+)
+from .hideki import (
     Hideki,
     HidekiRainPacket,
     HidekiTS04Packet,
     HidekiWindPacket,
+)
+from .holman import (
     HolmanWS5029Packet,
+)
+from .infactory import (
     InFactoryTHPacket,
+)
+from .kedsum import (
     KedsumTHPacket,
+)
+from .lacrosse import (
     LaCrosseBreezeProPacket,
     LaCrosseLTVR3Packet,
     LaCrosseTX18Packet,
@@ -73,7 +101,12 @@ from .brands import (
     LaCrosseTX141THBv2Packet,
     LaCrosseTXPacket,
     LaCrosseWSPacket,
+)
+from .nexus import (
     NexusTemperaturePacket,
+)
+from .oregon_scientific import (
+    OS,
     OSBTHGN129Packet,
     OSBTHR918Packet,
     OSBTHR968Packet,
@@ -88,41 +121,34 @@ from .brands import (
     OSUV800Packet,
     OSUVR128Packet,
     OSWGR800Packet,
+)
+from .prologue import (
     ProloguePacket,
     PrologueTHPacket,
+)
+from .rubicson import (
     RubicsonTempPacket,
     RubicsonTempPacketV2,
+)
+from .springfield import (
     SpringfieldTMPacket,
+)
+from .tfa import (
     TFADropPacket,
     TFATwinPlus303049Packet,
+)
+from .tsft002 import (
     TSFT002Packet,
+)
+from .vevor import (
     Vevor7in1Packet,
+)
+from .ws2032 import (
     WS2032Packet,
+)
+from .wt0124 import (
     WT0124Packet,
 )
-from .core import (
-    DEFAULT_CMD,
-    DRIVER_NAME,
-    DRIVER_VERSION,
-    AsyncReader,
-    PacketFactory,
-    ProcManager,
-    SDRConfigurationEditor,
-    SDRDriver,
-    confeditor_loader,
-    kmh_to_mps,
-    loader,
-    logdbg,
-    logerr,
-    loginf,
-    main,
-    to_C,
-    to_F,
-    to_in,
-    to_mph,
-    to_v,
-)
-from .packet import Packet
 
 __all__ = [
     'Acurite',
@@ -147,7 +173,6 @@ __all__ = [
     'AmbientTX8300Packet',
     'AmbientWH31BPacket',
     'AmbientWH31EPacket',
-    'AsyncReader',
     'AuriolHG02832Packet',
     'Bresser5in1Packet',
     'Bresser6in1Packet',
@@ -155,9 +180,6 @@ __all__ = [
     'BresserProRainGaugePacket',
     'CalibeurRF104Packet',
     'Cotech367959Packet',
-    'DEFAULT_CMD',
-    'DRIVER_NAME',
-    'DRIVER_VERSION',
     'EM3551HPacket',
     'EcoWittWH40Packet',
     'EcoWittWS68Packet',
@@ -210,15 +232,10 @@ __all__ = [
     'OSUV800Packet',
     'OSUVR128Packet',
     'OSWGR800Packet',
-    'Packet',
-    'PacketFactory',
-    'ProcManager',
     'ProloguePacket',
     'PrologueTHPacket',
     'RubicsonTempPacket',
     'RubicsonTempPacketV2',
-    'SDRConfigurationEditor',
-    'SDRDriver',
     'SpringfieldTMPacket',
     'TFADropPacket',
     'TFATwinPlus303049Packet',
@@ -226,19 +243,4 @@ __all__ = [
     'Vevor7in1Packet',
     'WS2032Packet',
     'WT0124Packet',
-    'confeditor_loader',
-    'kmh_to_mps',
-    'loader',
-    'logdbg',
-    'logerr',
-    'loginf',
-    'main',
-    'to_C',
-    'to_F',
-    'to_in',
-    'to_mph',
-    'to_v',
 ]
-
-if __name__ == '__main__':
-    main()
