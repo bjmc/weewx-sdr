@@ -1,4 +1,5 @@
 import weewx
+
 from ..packet import Packet
 
 
@@ -13,12 +14,12 @@ class CalibeurRF104Packet(Packet):
     # Temperature: -2.2 C
     # Humidity: 71 %
 
-    IDENTIFIER = "Calibeur RF-104"
+    IDENTIFIER = 'Calibeur RF-104'
     PARSEINFO = {
         'ID': ['id', None, lambda x: int(x)],
-        'Temperature': [
-            'temperature', re.compile('([\d.-]+) C'), lambda x: float(x)],
-        'Humidity': ['humidity', re.compile('([\d.]+) %'), lambda x: float(x)]}
+        'Temperature': ['temperature', re.compile('([\d.-]+) C'), lambda x: float(x)],
+        'Humidity': ['humidity', re.compile('([\d.]+) %'), lambda x: float(x)],
+    }
 
     @staticmethod
     def parse_text(ts, payload, lines):
@@ -27,9 +28,6 @@ class CalibeurRF104Packet(Packet):
         pkt['usUnits'] = weewx.METRIC
         pkt.update(Packet.parse_lines(lines, CalibeurRF104Packet.PARSEINFO))
         pkt_id = pkt.pop('id', 0)
-        sensor_id = "%s" % pkt_id
-        pkt = Packet.add_identifiers(
-            pkt, sensor_id, CalibeurRF104Packet.__name__)
+        sensor_id = '%s' % pkt_id
+        pkt = Packet.add_identifiers(pkt, sensor_id, CalibeurRF104Packet.__name__)
         return pkt
-
-

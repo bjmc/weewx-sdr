@@ -1,4 +1,5 @@
 import weewx
+
 from ..packet import Packet
 
 
@@ -6,7 +7,7 @@ class LaCrosseBreezeProPacket(Packet):
     # sample json output from rtl_433
     # {"time" : "2020-12-14 22:22:21", "model" : "LaCrosse-BreezePro", "id" : 561556, "seq" : 2, "flags" : 0, "temperature_C" : 19.800, "humidity" : 50, "wind_avg_km_h" : 0.000, "wind_dir_deg" : 262, "mic" : "CRC"}\n']
 
-    IDENTIFIER = "LaCrosse-BreezePro"
+    IDENTIFIER = 'LaCrosse-BreezePro'
 
     @staticmethod
     def parse_json(obj):
@@ -14,7 +15,7 @@ class LaCrosseBreezeProPacket(Packet):
         pkt['usUnits'] = weewx.METRIC
         pkt['dateTime'] = Packet.parse_time(obj.get('time'))
         pkt['model'] = obj.get('model')
-        pkt['hardware_id'] = "%d" % obj.get('id', 0)
+        pkt['hardware_id'] = '%d' % obj.get('id', 0)
         pkt['sequence_num'] = Packet.get_int(obj, 'seq')
         pkt['wind_speed'] = Packet.get_float(obj, 'wind_avg_km_h')
         pkt['wind_dir'] = Packet.get_float(obj, 'wind_dir_deg')
@@ -39,16 +40,14 @@ class LaCrosseWSPacket(Packet):
     # {"time" : "2016-11-04 14:44:58", "model" : "LaCrosse WS", "ws_id" : 9, "id" : 202, "humidity" : 67}
     # {"time" : "2016-11-04 14:49:16", "model" : "LaCrosse WS", "ws_id" : 9, "id" : 202, "wind_speed_ms" : 0.800, "wind_direction" : 270.000}
 
-    IDENTIFIER = "LaCrosse WS"
+    IDENTIFIER = 'LaCrosse WS'
     PARSEINFO = {
-        'Wind speed': [
-            'wind_speed', re.compile('([\d.]+) m/s'), lambda x: float(x)],
+        'Wind speed': ['wind_speed', re.compile('([\d.]+) m/s'), lambda x: float(x)],
         'Direction': ['wind_dir', None, lambda x: float(x)],
-        'Temperature': [
-            'temperature', re.compile('([\d.-]+) C'), lambda x: float(x)],
+        'Temperature': ['temperature', re.compile('([\d.-]+) C'), lambda x: float(x)],
         'Humidity': ['humidity', None, lambda x: int(x)],
-        'Rainfall': [
-            'rain_total', re.compile('([\d.]+) mm'), lambda x: float(x)]}
+        'Rainfall': ['rain_total', re.compile('([\d.]+) mm'), lambda x: float(x)],
+    }
 
     @staticmethod
     def parse_text(ts, payload, lines):
@@ -85,16 +84,15 @@ class LaCrosseWSPacket(Packet):
     def insert_ids(pkt):
         ws_id = pkt.pop('ws_id', 0)
         hardware_id = pkt.pop('hw_id', 0)
-        sensor_id = "%s:%s" % (ws_id, hardware_id)
+        sensor_id = '%s:%s' % (ws_id, hardware_id)
         pkt = Packet.add_identifiers(pkt, sensor_id, LaCrosseWSPacket.__name__)
         return pkt
 
 
 class LaCrosseTX141Bv3Packet(Packet):
-
     # {"time" : "2023-03-29 20:55:22", "model" : "LaCrosse-TX141Bv3", "id" : 172, "channel" : 1, "battery_ok" : 1, "temperature_C" : 3.700, "test" : "No"}
 
-    IDENTIFIER = "LaCrosse-TX141Bv3"
+    IDENTIFIER = 'LaCrosse-TX141Bv3'
 
     @staticmethod
     def parse_json(obj):
@@ -109,10 +107,9 @@ class LaCrosseTX141Bv3Packet(Packet):
 
 
 class LaCrosseTX141THBv2Packet(Packet):
-
     # {"time" : "2017-01-16 15:24:43", "temperature" : 54.140, "humidity" : 34, "id" : 221, "model" : "LaCrosse TX141TH-Bv2 sensor", "battery" : "OK", "test" : "Yes"}
     # {"time" : "2020-10-28 00:22:25", "model" : "LaCrosse-TX141THBv2", "id" : 50, "channel" : 0, "battery_ok" : 1, "temperature_C" : -0.600, "humidity" : 60, "test" : "No"}
-    IDENTIFIER = "LaCrosse-TX141THBv2"
+    IDENTIFIER = 'LaCrosse-TX141THBv2'
 
     @staticmethod
     def parse_json(obj):
@@ -131,7 +128,7 @@ class LaCrosseTXPacket(Packet):
     # {"time" : "2017-07-30 21:11:19", "model" : "LaCrosse TX Sensor", "id" : 127, "humidity" : 34.000}
     # {"time" : "2017-07-30 21:11:19", "model" : "LaCrosse TX Sensor", "id" : 127, "temperature_C" : 27.100}
 
-    IDENTIFIER = "LaCrosse TX Sensor"
+    IDENTIFIER = 'LaCrosse TX Sensor'
 
     @staticmethod
     def parse_json(obj):
@@ -146,12 +143,11 @@ class LaCrosseTXPacket(Packet):
 
 
 class LaCrosseTX18Packet(Packet):
-
     # {"time" : "2020-04-21 05:21:19", "model" : "LaCrosse-WS3600", "id" : 184, "temperature_C" : 9.400}
     # {"time" : "2020-04-21 05:21:19", "model" : "LaCrosse-WS3600", "id" : 184, "humidity" : 52}
     # {"time" : "2020-04-21 05:21:20", "model" : "LaCrosse-WS3600", "id" : 184, "rain_mm" : 0.000}
 
-    IDENTIFIER = "LaCrosse-WS3600"
+    IDENTIFIER = 'LaCrosse-WS3600'
 
     @staticmethod
     def parse_json(obj):
@@ -166,10 +162,9 @@ class LaCrosseTX18Packet(Packet):
 
 
 class LaCrosseLTVR3Packet(Packet):
-
     # "time" : "2022-01-16 04:43:25", "model" : "LaCrosse-R3", "id" : 7417878, "battery_ok" : 1, "seq" : 1, "rain_mm" : 10921.750, "rain2_mm" : 10921.750, "mic" : "CRC"
 
-    IDENTIFIER = "LaCrosse-R3"
+    IDENTIFIER = 'LaCrosse-R3'
 
     @staticmethod
     def parse_json(obj):
@@ -182,5 +177,3 @@ class LaCrosseLTVR3Packet(Packet):
         pkt['battery'] = Packet.get_battery(obj)
         pkt = Packet.add_identifiers(pkt, sensor_id, LaCrosseLTVR3Packet.__name__)
         return pkt
-
-

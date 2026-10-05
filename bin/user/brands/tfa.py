@@ -1,13 +1,13 @@
 import weewx
+
 from ..packet import Packet
 
 
 class TFADropPacket(Packet):
-
     # {"time" : "2022-06-19 09:18:57", "model" : "TFA-Drop", "id" : 549565, "battery_ok" : 1, "rain_mm" : 0.000, "mic" : "CHECKSUM"}
     # {"time" : "2024-08-24 13:51:38", "model" : "TFA-Drop", "id" : 899964, "battery_ok" : 1, "rain_mm" : 17.780, "mic" : "CHECKSUM"}
 
-    IDENTIFIER = "TFA-Drop"
+    IDENTIFIER = 'TFA-Drop'
 
     @staticmethod
     def parse_json(obj):
@@ -30,17 +30,17 @@ class TFATwinPlus303049Packet(Packet):
 
     # {"time" : "2019-09-25 17:15:12", "model" : "TFA-Twin-Plus-30.3049", "id" : 13, "channel" : 1, "battery" : "OK", "temperature_C" : 8.400, "humidity" : 91, "mic" : "CHECK  SUM"}
 
-    IDENTIFIER = "TFA-Twin-Plus-30.3049"
+    IDENTIFIER = 'TFA-Twin-Plus-30.3049'
     PARSEINFO = {
         'Channel': ['channel', None, lambda x: int(x)],
         'Battery': ['battery', None, lambda x: 0 if x == 'OK' else 1],
-        'Temperature': [
-            'temperature', re.compile('([\d.-]+) C'), lambda x: float(x)],
-        'Humidity': ['humidity', re.compile('([\d.]+) %'), lambda x: float(x)]}
+        'Temperature': ['temperature', re.compile('([\d.-]+) C'), lambda x: float(x)],
+        'Humidity': ['humidity', re.compile('([\d.]+) %'), lambda x: float(x)],
+    }
 
     @staticmethod
     def parse_text(ts, payload, lines):
-        sensor_id = '0000' # FIXME - no id in text output?
+        sensor_id = '0000'  # FIXME - no id in text output?
         pkt = dict()
         pkt['dateTime'] = ts
         pkt['usUnits'] = weewx.METRIC
@@ -58,5 +58,3 @@ class TFATwinPlus303049Packet(Packet):
         pkt['humidity'] = Packet.get_float(obj, 'humidity')
         pkt['battery'] = Packet.get_battery(obj)
         return Packet.add_identifiers(pkt, sensor_id, TFATwinPlus303049Packet.__name__)
-
-

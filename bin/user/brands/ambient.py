@@ -1,6 +1,3 @@
-
-
-
 class AmbientF007THPacket(Packet):
     # 2017-01-21 18:17:16 : Ambient Weather F007TH Thermo-Hygrometer
     # House Code: 80
@@ -8,14 +5,14 @@ class AmbientF007THPacket(Packet):
     # Temperature: 61.8
     # Humidity: 13 %
 
-#    IDENTIFIER = "Ambient Weather F007TH Thermo-Hygrometer"
-    IDENTIFIER = "Ambientweather-F007TH"
+    #    IDENTIFIER = "Ambient Weather F007TH Thermo-Hygrometer"
+    IDENTIFIER = 'Ambientweather-F007TH'
     PARSEINFO = {
         'House Code': ['house_code', None, lambda x: int(x)],
         'Channel': ['channel', None, lambda x: int(x)],
-        'Temperature': [
-            'temperature', re.compile('([\d.-]+) F'), lambda x: float(x)],
-        'Humidity': ['humidity', re.compile('([\d.]+) %'), lambda x: float(x)]}
+        'Temperature': ['temperature', re.compile('([\d.-]+) F'), lambda x: float(x)],
+        'Humidity': ['humidity', re.compile('([\d.]+) %'), lambda x: float(x)],
+    }
 
     @staticmethod
     def parse_text(ts, payload, lines):
@@ -25,9 +22,8 @@ class AmbientF007THPacket(Packet):
         pkt.update(Packet.parse_lines(lines, AmbientF007THPacket.PARSEINFO))
         house_code = pkt.pop('house_code', 0)
         channel = pkt.pop('channel', 0)
-        sensor_id = "%s:%s" % (channel, house_code)
-        pkt = Packet.add_identifiers(
-            pkt, sensor_id, AmbientF007THPacket.__name__)
+        sensor_id = '%s:%s' % (channel, house_code)
+        pkt = Packet.add_identifiers(pkt, sensor_id, AmbientF007THPacket.__name__)
         return pkt
 
     # {"time" : "2017-01-21 13:01:30", "model" : "Ambient Weather F007TH Thermo-Hygrometer", "device" : 80, "channel" : 1, "temperature_F" : 61.800, "humidity" : 10}
@@ -43,23 +39,21 @@ class AmbientF007THPacket(Packet):
         channel = obj.get('channel')
         pkt['temperature'] = Packet.get_float(obj, 'temperature_F')
         pkt['humidity'] = Packet.get_float(obj, 'humidity')
-        sensor_id = "%s:%s" % (channel, house_code)
+        sensor_id = '%s:%s' % (channel, house_code)
         pkt['battery'] = Packet.get_battery(obj)
         pkt['mod'] = obj.get('mod')
         pkt['freq'] = Packet.get_float(obj, 'freq')
         pkt['rssi'] = Packet.get_float(obj, 'rssi')
         pkt['snr'] = Packet.get_float(obj, 'snr')
         pkt['noise'] = Packet.get_float(obj, 'noise')
-        pkt = Packet.add_identifiers(
-            pkt, sensor_id, AmbientF007THPacket.__name__)
+        pkt = Packet.add_identifiers(pkt, sensor_id, AmbientF007THPacket.__name__)
         return pkt
 
 
 class AmbientTX8300Packet(Packet):
-
     # {"time" : "2021-06-14 21:38:43", "model" : "AmbientWeather-TX8300", "id" : 116, "channel" : 1, "battery" : 2, "temperature_C" : 28.500, "mic" : "CHECKSUM"}
 
-    IDENTIFIER = "AmbientWeather-TX8300"
+    IDENTIFIER = 'AmbientWeather-TX8300'
 
     @staticmethod
     def parse_json(obj):
@@ -75,10 +69,9 @@ class AmbientTX8300Packet(Packet):
 
 
 class AmbientWH31EPacket(Packet):
-
     # {"time" : "2019-02-14 17:24:41.259441", "protocol" : 113, "model" : "AmbientWeather-WH31E", "id" : 24, "channel" : 1, "battery" : "OK", "temperature_C" : 6.000, "humidity" : 42, "data" :"2f00000000", "mic" : "CRC", "mod" : "FSK", "freq1" : 914.984, "freq2" : 914.906, "rssi" : -13.328, "snr" : 13.197, "noise" : -26.525}
 
-    IDENTIFIER = "AmbientWeather-WH31E"
+    IDENTIFIER = 'AmbientWeather-WH31E'
 
     @staticmethod
     def parse_json(obj):
@@ -103,9 +96,8 @@ class AmbientWH31EPacket(Packet):
 
 
 class AmbientWH31BPacket(Packet):
-
     # {'time': '2024-03-04 17:36:20', 'model': 'AmbientWeather-WH31B', 'id': 196, 'channel': 3, 'battery_ok': 1, 'temperature_C': 21.6, 'humidity': 40, 'data': 'ea00000000', 'mic': 'CRC'}
-    IDENTIFIER = "AmbientWeather-WH31B"
+    IDENTIFIER = 'AmbientWeather-WH31B'
 
     @staticmethod
     def parse_json(obj):

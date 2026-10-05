@@ -1,4 +1,5 @@
 import weewx
+
 from ..packet import Packet
 
 
@@ -9,7 +10,7 @@ class TSFT002Packet(Packet):
 
     # {"time" : "2019-12-22 22:54:58", "model" : "TS-FT002", "id" : 127, "depth_cm" : 186, "temperature_C" : 20.700, "transmit_s" : 180, "flags" : 8, "mic" : "CHECKSUM"}
 
-    IDENTIFIER = "TS-FT002"
+    IDENTIFIER = 'TS-FT002'
 
     @staticmethod
     def parse_json(obj):
@@ -23,5 +24,3 @@ class TSFT002Packet(Packet):
         pkt['flags'] = Packet.get_int(obj, 'flags')
         pkt = Packet.add_identifiers(pkt, sensor_id, TSFT002Packet.__name__)
         return pkt
-
-

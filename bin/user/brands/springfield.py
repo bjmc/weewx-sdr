@@ -1,11 +1,12 @@
 import weewx
+
 from ..packet import Packet
 
 
 class SpringfieldTMPacket(Packet):
     # {"time" : "2019-01-20 11:14:00", "model" : "Springfield Temperature & Moisture", "sid" : 224, "channel" : 3, "battery" : "OK", "transmit" : "MANUAL", "temperature_C" : -204.800, "moisture" : 0, "mic" : "CHECKSUM"}
 
-    IDENTIFIER = "Springfield Temperature & Moisture"
+    IDENTIFIER = 'Springfield Temperature & Moisture'
 
     @staticmethod
     def parse_json(obj):
@@ -20,5 +21,3 @@ class SpringfieldTMPacket(Packet):
         pkt['transmit'] = obj.get('transmit')
         pkt = Packet.add_identifiers(pkt, sensor_id, SpringfieldTMPacket.__name__)
         return pkt
-
-

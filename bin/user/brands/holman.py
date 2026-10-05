@@ -1,11 +1,12 @@
 import weewx
+
 from ..packet import Packet
 
 
 class HolmanWS5029Packet(Packet):
     # {"time" : "2019-08-07 10:35:07", "model" : "Holman Industries WS5029 weather station", "id" : 53761, "temperature_C" : 9.100, "humidity" : 102, "rain_mm" : 39.500, "wind_avg_km_h" : 0, "direction_deg" : 338}
 
-    IDENTIFIER = "Holman Industries WS5029 weather station"
+    IDENTIFIER = 'Holman Industries WS5029 weather station'
 
     @staticmethod
     def parse_json(obj):
@@ -20,5 +21,3 @@ class HolmanWS5029Packet(Packet):
         pkt['rain_total'] = Packet.get_float(obj, 'rain_mm')
         pkt = Packet.add_identifiers(pkt, sensor_id, HolmanWS5029Packet.__name__)
         return pkt
-
-

@@ -1,4 +1,5 @@
 import weewx
+
 from ..packet import Packet
 
 
@@ -9,6 +10,7 @@ class Acurite(object):
         # ensure the sensor_id is upper-case - it should be 4 hex characters.
         sensor_id = str(pkt.pop('hardware_id', '0000')).upper()
         return Packet.add_identifiers(pkt, sensor_id, pkt_type)
+
 
 class AcuriteAtlasPacket(Packet):
     # {"time": "2019-12-14 16:56:57", "model": "Acurite-Atlas", "id": 896, "channel": "A", "sequence_num": 0, "battery_ok": 1, "message_type": 37, "wind_avg_mi_h": 5.000, "temperature_F": 40.000, "humidity": 76, "byte8": 0, "byte9": 37, "byte89": 37}
@@ -21,7 +23,7 @@ class AcuriteAtlasPacket(Packet):
     #   38: wind_avg_mi_h, wind_dir_deg, rain_in
     #   39: wind_avg_mi_h, uv, lux
 
-    IDENTIFIER = "Acurite-Atlas"
+    IDENTIFIER = 'Acurite-Atlas'
 
     @staticmethod
     def parse_json(obj):
@@ -29,7 +31,7 @@ class AcuriteAtlasPacket(Packet):
         pkt['usUnits'] = weewx.US
         pkt['dateTime'] = Packet.parse_time(obj.get('time'))
         pkt['model'] = obj.get('model')
-        pkt['hardware_id'] = "%04x" % obj.get('id', 0)
+        pkt['hardware_id'] = '%04x' % obj.get('id', 0)
         pkt['channel'] = obj.get('channel')
         pkt['sequence_num'] = Packet.get_int(obj, 'sequence_num')
         pkt['message_type'] = Packet.get_int(obj, 'message_type')
@@ -71,7 +73,7 @@ class Acurite3n1PacketV2(Packet):
     # sample json output from rtl_433
     # {"time" : "2021-12-27 02:53:38", "model" : "Acurite-3n1", "subtype" : 32, "id" : 7220, "channel" : "B", "sequence_num" : 1, "battery_ok" : 1, "wind_avg_mi_h" : 5.000, "temperature_F" : 5.100, "humidity" : 65, "mic" : "CHECKSUM"}
 
-    IDENTIFIER = "Acurite-3n1"
+    IDENTIFIER = 'Acurite-3n1'
 
     @staticmethod
     def parse_json(obj):
@@ -79,7 +81,7 @@ class Acurite3n1PacketV2(Packet):
         pkt['usUnits'] = weewx.US
         pkt['dateTime'] = Packet.parse_time(obj.get('time'))
         pkt['model'] = obj.get('model')
-        pkt['hardware_id'] = "%04x" % obj.get('id', 0)
+        pkt['hardware_id'] = '%04x' % obj.get('id', 0)
         pkt['channel'] = obj.get('channel')
         pkt['sequence_num'] = Packet.get_int(obj, 'sequence_num')
         pkt['battery'] = Packet.get_battery(obj)
@@ -112,7 +114,7 @@ class Acurite5n1Packet(Packet):
     # rtl_433 keeps using different labels and calculations for the rain
     # counter, so try to deal with the variants we have seen.
 
-    IDENTIFIER = "Acurite 5n1 sensor"
+    IDENTIFIER = 'Acurite 5n1 sensor'
     PATTERN = re.compile('0x([0-9a-fA-F]+) Ch ([A-C]), (.*)')
     RAIN = re.compile('Total rain fall since last reset: ([\d.]+)')
     MSG = re.compile('Msg (\d+), (.*)')
@@ -141,8 +143,7 @@ class Acurite5n1Packet(Packet):
                         pkt['wind_dir'] = float(m.group(3))
                         pkt['rain_total'] = float(m.group(4))
                     else:
-                        loginf("Acurite5n1Packet: no match for type 31: '%s'"
-                               % payload)
+                        loginf("Acurite5n1Packet: no match for type 31: '%s'" % payload)
                 elif msg_type == '38':
                     m = Acurite5n1Packet.MSG38.search(payload)
                     if m:
@@ -152,20 +153,20 @@ class Acurite5n1Packet(Packet):
                         pkt['temperature_F'] = float(m.group(4))
                         pkt['humidity'] = float(m.group(5))
                     else:
-                        loginf("Acurite5n1Packet: no match for type 38: '%s'"
-                               % payload)
+                        loginf("Acurite5n1Packet: no match for type 38: '%s'" % payload)
                 else:
-                    loginf("Acurite5n1Packet: unknown message type %s"
-                           " in line '%s'" % (msg_type, lines[0]))
+                    loginf(
+                        'Acurite5n1Packet: unknown message type %s'
+                        " in line '%s'" % (msg_type, lines[0])
+                    )
             else:
                 m = Acurite5n1Packet.RAIN.search(payload)
                 if m:
                     total = float(m.group(1))
                     pkt['rain_since_reset'] = total
-                    loginf("Acurite5n1Packet: rain since reset: %s" % total)
+                    loginf('Acurite5n1Packet: rain since reset: %s' % total)
                 else:
-                    loginf("Acurite5n1Packet: unknown message format: '%s'" %
-                           lines[0])
+                    loginf("Acurite5n1Packet: unknown message format: '%s'" % lines[0])
         else:
             loginf("Acurite5n1Packet: unrecognized data: '%s'" % lines[0])
         lines.pop(0)
@@ -188,16 +189,16 @@ class Acurite5n1Packet(Packet):
         pkt = dict()
         pkt['dateTime'] = Packet.parse_time(obj.get('time'))
         pkt['usUnits'] = weewx.US
-        pkt['hardware_id'] = "%04x" % obj.get('sensor_id', 0)
+        pkt['hardware_id'] = '%04x' % obj.get('sensor_id', 0)
         pkt['channel'] = obj.get('channel')
         pkt['battery'] = Packet.get_battery(obj)
         pkt['status'] = obj.get('status')
         msg_type = obj.get('message_type')
-        if msg_type == 49: # 0x31
+        if msg_type == 49:  # 0x31
             pkt['wind_speed'] = Acurite5n1Packet.get_wind_speed(obj)
             pkt['wind_dir'] = Packet.get_float(obj, 'wind_dir_deg')
             pkt['rain_total'] = Acurite5n1Packet.get_rain_total(obj)
-        elif msg_type == 56: # 0x38
+        elif msg_type == 56:  # 0x38
             pkt['wind_speed'] = Acurite5n1Packet.get_wind_speed(obj)
             pkt['temperature'] = Packet.get_float(obj, 'temperature_F')
             pkt['humidity'] = Packet.get_float(obj, 'humidity')
@@ -221,7 +222,7 @@ class Acurite5n1Packet(Packet):
             rain_counter = Packet.get_int(obj, 'raincounter_raw')
             # put some units on the rain total - each tip is 0.01 inch
             if rain_counter is not None:
-                rain_total = rain_counter * 0.01 # inch
+                rain_total = rain_counter * 0.01  # inch
         elif 'rain_inch' in obj:
             rain_total = Packet.get_float(obj, 'rain_inch')
         return rain_total
@@ -236,7 +237,7 @@ class Acurite5n1PacketV2(Packet):
     # {"time" : "2020-10-26 22:09:12", "model" : "Acurite-5n1", "message_type" : 49, "id" : 2662, "channel" : "A", "sequence_num" : 0, "battery_ok" : 1, "wind_avg_km_h" : 15.900, "wind_dir_deg" : 337.500, "rain_in" : 7.290, "mic" : "CHECKSUM"}
     # {"time" : "2020-10-26 22:08:54", "model" : "Acurite-5n1", "message_type" : 56, "id" : 2662, "channel" : "A", "sequence_num" : 2, "battery_ok" : 1, "wind_avg_km_h" : 9.278, "temperature_F" : 76.100, "humidity" : 15, "mic" : "CHECKSUM"}
 
-    IDENTIFIER = "Acurite-5n1"
+    IDENTIFIER = 'Acurite-5n1'
 
     @staticmethod
     def parse_json(obj):
@@ -245,7 +246,7 @@ class Acurite5n1PacketV2(Packet):
         pkt['dateTime'] = Packet.parse_time(obj.get('time'))
         pkt['protocol'] = Packet.get_int(obj, 'protocol')
         pkt['model'] = obj.get('model')
-        pkt['hardware_id'] = "%04x" % obj.get('id', 0)
+        pkt['hardware_id'] = '%04x' % obj.get('id', 0)
         pkt['channel'] = obj.get('channel')
         pkt['sequence_num'] = Packet.get_int(obj, 'sequence_num')
         pkt['battery'] = Packet.get_battery(obj)
@@ -292,7 +293,7 @@ class AcuriteTowerPacket(Packet):
     # Battery: 0
     # : 68
 
-    IDENTIFIER = "Acurite tower sensor"
+    IDENTIFIER = 'Acurite tower sensor'
     PATTERN = re.compile('0x([0-9a-fA-F]+) Ch ([A-C]): ([\d.-]+) C ([\d.-]+) F ([\d]+) % RH')
 
     @staticmethod
@@ -326,7 +327,7 @@ class AcuriteTowerPacket(Packet):
         pkt = dict()
         pkt['dateTime'] = Packet.parse_time(obj.get('time'))
         pkt['usUnits'] = weewx.US
-        pkt['hardware_id'] = "%04x" % obj.get('id', 0)
+        pkt['hardware_id'] = '%04x' % obj.get('id', 0)
         pkt['channel'] = obj.get('channel')
         pkt['battery'] = Packet.get_battery(obj)
         pkt['status'] = obj.get('status')
@@ -345,17 +346,17 @@ class AcuriteTowerPacketV2(Packet):
     # {"time" : "2019-07-29 07:44:23.005624", "protocol" : 40, "model" : "Acurite-Tower", "id" : 1234, "sensor_id" : 1234, "channel" : "A", "temperature_C" : 22.600, "humidity" : 45, "battery_ok" : 0, "mod" : "ASK", "freq" : 433.938, "rssi" : -0.134, "snr" : 14.391, "noise" : -14.525}
     # {"time" : "2021-12-20 20:00:59", "model" : "Acurite-Tower", "id" : 11041, "channel" : "B", "battery_ok" : 1, "temperature_C" : -3.500, "humidity" : 71, "mic" : "CHECKSUM"}
 
-    IDENTIFIER = "Acurite-Tower"
+    IDENTIFIER = 'Acurite-Tower'
 
     @staticmethod
     def parse_json(obj):
         pkt = dict()
         pkt['usUnits'] = weewx.US
         pkt['dateTime'] = Packet.parse_time(obj.get('time'))
-        pkt['protocol'] = Packet.get_int(obj, 'protocol') # 40
-        pkt['model'] = obj.get('model') # model = Acurite-Tower
-        pkt['hardware_id'] = "%04x" % obj.get('id', 0)
-        pkt['sensor_id'] = "%04x" % obj.get('sensor_id', 0)
+        pkt['protocol'] = Packet.get_int(obj, 'protocol')  # 40
+        pkt['model'] = obj.get('model')  # model = Acurite-Tower
+        pkt['hardware_id'] = '%04x' % obj.get('id', 0)
+        pkt['sensor_id'] = '%04x' % obj.get('sensor_id', 0)
         pkt['channel'] = obj.get('channel')
         pkt['humidity'] = Packet.get_float(obj, 'humidity')
         if 'temperature_F' in obj:
@@ -363,7 +364,7 @@ class AcuriteTowerPacketV2(Packet):
         elif 'temperature_C' in obj:
             pkt['temperature'] = to_F(Packet.get_float(obj, 'temperature_C'))
         pkt['battery'] = Packet.get_battery(obj)
-        pkt['mod'] = obj.get('mod') # apparently mod = ASK
+        pkt['mod'] = obj.get('mod')  # apparently mod = ASK
         pkt['freq'] = Packet.get_float(obj, 'freq')
         pkt['rssi'] = Packet.get_float(obj, 'rssi')
         pkt['snr'] = Packet.get_float(obj, 'snr')
@@ -375,7 +376,7 @@ class Acurite606TXPacket(Packet):
     # 2017-03-20: Acurite 606TX Temperature Sensor
     # {"time" : "2017-03-04 16:18:12", "model" : "Acurite 606TX Sensor", "id" : 48, "battery" : "OK", "temperature_C" : -1.100}
 
-    IDENTIFIER = "Acurite 606TX Sensor"
+    IDENTIFIER = 'Acurite 606TX Sensor'
 
     @staticmethod
     def parse_json(obj):
@@ -397,7 +398,7 @@ class Acurite606TXPacketV2(Packet):
     # {"time" : "2021-02-23 16:24:07", "model" : "Acurite-606TX", "id" : 153, "battery_ok" : 1, "temperature_C" : 18.800, "mic" : "CHECKSUM"}
     # {"time" : "2021-10-26 23:39:49", "model" : "Acurite-606TX", "id" : 194, "battery_ok" : 1, "temperature_C" : 19.200, "mic" : "CHECKSUM"}
 
-    IDENTIFIER = "Acurite-606TX"
+    IDENTIFIER = 'Acurite-606TX'
 
     @staticmethod
     def parse_json(obj):
@@ -420,7 +421,7 @@ class AcuriteRain899Packet(Packet):
     # {"time" : "2019-12-05 16:32:20", "model" : "Acurite-Rain899", "id" : 1699, "channel" : 0, "battery_ok" : 0, "rain_mm" : 6.096}
     # {"time" : "2019-12-05 16:32:20", "model" : "Acurite-Rain899", "id" : 1699, "channel" : 0, "battery_ok" : 0, "rain_mm" : 6.096}
 
-    IDENTIFIER = "Acurite-Rain899"
+    IDENTIFIER = 'Acurite-Rain899'
 
     @staticmethod
     def parse_json(obj):
@@ -428,7 +429,7 @@ class AcuriteRain899Packet(Packet):
         pkt['usUnits'] = weewx.US
         pkt['dateTime'] = Packet.parse_time(obj.get('time'))
         pkt['model'] = obj.get('model')
-        pkt['hardware_id'] = "%04x" % obj.get('id', 0)
+        pkt['hardware_id'] = '%04x' % obj.get('id', 0)
         pkt['channel'] = obj.get('channel')
         pkt['battery'] = Packet.get_battery(obj)
         if 'rain_mm' in obj:
@@ -452,7 +453,7 @@ class Acurite986Packet(Packet):
 
     # IDENTIFIER = "Acurite 986 sensor"
     # IDENTIFIER = "Acurite 986 Sensor"
-    IDENTIFIER = "Acurite-986"
+    IDENTIFIER = 'Acurite-986'
     PATTERN = re.compile('0x([0-9a-fA-F]+) - (1R|2F): ([\d.-]+) C ([\d.-]+) F')
 
     @staticmethod
@@ -502,10 +503,12 @@ class AcuriteLightningPacket(Packet):
     # {"time" : "2018-04-21 19:12:53", "model" : "Acurite Lightning 6045M", "id" : 151, "channel" : "C", "temperature_F" : 66.900, "humidity" : 33, "strike_count" : 47, "storm_dist" : 12, "active" : 1, "rfi" : 0, "ussb1" : 1, "battery" : "LOW", "exception" : 0, "raw_msg" : "0097af2150f9afcc2b"}
     # {"time" : "2020-10-13 22:49:34", "model" : "Acurite-6045M", "id" : 15431, "channel" : "A", "battery_ok" : 0, "temperature_F" : 91.800, "humidity" : 21, "strike_count" : 171, "storm_dist" : 12, "active" : 1, "rfi" : 0, "exception" : 0, "raw_msg" : "fc47af95d2de55cc58"}
 
-#    IDENTIFIER = "Acurite lightning"
-#    IDENTIFIER = "Acurite Lightning 6045M"
-    IDENTIFIER = "Acurite-6045M"
-    PATTERN = re.compile('0x([0-9a-fA-F]+) Ch (.) Msg Type 0x([0-9a-fA-F]+): ([\d.-]+) ([CF]) ([\d.]+) % RH Strikes ([\d]+) Distance ([\d.]+)')
+    #    IDENTIFIER = "Acurite lightning"
+    #    IDENTIFIER = "Acurite Lightning 6045M"
+    IDENTIFIER = 'Acurite-6045M'
+    PATTERN = re.compile(
+        '0x([0-9a-fA-F]+) Ch (.) Msg Type 0x([0-9a-fA-F]+): ([\d.-]+) ([CF]) ([\d.]+) % RH Strikes ([\d]+) Distance ([\d.]+)'
+    )
 
     @staticmethod
     def parse_json(obj):
@@ -513,7 +516,7 @@ class AcuriteLightningPacket(Packet):
         pkt['dateTime'] = Packet.parse_time(obj.get('time'))
         pkt['usUnits'] = weewx.US
         pkt['channel'] = obj.get('channel')
-        pkt['hardware_id'] = "%04x" % obj.get('id', 0)
+        pkt['hardware_id'] = '%04x' % obj.get('id', 0)
         pkt['temperature'] = obj.get('temperature_F')
         pkt['battery'] = Packet.get_battery(obj)
         pkt['humidity'] = obj.get('humidity')
@@ -543,24 +546,23 @@ class AcuriteLightningPacket(Packet):
             pkt['strikes_total'] = float(m.group(7))
             pkt['distance'] = float(m.group(8))
         else:
-            loginf("AcuriteLightningPacket: unrecognized data: %s" % lines[0])
+            loginf('AcuriteLightningPacket: unrecognized data: %s' % lines[0])
         lines.pop(0)
         return Acurite.insert_ids(pkt, AcuriteLightningPacket.__name__)
 
 
 class Acurite00275MPacket(Packet):
-
     # {"time" : "2017-03-09 21:59:11", "model" : "00275rm", "probe" : 2, "id" : 3942, "battery" : "OK", "temperature_C" : 23.300, "humidity" : 34, "ptemperature_C" : 22.700, "crc" : "ok"}
     # {"time" : "2017-03-09 21:59:11", "model" : "00275rm", "probe" : 2, "id" : 3942, "battery" : "OK", "temperature_C" : 23.300, "humidity" : 34, "temperature_1_C" : 22.700, "crc" : "ok"}
 
-    IDENTIFIER = "00275rm"
+    IDENTIFIER = '00275rm'
 
     @staticmethod
     def parse_json(obj):
         pkt = dict()
         pkt['dateTime'] = Packet.parse_time(obj.get('time'))
         pkt['usUnits'] = weewx.METRIC
-        pkt['hardware_id'] = "%04x" % obj.get('id', 0)
+        pkt['hardware_id'] = '%04x' % obj.get('id', 0)
         pkt['probe'] = obj.get('probe')
         pkt['battery'] = Packet.get_battery(obj)
         if 'temperature_1_C' in obj:
@@ -573,12 +575,11 @@ class Acurite00275MPacket(Packet):
 
 
 class AcuriteWT450Packet(Packet):
-
     # {"time" : "2017-09-14 20:24:43", "model" : "WT450 sensor", "id" : 1, "channel" : 2, "battery" : "OK", "temperature_C" : 25.090, "humidity" : 49}
     # {"time" : "2017-09-14 20:24:44", "model" : "WT450 sensor", "id" : 1, "channel" : 2, "battery" : "OK", "temperature_C" : 25.110, "humidity" : 49}
     # {"time" : "2017-09-14 20:24:44", "model" : "WT450 sensor", "id" : 1, "channel" : 2, "battery" : "OK", "temperature_C" : 25.120, "humidity" : 49}
 
-    IDENTIFIER = "WT450 sensor"
+    IDENTIFIER = 'WT450 sensor'
 
     @staticmethod
     def parse_json(obj):
@@ -590,25 +591,24 @@ class AcuriteWT450Packet(Packet):
         pkt['battery'] = Packet.get_battery(obj)
         pkt['temperature'] = Packet.get_float(obj, 'temperature_C')
         pkt['humidity'] = Packet.get_float(obj, 'humidity')
-        _id = "%s:%s" % (pkt['sid'], pkt['channel'])
+        _id = '%s:%s' % (pkt['sid'], pkt['channel'])
         return Packet.add_identifiers(pkt, _id, AcuriteWT450Packet.__name__)
 
 
 class Acurite515Packet(Packet):
-
     # refrigerator (XR) and freezer (XF) sensors
     # X is one of A, B, or C
     # "time" : "2022-01-21 21:55:54", "model" : "Acurite-515", "id" : 2375, "channel" : "BR", "battery_ok" : 1, "temperature_F" : 47.600, "mic" : "CHECKSUM"
     # "time" : "2022-01-21 21:55:44", "model" : "Acurite-515", "id" : 78, "channel" : "BF", "battery_ok" : 1, "temperature_F" : 47.100, "mic" : "CHECKSUM"
 
-    IDENTIFIER = "Acurite-515"
+    IDENTIFIER = 'Acurite-515'
 
     @staticmethod
     def parse_json(obj):
         pkt = dict()
         pkt['dateTime'] = Packet.parse_time(obj.get('time'))
         pkt['usUnits'] = weewx.US
-        pkt['hardware_id'] = "%04x" % obj.get('id', 0)
+        pkt['hardware_id'] = '%04x' % obj.get('id', 0)
         pkt['channel'] = Packet.get_int(obj, 'channel')
         pkt['battery'] = Packet.get_battery(obj)
         if 'temperature_F' in obj:

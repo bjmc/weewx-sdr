@@ -1,4 +1,5 @@
 import weewx
+
 from ..packet import Packet
 
 
@@ -7,7 +8,7 @@ class EsperanzaEWSPacket(Packet):
 
     # {"time" : "2022-06-30 08:29:25", "model" : "Esperanza-EWS", "id" : 198, "channel" : 2, "temperature_F" : 69.200, "humidity" : 0, "mic" : "CRC"}
 
-    IDENTIFIER = "Esperanza-EWS"
+    IDENTIFIER = 'Esperanza-EWS'
 
     @staticmethod
     def parse_json(obj):
@@ -20,5 +21,3 @@ class EsperanzaEWSPacket(Packet):
         pkt['channel'] = obj.get('channel')
         pkt = Packet.add_identifiers(pkt, sensor_id, EsperanzaEWSPacket.__name__)
         return pkt
-
-

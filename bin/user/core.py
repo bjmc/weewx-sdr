@@ -91,23 +91,26 @@ in the JSON data, for example 'wind_speed_mph' instead of just 'wind_speed'.
 # can recognize anything rtl_433 spits out
 
 from __future__ import with_statement
+
 from calendar import timegm
+
 try:
     # Python 3
     import queue
 except ImportError:
     # Python 2:
     import Queue as queue
+import copy
 import fnmatch
 import os
 import re
 import subprocess
 import threading
 import time
-import copy
 
 try:
     import cjson as json
+
     setattr(json, 'dumps', json.encode)
     setattr(json, 'loads', json.decode)
 except (ImportError, AttributeError):
@@ -122,8 +125,10 @@ from weeutil.weeutil import tobool
 
 try:
     # New-style weewx logging
-    import weeutil.logger
     import logging
+
+    import weeutil.logger
+
     log = logging.getLogger(__name__)
 
     def logdbg(msg):
@@ -140,8 +145,7 @@ except ImportError:
     import syslog
 
     def logmsg(level, msg):
-        syslog.syslog(level, 'sdr: %s: %s' %
-                      (threading.currentThread().getName(), msg))
+        syslog.syslog(level, 'sdr: %s: %s' % (threading.currentThread().getName(), msg))
 
     def logdbg(msg):
         logmsg(syslog.LOG_DEBUG, msg)
@@ -151,6 +155,7 @@ except ImportError:
 
     def logerr(msg):
         logmsg(syslog.LOG_ERR, msg)
+
 
 DRIVER_NAME = 'SDR'
 DRIVER_VERSION = '0.96b1'
@@ -165,14 +170,16 @@ DRIVER_VERSION = '0.96b1'
 #           as of early 2020, the syntax is '-G4', but use only for testing
 
 # very old implmentations:
-#DEFAULT_CMD = 'rtl_433 -q -U -F json -G'
+# DEFAULT_CMD = 'rtl_433 -q -U -F json -G'
 # as of dec2018:
-#DEFAULT_CMD = 'rtl_433 -M utc -F json -G'
+# DEFAULT_CMD = 'rtl_433 -M utc -F json -G'
 # as of feb2020:
 DEFAULT_CMD = 'rtl_433 -M utc -F json'
 
+
 def loader(config_dict, _):
     return SDRDriver(**config_dict[DRIVER_NAME])
+
 
 def confeditor_loader():
     return SDRConfigurationEditor()
@@ -181,28 +188,33 @@ def confeditor_loader():
 # utilities for inline unit conversions.  respect the None!
 def to_F(v):
     if v is not None:
-        v  = v * 1.8 + 32
+        v = v * 1.8 + 32
     return v
+
 
 def to_C(v):
     if v is not None:
-        v  = 5 / 9 * (v - 32)
+        v = 5 / 9 * (v - 32)
     return v
+
 
 def to_mph(v):
     if v is not None:
         v *= 0.621371
     return v
 
+
 def to_in(v):
     if v is not None:
         v /= 25.4
     return v
 
+
 def to_v(v):
     if v is not None:
         v /= 1000
     return v
+
 
 def kmh_to_mps(v):
     if v is not None:
@@ -211,7 +223,6 @@ def kmh_to_mps(v):
 
 
 class AsyncReader(threading.Thread):
-
     def __init__(self, fd, queue, label):
         threading.Thread.__init__(self)
         self._fd = fd
@@ -221,7 +232,7 @@ class AsyncReader(threading.Thread):
         self.setName(label)
 
     def run(self):
-        logdbg("start async reader for %s" % self.getName())
+        logdbg('start async reader for %s' % self.getName())
         self._running = True
         for line in iter(self._fd.readline, ''):
             if line:
@@ -253,26 +264,26 @@ class ProcManager(object):
         if ld_library_path:
             env['LD_LIBRARY_PATH'] = ld_library_path
         try:
-            self._process = subprocess.Popen(cmd.split(' '),
-                                             env=env,
-                                             stdout=subprocess.PIPE,
-                                             stderr=subprocess.PIPE)
+            self._process = subprocess.Popen(
+                cmd.split(' '), env=env, stdout=subprocess.PIPE, stderr=subprocess.PIPE
+            )
             self.stdout_reader = AsyncReader(
-                self._process.stdout, self.stdout_queue, 'stdout-thread')
+                self._process.stdout, self.stdout_queue, 'stdout-thread'
+            )
             self.stdout_reader.start()
             self.stderr_reader = AsyncReader(
-                self._process.stderr, self.stderr_queue, 'stderr-thread')
+                self._process.stderr, self.stderr_queue, 'stderr-thread'
+            )
             self.stderr_reader.start()
         except (OSError, ValueError) as e:
-            raise weewx.WeeWxIOError("failed to start process '%s': %s" %
-                                     (cmd, e))
+            raise weewx.WeeWxIOError("failed to start process '%s': %s" % (cmd, e))
 
     def shutdown(self):
         loginf('shutdown process %s' % self._cmd)
         self._process.kill()
-        logdbg("close stdout")
+        logdbg('close stdout')
         self._process.stdout.close()
-        logdbg("close stderr")
+        logdbg('close stderr')
         self._process.stderr.close()
         logdbg('shutdown %s' % self.stdout_reader.getName())
         self.stdout_reader.stop_running()
@@ -319,18 +330,16 @@ class ProcManager(object):
         yield lines
 
 
-
-
-
 class PacketFactory(object):
-
     # known packets will be lazy-loaded by introspecting at first request
     KNOWN_PACKETS = []
 
     @staticmethod
     def known_packets():
         if not PacketFactory.KNOWN_PACKETS:
-            import sys, inspect
+            import inspect
+            import sys
+
             objs = inspect.getmembers(sys.modules[__name__], inspect.isclass)
             for name, obj in objs:
                 if hasattr(obj, 'IDENTIFIER'):
@@ -360,25 +369,23 @@ class PacketFactory(object):
                 for parser in PacketFactory.known_packets():
                     if obj['model'].find(parser.IDENTIFIER) >= 0:
                         return parser.parse_json(obj)
-                logdbg("parse_json: unknown model %s" % obj['model'])
+                logdbg('parse_json: unknown model %s' % obj['model'])
         except ValueError as e:
-            logdbg("parse_json failed: %s" % e)
+            logdbg('parse_json failed: %s' % e)
         return None
 
     @staticmethod
     def parse_text(lines):
         ts, payload = PacketFactory.parse_firstline(lines[0])
         if ts and payload:
-            logdbg("parse_text: ts=%s payload=%s" % (ts, payload))
+            logdbg('parse_text: ts=%s payload=%s' % (ts, payload))
             for parser in PacketFactory.known_packets():
                 if payload.find(parser.IDENTIFIER) >= 0:
                     pkt = parser.parse_text(ts, payload, lines)
-                    logdbg("pkt=%s" % pkt)
+                    logdbg('pkt=%s' % pkt)
                     return pkt
-            logdbg("parse_text: unknown format: ts=%s payload=%s" %
-                   (ts, payload))
-        logdbg("parse_text failed: ts=%s payload=%s line=%s" %
-               (ts, payload, lines[0]))
+            logdbg('parse_text: unknown format: ts=%s payload=%s' % (ts, payload))
+        logdbg('parse_text failed: ts=%s payload=%s line=%s' % (ts, payload, lines[0]))
         lines.pop(0)
         return None
 
@@ -390,7 +397,7 @@ class PacketFactory(object):
         try:
             m = PacketFactory.TS_PATTERN.search(line)
             if m:
-                utc = time.strptime(m.group(1), "%Y-%m-%d %H:%M:%S")
+                utc = time.strptime(m.group(1), '%Y-%m-%d %H:%M:%S')
                 ts = timegm(utc)
                 payload = m.group(2).strip()
         except Exception as e:
@@ -401,7 +408,8 @@ class PacketFactory(object):
 class SDRConfigurationEditor(weewx.drivers.AbstractConfEditor):
     @property
     def default_stanza(self):
-        return """
+        return (
+            """
 [SDR]
     # This section is for the software-defined radio driver.
 
@@ -433,18 +441,17 @@ class SDRConfigurationEditor(weewx.drivers.AbstractConfEditor):
 #        outHumidity = humidity.*.FOWH1080Packet
 #        outTemp = temperature.*.FOWH1080Packet
 
-""" % DEFAULT_CMD
+"""
+            % DEFAULT_CMD
+        )
 
 
 class SDRDriver(weewx.drivers.AbstractDevice):
-
     # map the counter total to the counter delta.  for example, the pair
     #   rain:rain_total
     # will result in a delta called 'rain' from the cumulative 'rain_total'.
     # these are applied to mapped packets.
-    DEFAULT_DELTAS = {
-        'rain': 'rain_total',
-        'lightning_strike_count': 'strikes_total'}
+    DEFAULT_DELTAS = {'rain': 'rain_total', 'lightning_strike_count': 'strikes_total'}
 
     # what is the difference in timestamp values at which we consider two
     # data samples to be different?  some hardware emits duplicate data, and
@@ -463,18 +470,20 @@ class SDRDriver(weewx.drivers.AbstractDevice):
         self._log_lines = tobool(stn_dict.get('log_lines', False))
         self._log_unknown = tobool(stn_dict.get('log_unknown_sensors', False))
         self._log_unmapped = tobool(stn_dict.get('log_unmapped_sensors', False))
-        self._log_packets  = tobool(stn_dict.get('log_packets', True))
-        self._log_dups     = tobool(stn_dict.get('log_duplicate_readings', True))
+        self._log_packets = tobool(stn_dict.get('log_packets', True))
+        self._log_dups = tobool(stn_dict.get('log_duplicate_readings', True))
         self._sensor_map = stn_dict.get('sensor_map', {})
         loginf('sensor map is %s' % self._sensor_map)
         self._deltas = stn_dict.get('deltas', SDRDriver.DEFAULT_DELTAS)
         loginf('deltas is %s' % self._deltas)
-        self._ts_delta = stn_dict.get('timestamp_match_threshhold', SDRDriver.TIMESTAMP_MATCH_THRESHHOLD)
+        self._ts_delta = stn_dict.get(
+            'timestamp_match_threshhold', SDRDriver.TIMESTAMP_MATCH_THRESHHOLD
+        )
         self._counter_values = dict()
         cmd = stn_dict.get('cmd', DEFAULT_CMD)
         path = stn_dict.get('path', None)
         ld_library_path = stn_dict.get('ld_library_path', None)
-        self._last_pkt = None # avoid duplicate sequential packets
+        self._last_pkt = None  # avoid duplicate sequential packets
         self._mgr = ProcManager()
         self._mgr.startup(cmd, path, ld_library_path)
 
@@ -489,31 +498,31 @@ class SDRDriver(weewx.drivers.AbstractDevice):
         while self._mgr.running():
             for lines in self._mgr.get_stdout():
                 if self._log_lines:
-                    loginf("lines: %s" % lines)
+                    loginf('lines: %s' % lines)
                 for packet in PacketFactory.create(lines):
                     if packet:
                         pkt = self.map_to_fields(packet, self._sensor_map)
                         if pkt:
                             if not self._packets_match(pkt, self._last_pkt):
                                 if self._log_packets:
-                                    logdbg("packet=%s" % pkt)
+                                    logdbg('packet=%s' % pkt)
                                 self._last_pkt = pkt
                                 self._calculate_deltas(pkt)
                                 yield pkt
                             else:
                                 if self._log_dups:
-                                    logdbg("ignoring duplicate packet %s" % pkt)
+                                    logdbg('ignoring duplicate packet %s' % pkt)
                         elif self._log_unmapped:
-                            loginf("unmapped: %s" % packet)
+                            loginf('unmapped: %s' % packet)
                     elif self._log_unknown:
-                        loginf("unparsed: %s" % lines)
+                        loginf('unparsed: %s' % lines)
             # report any errors
             for line in self._mgr.get_stderr():
                 logerr(line)
         else:
             for line in self._mgr.get_stderr():
                 logerr(line)
-            raise weewx.WeeWxIOError("rtl_433 process is not running")
+            raise weewx.WeeWxIOError('rtl_433 process is not running')
 
     def _packets_match(self, pkt1, pkt2):
         # see if two packets match.  this is more than just a direct comparison
@@ -536,8 +545,7 @@ class SDRDriver(weewx.drivers.AbstractDevice):
         for k in self._deltas:
             label = self._deltas[k]
             if label in pkt:
-                pkt[k] = self._calculate_delta(
-                    label, pkt[label], self._counter_values.get(label))
+                pkt[k] = self._calculate_delta(label, pkt[label], self._counter_values.get(label))
                 self._counter_values[label] = pkt[label]
 
     @staticmethod
@@ -547,8 +555,7 @@ class SDRDriver(weewx.drivers.AbstractDevice):
             if newtotal >= oldtotal:
                 delta = newtotal - oldtotal
             else:
-                loginf("%s decrement ignored:"
-                       " new: %s old: %s" % (label, newtotal, oldtotal))
+                loginf('%s decrement ignored: new: %s old: %s' % (label, newtotal, oldtotal))
         return delta
 
     @staticmethod
@@ -580,10 +587,12 @@ class SDRDriver(weewx.drivers.AbstractDevice):
         if len(pparts) == 3:
             for k in keylist:
                 kparts = k.split('.')
-                if (len(kparts) == 3 and
-                    SDRDriver._part_match(pparts[0], kparts[0]) and
-                    SDRDriver._part_match(pparts[1], kparts[1]) and
-                    SDRDriver._part_match(pparts[2], kparts[2])):
+                if (
+                    len(kparts) == 3
+                    and SDRDriver._part_match(pparts[0], kparts[0])
+                    and SDRDriver._part_match(pparts[1], kparts[1])
+                    and SDRDriver._part_match(pparts[2], kparts[2])
+                ):
                     match = k
                     break
                 elif pparts[0] == k:
@@ -618,27 +627,36 @@ Hide:
     syslog.openlog('sdr', syslog.LOG_PID | syslog.LOG_CONS)
     syslog.setlogmask(syslog.LOG_UPTO(syslog.LOG_INFO))
     parser = optparse.OptionParser(usage=usage)
-    parser.add_option('--version', dest='version', action='store_true',
-                      help='display driver version')
-    parser.add_option('--debug', dest='debug', action='store_true',
-                      help='display diagnostic information while running')
-    parser.add_option('--cmd', dest='cmd', default=DEFAULT_CMD,
-                      help='rtl command with options')
-    parser.add_option('--path', dest='path',
-                      help='value for PATH')
-    parser.add_option('--ld_library_path', dest='ld_library_path',
-                      help='value for LD_LIBRARY_PATH')
-    parser.add_option('--config',
-                      help='configuration file with sensor map')
-    parser.add_option('--hide', dest='hidden', default='empty',
-                      help='output to be hidden as comma-delimited list: out, parsed, unparsed, mapped, unmapped, empty')
-    parser.add_option('--action', dest='action', default='show-packets',
-                      help='actions include show-packets, show-detected, list-supported')
+    parser.add_option(
+        '--version', dest='version', action='store_true', help='display driver version'
+    )
+    parser.add_option(
+        '--debug',
+        dest='debug',
+        action='store_true',
+        help='display diagnostic information while running',
+    )
+    parser.add_option('--cmd', dest='cmd', default=DEFAULT_CMD, help='rtl command with options')
+    parser.add_option('--path', dest='path', help='value for PATH')
+    parser.add_option('--ld_library_path', dest='ld_library_path', help='value for LD_LIBRARY_PATH')
+    parser.add_option('--config', help='configuration file with sensor map')
+    parser.add_option(
+        '--hide',
+        dest='hidden',
+        default='empty',
+        help='output to be hidden as comma-delimited list: out, parsed, unparsed, mapped, unmapped, empty',
+    )
+    parser.add_option(
+        '--action',
+        dest='action',
+        default='show-packets',
+        help='actions include show-packets, show-detected, list-supported',
+    )
 
     (options, args) = parser.parse_args()
 
     if options.version:
-        print("sdr driver version %s" % DRIVER_VERSION)
+        print('sdr driver version %s' % DRIVER_VERSION)
         exit(1)
 
     if options.debug:
@@ -647,19 +665,19 @@ Hide:
     sensor_map = dict()
     if options.config:
         import weecfg
+
         config_path, config_dict = weecfg.read_config(options.config)
         sensor_map = config_dict.get('SDR', {}).get('sensor_map', {})
 
     if options.action == 'list-supported':
         pkt_names = PacketFactory.known_packets()
-        print("%s known packet types" % len(pkt_names))
+        print('%s known packet types' % len(pkt_names))
         for pt in pkt_names:
             print("%s '%s'" % (pt.__name__, pt.IDENTIFIER))
     elif options.action == 'show-detected':
         # display identifiers for detected sensors
         mgr = ProcManager()
-        mgr.startup(options.cmd, path=options.path,
-                    ld_library_path=options.ld_library_path)
+        mgr.startup(options.cmd, path=options.path, ld_library_path=options.ld_library_path)
         detected = dict()
         for lines in mgr.get_stdout():
             # print("out: %s" % lines)
@@ -677,12 +695,10 @@ Hide:
         # display output and parsed/unparsed packets
         hidden = [x.strip() for x in options.hidden.split(',')]
         mgr = ProcManager()
-        mgr.startup(options.cmd, path=options.path,
-                    ld_library_path=options.ld_library_path)
+        mgr.startup(options.cmd, path=options.path, ld_library_path=options.ld_library_path)
         for lines in mgr.get_stdout():
-            if 'out' not in hidden and (
-                    'empty' not in hidden or len(lines)):
-                print("out: %s" % lines)
+            if 'out' not in hidden and ('empty' not in hidden or len(lines)):
+                print('out: %s' % lines)
             for p in PacketFactory.create(lines):
                 if p:
                     if 'parsed' not in hidden:
@@ -696,12 +712,11 @@ Hide:
                             if 'unmapped' not in hidden:
                                 print('unmapped: %s' % p)
                 else:
-                    if 'unparsed' not in hidden and (
-                            'empty' not in hidden or len(lines)):
-                        print("unparsed: %s" % lines)
+                    if 'unparsed' not in hidden and ('empty' not in hidden or len(lines)):
+                        print('unparsed: %s' % lines)
         for line in mgr.get_stderr():
             line = line.rstrip()
-            print("err: %s" % line)
+            print('err: %s' % line)
 
 
 if __name__ == '__main__':

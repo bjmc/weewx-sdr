@@ -1,11 +1,12 @@
 import weewx
+
 from ..packet import Packet
 
 
 class AlectoV1TemperaturePacket(Packet):
     # {"time" : "2024-12-28 09:06:10", "model" : "AlectoV1-Temperature", "id" : 33, "channel" : 1, "battery_ok" : 1, "temperature_C" : -2.200, "humidity" : 51, "mic" : "CHECKSUM"}
 
-    IDENTIFIER = "AlectoV1-Temperature"
+    IDENTIFIER = 'AlectoV1-Temperature'
 
     @staticmethod
     def parse_json(obj):
@@ -24,7 +25,7 @@ class AlectoV1TemperaturePacket(Packet):
 class AlectoV1WindPacket(Packet):
     # {"time" : "2024-12-28 09:06:41", "model" : "AlectoV1-Wind", "id" : 33, "channel" : 1, "battery_ok" : 1, "wind_avg_m_s" : 0.800, "wind_max_m_s" : 1.000, "wind_dir_deg" : 180, "mic" : "CHECKSUM"}
 
-    IDENTIFIER = "AlectoV1-Wind"
+    IDENTIFIER = 'AlectoV1-Wind'
 
     @staticmethod
     def parse_json(obj):
@@ -44,7 +45,7 @@ class AlectoV1WindPacket(Packet):
 class AlectoV1RainPacket(Packet):
     # {"time" : "2024-12-28 09:06:31", "model" : "AlectoV1-Rain", "id" : 202, "channel" : 0, "battery_ok" : 1, "rain_mm" : 54.750, "mic" : "CHECKSUM"}
 
-    IDENTIFIER = "AlectoV1-Rain"
+    IDENTIFIER = 'AlectoV1-Rain'
 
     @staticmethod
     def parse_json(obj):

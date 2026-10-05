@@ -1,6 +1,4 @@
-
 class Packet:
-
     def __init__(self):
         pass
 
@@ -20,7 +18,7 @@ class Packet:
         try:
             m = Packet.TS_PATTERN.search(line)
             if m:
-                utc = time.strptime(m.group(1), "%Y-%m-%d %H:%M:%S")
+                utc = time.strptime(m.group(1), '%Y-%m-%d %H:%M:%S')
                 ts = timegm(utc)
         except Exception as e:
             logerr("parse timestamp failed for '%s': %s" % (line, e))
@@ -88,15 +86,14 @@ class Packet:
                             if m:
                                 value = m.group(1)
                             else:
-                                logdbg("regex failed for %s:'%s'" %
-                                       (name, value))
+                                logdbg("regex failed for %s:'%s'" % (name, value))
                         if parseinfo[name][2]:
                             value = parseinfo[name][2](value)
                         if parseinfo[name][0]:
                             name = parseinfo[name][0]
                         packet[name] = value
                     else:
-                        logdbg("ignoring %s:%s" % (name, value))
+                        logdbg('ignoring %s:%s' % (name, value))
                 except Exception as e:
                     logerr("parse failed for line '%s': %s" % (line, e))
             else:
@@ -116,5 +113,5 @@ class Packet:
         if 'usUnits' in pkt:
             packet['usUnits'] = pkt.pop('usUnits', 0)
         for n in pkt:
-            packet["%s.%s.%s" % (n, sensor_id, packet_type)] = pkt[n]
+            packet['%s.%s.%s' % (n, sensor_id, packet_type)] = pkt[n]
         return packet

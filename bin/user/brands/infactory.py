@@ -1,11 +1,12 @@
 import weewx
+
 from ..packet import Packet
 
 
 class InFactoryTHPacket(Packet):
     # {"time" : "2021-03-03 10:19:53", "model" : "inFactory-TH", "id" : 195, "channel" : 1, "battery_ok" : 1, "temperature_F" : 73.200, "humidity" : 55, "mic" : "CRC"}
 
-    IDENTIFIER = "nFactory-TH"
+    IDENTIFIER = 'nFactory-TH'
 
     @staticmethod
     def parse_json(obj):
@@ -19,5 +20,3 @@ class InFactoryTHPacket(Packet):
         pkt['channel'] = obj.get('channel')
         pkt = Packet.add_identifiers(pkt, sensor_id, InFactoryTHPacket.__name__)
         return pkt
-
-

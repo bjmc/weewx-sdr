@@ -1,4 +1,5 @@
 import weewx
+
 from ..packet import Packet
 
 
@@ -7,7 +8,7 @@ class EcoWittWH40Packet(Packet):
 
     # {"time" : "2020-02-05 12:37:05", "model" : "EcoWitt-WH40", "id" : 52591, "rain_mm" : 0.800, "data" : "0002ed0000", "mic" : "CRC"}
 
-    IDENTIFIER = "EcoWitt-WH40"
+    IDENTIFIER = 'EcoWitt-WH40'
 
     @staticmethod
     def parse_json(obj):
@@ -32,7 +33,7 @@ class EcoWittWS68Packet(Packet):
 
     # {"time" : "2022-09-26 00:47:41", "model" : "EcoWitt-WS68", "id" : 388, "battery_raw" : 90, "battery_ok" : 1, "lux_raw" : 0, "wind_avg_raw" : 0, "wind_max_raw" : 0, "wind_dir_deg" : 157, "data" : "00 210", "mic" : "CRC"}
 
-    IDENTIFIER = "EcoWitt-WS68"
+    IDENTIFIER = 'EcoWitt-WS68'
 
     @staticmethod
     def parse_json(obj):
@@ -54,5 +55,3 @@ class EcoWittWS68Packet(Packet):
         pkt['wind_dir'] = Packet.get_float(obj, 'wind_dir_deg')
         pkt = Packet.add_identifiers(pkt, sensor_id, EcoWittWS68Packet.__name__)
         return pkt
-
-

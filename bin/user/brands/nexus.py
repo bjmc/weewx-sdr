@@ -1,4 +1,5 @@
 import weewx
+
 from ..packet import Packet
 
 
@@ -15,15 +16,14 @@ class NexusTemperaturePacket(Packet):
     #    Temperature:     20.10 C
     #    Humidity:        42 %
 
-    IDENTIFIER = "Nexus Temperature"
+    IDENTIFIER = 'Nexus Temperature'
     PARSEINFO = {
         'House Code': ['house_code', None, lambda x: int(x)],
         'Battery': ['battery', None, lambda x: 0 if x == 'OK' else 1],
-                'Channel': ['channel', None, lambda x: int(x)],
-        'Temperature':
-            ['temperature', re.compile('([\d.-]+) C'), lambda x : float(x)],
-        'Humidity':
-            ['humidity', re.compile('([\d.-]+) %'), lambda x : float(x)]}
+        'Channel': ['channel', None, lambda x: int(x)],
+        'Temperature': ['temperature', re.compile('([\d.-]+) C'), lambda x: float(x)],
+        'Humidity': ['humidity', re.compile('([\d.-]+) %'), lambda x: float(x)],
+    }
 
     @staticmethod
     def parse_text(ts, payload, lines):
@@ -45,5 +45,3 @@ class NexusTemperaturePacket(Packet):
         if 'humidity' in obj:
             pkt['humidity'] = Packet.get_float(obj, 'humidity')
         return OS.insert_ids(pkt, NexusTemperaturePacket.__name__)
-
-

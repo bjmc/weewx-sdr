@@ -1,4 +1,5 @@
 import weewx
+
 from ..packet import Packet
 
 
@@ -26,7 +27,7 @@ class Bresser5in1Packet(Packet):
     # "wind_max_m_s" : 4.000, "wind_avg_m_s" : 2.400, "wind_dir_deg" : 67.500,
     # "rain_mm" : 0.800, "mic" : "CHECKSUM"}
 
-    IDENTIFIER = "Bresser-5in1"
+    IDENTIFIER = 'Bresser-5in1'
 
     @staticmethod
     def parse_json(obj):
@@ -41,17 +42,19 @@ class Bresser5in1Packet(Packet):
         pkt['uv_index'] = Packet.get_float(obj, 'uvi')
         pkt['battery'] = Packet.get_battery(obj)
         # deal with different labels from rtl_433
-        for dst, src in [('wind_speed', 'wind_speed_ms'),
-                         ('wind_speed', 'wind_speed'),
-                         ('wind_speed', 'wind_avg_m_s'),
-                         ('gust_speed', 'gust_speed_ms'),
-                         ('gust_speed', 'gust_speed'),
-                         ('rain_total', 'rainfall_mm'),
-                         ('rain_total', 'rain_mm'),
-                         ('wind_gust', 'gust_speed_ms'),
-                         ('wind_gust', 'wind_gust'),
-                         ('wind_gust', 'gust_speed'),
-                         ('wind_gust', 'wind_max_m_s')]:
+        for dst, src in [
+            ('wind_speed', 'wind_speed_ms'),
+            ('wind_speed', 'wind_speed'),
+            ('wind_speed', 'wind_avg_m_s'),
+            ('gust_speed', 'gust_speed_ms'),
+            ('gust_speed', 'gust_speed'),
+            ('rain_total', 'rainfall_mm'),
+            ('rain_total', 'rain_mm'),
+            ('wind_gust', 'gust_speed_ms'),
+            ('wind_gust', 'wind_gust'),
+            ('wind_gust', 'gust_speed'),
+            ('wind_gust', 'wind_max_m_s'),
+        ]:
             if src in obj:
                 pkt[dst] = Packet.get_float(obj, src)
         pkt = Packet.add_identifiers(pkt, station_id, Bresser5in1Packet.__name__)
@@ -77,7 +80,7 @@ class Bresser6in1Packet(Packet):
     # "data" : "e7897fd71fd6ef9bff78f7feff18768028e02910640087080100",
     # "mic" : "CHECKSUM"}#012
 
-    IDENTIFIER = "Bresser-6in1"
+    IDENTIFIER = 'Bresser-6in1'
 
     @staticmethod
     def parse_json(obj):
@@ -101,14 +104,16 @@ class Bresser6in1Packet(Packet):
         if 'uv_index' in obj:
             pkt['uv_index'] = Packet.get_float(obj, 'uvi')
         # deal with different labels from rtl_433
-        for dst, src in [('wind_speed', 'wind_speed_ms'),
-                     ('gust_speed', 'gust_speed_ms'),
-                     ('rain_total', 'rainfall_mm'),
-                     ('wind_speed', 'wind_speed'),
-                     ('gust_speed', 'gust_speed'),
-                     ('rain_total', 'rain_mm')]:
-           if src in obj:
-               pkt[dst] = Packet.get_float(obj, src)
+        for dst, src in [
+            ('wind_speed', 'wind_speed_ms'),
+            ('gust_speed', 'gust_speed_ms'),
+            ('rain_total', 'rainfall_mm'),
+            ('wind_speed', 'wind_speed'),
+            ('gust_speed', 'gust_speed'),
+            ('rain_total', 'rain_mm'),
+        ]:
+            if src in obj:
+                pkt[dst] = Packet.get_float(obj, src)
         pkt = Packet.add_identifiers(pkt, station_id, Bresser6in1Packet.__name__)
         return pkt
 
@@ -120,7 +125,7 @@ class Bresser7in1Packet(Packet):
     #  "light_klx" : 8.592, "light_lux" : 8592.000, "uv" : 1.000,
     #  "battery_ok" : 1, "mic " : "CRC"}
 
-    IDENTIFIER = "Bresser-7in1"
+    IDENTIFIER = 'Bresser-7in1'
 
     @staticmethod
     def parse_json(obj):
@@ -146,7 +151,7 @@ class BresserProRainGaugePacket(Packet):
     # "id" : 17, "battery_ok" : 1, "temperature_C" : 9.800,
     # "rain_mm" : 122.000, "mic" : "CHECKSUM"
 
-    IDENTIFIER = "Bresser-ProRainGauge"
+    IDENTIFIER = 'Bresser-ProRainGauge'
 
     @staticmethod
     def parse_json(obj):
@@ -159,5 +164,3 @@ class BresserProRainGaugePacket(Packet):
         pkt['battery'] = Packet.get_battery(obj)
         pkt = Packet.add_identifiers(pkt, sensor_id, BresserProRainGaugePacket.__name__)
         return pkt
-
-

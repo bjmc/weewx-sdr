@@ -1,4 +1,5 @@
 import weewx
+
 from ..packet import Packet
 
 
@@ -7,11 +8,11 @@ class EM3551HPacket(Packet):
 
     # {"time" : "2024-10-25 17:51:33", "model" : "Emax-EM3551H", "id" : 1001, "channel" : 4, "battery_ok" : 1, "temperature_F" : 55.700,"humidity" : 95, "wind_avg_km_h" : 0.000, "wind_max_km_h" : 0.000, "wind_dir_deg" : 169, "rain_mm" : 0.000, "mic" : "CHECKSUM"}
 
-    IDENTIFIER = "Emax-EM3551H"
+    IDENTIFIER = 'Emax-EM3551H'
 
     @staticmethod
     def parse_json(obj):
-        sensor_id = obj.get('id') # changes when the outdoor sensor is reset
+        sensor_id = obj.get('id')  # changes when the outdoor sensor is reset
         pkt = dict()
         pkt['dateTime'] = Packet.parse_time(obj.get('time'))
         pkt['usUnits'] = weewx.METRIC
@@ -24,5 +25,3 @@ class EM3551HPacket(Packet):
         pkt['rain_total'] = Packet.get_float(obj, 'rain_mm')
         pkt = Packet.add_identifiers(pkt, sensor_id, EM3551HPacket.__name__)
         return pkt
-
-

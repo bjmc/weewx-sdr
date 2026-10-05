@@ -1,4 +1,5 @@
 import weewx
+
 from ..packet import Packet
 
 
@@ -7,7 +8,7 @@ class OS(object):
     def insert_ids(pkt, pkt_type):
         channel = pkt.pop('channel', 0)
         code = pkt.pop('house_code', 0)
-        sensor_id = "%s:%s" % (channel, code)
+        sensor_id = '%s:%s' % (channel, code)
         return Packet.add_identifiers(pkt, sensor_id, pkt_type)
 
 
@@ -19,16 +20,15 @@ class OSPCR800Packet(Packet):
     # Rain Rate: 0.0 in/hr
     # Total Rain: 41.0 in
 
-    #IDENTIFIER = "PCR800"
-    IDENTIFIER = "Oregon-PCR800"
+    # IDENTIFIER = "PCR800"
+    IDENTIFIER = 'Oregon-PCR800'
     PARSEINFO = {
         'House Code': ['house_code', None, lambda x: int(x)],
         'Channel': ['channel', None, lambda x: int(x)],
         'Battery': ['battery', None, lambda x: 0 if x == 'OK' else 1],
-        'Rain Rate':
-            ['rain_rate', re.compile('([\d.]+) in'), lambda x: float(x)],
-        'Total Rain':
-            ['rain_total', re.compile('([\d.]+) in'), lambda x: float(x)]}
+        'Rain Rate': ['rain_rate', re.compile('([\d.]+) in'), lambda x: float(x)],
+        'Total Rain': ['rain_total', re.compile('([\d.]+) in'), lambda x: float(x)],
+    }
 
     @staticmethod
     def parse_text(ts, payload, lines):
@@ -53,15 +53,17 @@ class OSPCR800Packet(Packet):
         pkt['rain_total'] = Packet.get_float(obj, 'rain_in')
         return OS.insert_ids(pkt, OSPCR800Packet.__name__)
 
+
 class OSBTHR918Packet(Packet):
-    IDENTIFIER = "BTHR918"
+    IDENTIFIER = 'BTHR918'
     PARSEINFO = {
         'House Code': ['house_code', None, lambda x: int(x)],
         'Channel': ['channel', None, lambda x: int(x)],
         'Battery': ['battery', None, lambda x: 0 if x == 'OK' else 1],
         'Temperature': ['temperature', re.compile('([\d.-]+) C'), lambda x: float(x)],
         'Humidity': ['humidity', re.compile('([\d.]+) %'), lambda x: float(x)],
-        'Pressure': ['pressure', re.compile('([\d.]+) mbar'), lambda x: float(x)]}
+        'Pressure': ['pressure', re.compile('([\d.]+) mbar'), lambda x: float(x)],
+    }
 
     @staticmethod
     def parse_text(ts, payload, lines):
@@ -90,6 +92,7 @@ class OSBTHR918Packet(Packet):
             pkt['pressure'] = Packet.get_float(obj, 'pressure_hPa')
         return OS.insert_ids(pkt, OSBTHR918Packet.__name__)
 
+
 # apparently rtl_433 uses BHTR968 when it should be BTHR968
 class OSBTHR968Packet(Packet):
     # Added 2017-04-22 ALG
@@ -102,14 +105,15 @@ class OSBTHR968Packet(Packet):
     # Humidity:        36 %
     # Pressure:        1012 mbar
 
-    IDENTIFIER = "BHTR968"
+    IDENTIFIER = 'BHTR968'
     PARSEINFO = {
         'House Code': ['house_code', None, lambda x: int(x)],
         'Channel': ['channel', None, lambda x: int(x)],
         'Battery': ['battery', None, lambda x: 0 if x == 'OK' else 1],
         'Temperature': ['temperature', re.compile('([\d.-]+) C'), lambda x: float(x)],
         'Humidity': ['humidity', re.compile('([\d.]+) %'), lambda x: float(x)],
-        'Pressure': ['pressure', re.compile('([\d.]+) mbar'), lambda x: float(x)]}
+        'Pressure': ['pressure', re.compile('([\d.]+) mbar'), lambda x: float(x)],
+    }
 
     @staticmethod
     def parse_text(ts, payload, lines):
@@ -151,14 +155,14 @@ class OSTHGR122NPacket(Packet):
     # Temperature:     27.30 C
     # Humidity:        36 %
 
-    IDENTIFIER = "THGR122N"
+    IDENTIFIER = 'THGR122N'
     PARSEINFO = {
         'House Code': ['house_code', None, lambda x: int(x)],
         'Channel': ['channel', None, lambda x: int(x)],
         'Battery': ['battery', None, lambda x: 0 if x == 'OK' else 1],
-        'Temperature': [
-            'temperature', re.compile('([\d.-]+) C'), lambda x: float(x)],
-        'Humidity': ['humidity', re.compile('([\d.]+) %'), lambda x: float(x)]}
+        'Temperature': ['temperature', re.compile('([\d.-]+) C'), lambda x: float(x)],
+        'Humidity': ['humidity', re.compile('([\d.]+) %'), lambda x: float(x)],
+    }
 
     @staticmethod
     def parse_text(ts, payload, lines):
@@ -202,16 +206,15 @@ class OSTHGR810Packet(Packet):
     # Fahrenheit: 71.96 F
     # Humidity: 57 %
 
-    IDENTIFIER = "THGR810"
+    IDENTIFIER = 'THGR810'
     PARSEINFO = {
         'House Code': ['house_code', None, lambda x: int(x)],
         'Channel': ['channel', None, lambda x: int(x)],
         'Battery': ['battery', None, lambda x: 0 if x == 'OK' else 1],
-        'Celcius': [
-            'temperature', re.compile('([\d.-]+) C'), lambda x: float(x)],
-        'Fahrenheit': [
-            'temperature_F', re.compile('([\d.-]+) F'), lambda x: float(x)],
-        'Humidity': ['humidity', re.compile('([\d.]+) %'), lambda x: float(x)]}
+        'Celcius': ['temperature', re.compile('([\d.-]+) C'), lambda x: float(x)],
+        'Fahrenheit': ['temperature_F', re.compile('([\d.-]+) F'), lambda x: float(x)],
+        'Humidity': ['humidity', re.compile('([\d.]+) %'), lambda x: float(x)],
+    }
 
     @staticmethod
     def parse_text(ts, payload, lines):
@@ -243,13 +246,13 @@ class OSTHR128Packet(Packet):
     # Battery:         OK
     # Temperature:     18.800 C
 
-    IDENTIFIER = "OSv1 Temperature Sensor"
+    IDENTIFIER = 'OSv1 Temperature Sensor'
     PARSEINFO = {
         'House Code': ['house_code', None, lambda x: int(x)],
         'Channel': ['channel', None, lambda x: int(x)],
         'Battery': ['battery', None, lambda x: 0 if x == 'OK' else 1],
-        'Temperature':
-            ['temperature', re.compile('([\d.-]+) C'), lambda x : float(x)]}
+        'Temperature': ['temperature', re.compile('([\d.-]+) C'), lambda x: float(x)],
+    }
 
     @staticmethod
     def parse_text(ts, payload, lines):
@@ -279,13 +282,13 @@ class OSTHR228NPacket(Packet):
     # Battery:         OK
     # Temperature:     24.70 C
 
-    IDENTIFIER = "Oregon-THR228N"
+    IDENTIFIER = 'Oregon-THR228N'
     PARSEINFO = {
         'House Code': ['house_code', None, lambda x: int(x)],
         'Channel': ['channel', None, lambda x: int(x)],
         'Battery': ['battery', None, lambda x: 0 if x == 'OK' else 1],
-        'Temperature':
-            ['temperature', re.compile('([\d.-]+) C'), lambda x : float(x)]}
+        'Temperature': ['temperature', re.compile('([\d.-]+) C'), lambda x: float(x)],
+    }
 
     @staticmethod
     def parse_text(ts, payload, lines):
@@ -307,6 +310,7 @@ class OSTHR228NPacket(Packet):
         pkt['temperature'] = Packet.get_float(obj, 'temperature_C')
         return OS.insert_ids(pkt, OSTHR228NPacket.__name__)
 
+
 class OSUV800Packet(Packet):
     # 2017-01-30 22:00:12 : OS : UV800
     # House Code: 207
@@ -314,13 +318,13 @@ class OSUV800Packet(Packet):
     # Battery: OK
     # UV Index: 0
 
-    IDENTIFIER = "UV800"
+    IDENTIFIER = 'UV800'
     PARSEINFO = {
         'House Code': ['house_code', None, lambda x: int(x)],
         'Channel': ['channel', None, lambda x: int(x)],
         'Battery': ['battery', None, lambda x: 0 if x == 'OK' else 1],
-        'UV Index':
-            ['uv_index', re.compile('([\d.-]+) C'), lambda x : float(x)]}
+        'UV Index': ['uv_index', re.compile('([\d.-]+) C'), lambda x: float(x)],
+    }
 
     @staticmethod
     def parse_text(ts, payload, lines):
@@ -352,11 +356,12 @@ class OSUVR128Packet(Packet):
     # UV Index: 0
     # Battery: OK
 
-    IDENTIFIER = "UVR128"
+    IDENTIFIER = 'UVR128'
     PARSEINFO = {
         'House Code': ['house_code', None, lambda x: int(x)],
         'UV Index': ['uv_index', re.compile('([\d.-]+) C'), lambda x: float(x)],
-        'Battery': ['battery', None, lambda x: 0 if x == 'OK' else 1]}
+        'Battery': ['battery', None, lambda x: 0 if x == 'OK' else 1],
+    }
 
     @staticmethod
     def parse_text(ts, payload, lines):
@@ -389,17 +394,15 @@ class OSWGR800Packet(Packet):
     # Average: 1.1 m/s
     # Direction: 22.5 degrees
 
-    IDENTIFIER = "WGR800"
+    IDENTIFIER = 'WGR800'
     PARSEINFO = {
         'House Code': ['house_code', None, lambda x: int(x)],
         'Channel': ['channel', None, lambda x: int(x)],
         'Battery': ['battery', None, lambda x: 0 if x == 'OK' else 1],
-        'Gust': [
-            'wind_gust', re.compile('([\d.]+) m'), lambda x: float(x)],
-        'Average': [
-            'wind_speed', re.compile('([\d.]+) m'), lambda x: float(x)],
-        'Direction': [
-            'wind_dir', re.compile('([\d.]+) degrees'), lambda x: float(x)]}
+        'Gust': ['wind_gust', re.compile('([\d.]+) m'), lambda x: float(x)],
+        'Average': ['wind_speed', re.compile('([\d.]+) m'), lambda x: float(x)],
+        'Direction': ['wind_dir', re.compile('([\d.]+) degrees'), lambda x: float(x)],
+    }
 
     @staticmethod
     def parse_text(ts, payload, lines):
@@ -431,12 +434,13 @@ class OSTHN802Packet(Packet):
     # Battery:         OK
     # Celcius:         26.60 C
 
-    IDENTIFIER = "THN802"
+    IDENTIFIER = 'THN802'
     PARSEINFO = {
         'House Code': ['house_code', None, lambda x: int(x)],
         'Channel': ['channel', None, lambda x: int(x)],
         'Battery': ['battery', None, lambda x: 0 if x == 'OK' else 1],
-        'Celcius': ['temperature', re.compile('([\d.-]+) C'), lambda x: float(x)]}
+        'Celcius': ['temperature', re.compile('([\d.-]+) C'), lambda x: float(x)],
+    }
 
     @staticmethod
     def parse_text(ts, payload, lines):
@@ -469,14 +473,15 @@ class OSBTHGN129Packet(Packet):
     # Humidity:        50 %
     # Pressure:        959.36 mPa
 
-    IDENTIFIER = "BTHGN129"
+    IDENTIFIER = 'BTHGN129'
     PARSEINFO = {
         'House Code': ['house_code', None, lambda x: int(x)],
         'Channel': ['channel', None, lambda x: int(x)],
         'Battery': ['battery', None, lambda x: 0 if x == 'OK' else 1],
         'Celcius': ['temperature', re.compile('([\d.-]+) C'), lambda x: float(x)],
         'Humidity': ['humidity', re.compile('([\d.]+) %'), lambda x: float(x)],
-        'Pressure': ['pressure', re.compile('([\d.]+) mPa'), lambda x: float(x)]}
+        'Pressure': ['pressure', re.compile('([\d.]+) mPa'), lambda x: float(x)],
+    }
 
     @staticmethod
     def parse_text(ts, payload, lines):
@@ -506,7 +511,7 @@ class OSTHGR968Packet(Packet):
     # {"time" : "2019-02-15 13:43:25", "brand" : "OS", "model" : "THGR968", "id" : 187, "channel" : 1, "battery" : "OK", "temperature_C" : 16.500, "humidity" : 11}
     # '{"time" : "2019-02-15 13:43:26", "brand" : "OS", "model" : "THGR968", "id" : 187, "channel" : 1, "battery" : "OK", "temperature_C" : 16.500, "humidity" : 11}
 
-    IDENTIFIER = "THGR968"
+    IDENTIFIER = 'THGR968'
 
     @staticmethod
     def parse_json(obj):
@@ -525,7 +530,7 @@ class OSRGR968Packet(Packet):
     # {"time" : "2019-02-15 14:32:51", "brand" : "OS", "model" : "RGR968", "id" : 48, "channel" : 0, "battery" : "OK", "rain_rate" : 0.000, "total_rain" : 6935.100}
     # {"time" : "2019-02-15 14:32:51", "brand" : "OS", "model" : "RGR968", "id" : 48, "channel" : 0, "battery" : "OK", "rain_rate" : 0.000, "total_rain" : 6935.100}
 
-    IDENTIFIER = "RGR968"
+    IDENTIFIER = 'RGR968'
 
     @staticmethod
     def parse_json(obj):
@@ -538,5 +543,3 @@ class OSRGR968Packet(Packet):
         pkt['rain_rate'] = Packet.get_float(obj, 'rain_rate')
         pkt['rain_total'] = Packet.get_float(obj, 'total_rain')
         return OS.insert_ids(pkt, OSRGR968Packet.__name__)
-
-
