@@ -1,0 +1,14 @@
+[project]
+name = "weewx-sdr"
+version = "0.95"
+description = "Weewx extension that captures data from software-defined radios."
+author = "Matthew Wall"
+readme = "readme"
+requires-python = ">=3.10"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "ruff>=0.16.10",
+    "weewx>=5.5.2",
+]
