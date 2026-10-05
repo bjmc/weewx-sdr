@@ -1,7 +1,7 @@
 import weewx
 
-from ..core import to_C
 from ..packet import Packet
+from ..units import to_C
 
 
 class Cotech367959Packet(Packet):

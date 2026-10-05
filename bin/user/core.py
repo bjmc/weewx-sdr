@@ -185,43 +185,6 @@ def confeditor_loader():
     return SDRConfigurationEditor()
 
 
-# utilities for inline unit conversions.  respect the None!
-def to_F(v):
-    if v is not None:
-        v = v * 1.8 + 32
-    return v
-
-
-def to_C(v):
-    if v is not None:
-        v = 5 / 9 * (v - 32)
-    return v
-
-
-def to_mph(v):
-    if v is not None:
-        v *= 0.621371
-    return v
-
-
-def to_in(v):
-    if v is not None:
-        v /= 25.4
-    return v
-
-
-def to_v(v):
-    if v is not None:
-        v /= 1000
-    return v
-
-
-def kmh_to_mps(v):
-    if v is not None:
-        v /= 3.6
-    return v
-
-
 class AsyncReader(threading.Thread):
     def __init__(self, fd, queue, label):
         threading.Thread.__init__(self)

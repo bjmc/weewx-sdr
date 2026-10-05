@@ -110,19 +110,21 @@ from .core import (
     SDRConfigurationEditor,
     SDRDriver,
     confeditor_loader,
-    kmh_to_mps,
     loader,
     logdbg,
     logerr,
     loginf,
     main,
+)
+from .packet import Packet
+from .units import (
+    kmh_to_mps,
     to_C,
     to_F,
     to_in,
     to_mph,
     to_v,
 )
-from .packet import Packet
 
 __all__ = [
     'Acurite',

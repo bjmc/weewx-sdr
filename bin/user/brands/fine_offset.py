@@ -2,8 +2,8 @@ import re
 
 import weewx
 
-from ..core import to_v
 from ..packet import Packet
+from ..units import to_v
 
 
 class FOWH1080Packet(Packet):

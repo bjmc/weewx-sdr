@@ -1,7 +1,7 @@
 import weewx
 
-from ..core import kmh_to_mps
 from ..packet import Packet
+from ..units import kmh_to_mps
 
 
 class Vevor7in1Packet(Packet):

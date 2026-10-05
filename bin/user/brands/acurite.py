@@ -2,8 +2,9 @@ import re
 
 import weewx
 
-from ..core import loginf, to_F, to_in, to_mph
+from ..core import loginf
 from ..packet import Packet
+from ..units import to_F, to_in, to_mph
 
 
 class Acurite(object):
