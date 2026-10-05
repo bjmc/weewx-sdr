@@ -5,7 +5,19 @@ from ..packet import Packet
 
 class ProloguePacket(Packet):
     # 2017-03-19 : Prologue Temperature and Humidity Sensor
-    # {"time" : "2017-03-15 20:14:19", "model" : "Prologue sensor", "id" : 5, "rid" : 166, "channel" : 1, "battery" : "OK", "button" : 0, "temperature_C" : -0.700, "humidity" : 49}
+    EXAMPLES = (
+        {
+            'time': '2017-03-15 20:14:19',
+            'model': 'Prologue sensor',
+            'id': 5,
+            'rid': 166,
+            'channel': 1,
+            'battery': 'OK',
+            'button': 0,
+            'temperature_C': -0.700,
+            'humidity': 49,
+        },
+    )
 
     IDENTIFIER = 'Prologue sensor'
 

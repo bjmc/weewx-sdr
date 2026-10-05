@@ -17,9 +17,39 @@ class Acurite(object):
 
 
 class AcuriteAtlasPacket(Packet):
-    # {"time": "2019-12-14 16:56:57", "model": "Acurite-Atlas", "id": 896, "channel": "A", "sequence_num": 0, "battery_ok": 1, "message_type": 37, "wind_avg_mi_h": 5.000, "temperature_F": 40.000, "humidity": 76, "byte8": 0, "byte9": 37, "byte89": 37}
+    EXAMPLES = (
+        {
+            'time': '2019-12-14 16:56:57',
+            'model': 'Acurite-Atlas',
+            'id': 896,
+            'channel': 'A',
+            'sequence_num': 0,
+            'battery_ok': 1,
+            'message_type': 37,
+            'wind_avg_mi_h': 5.000,
+            'temperature_F': 40.000,
+            'humidity': 76,
+            'byte8': 0,
+            'byte9': 37,
+            'byte89': 37,
+        },
+        {
+            'time': '2019-12-14 16:57:58',
+            'model': 'Acurite-Atlas',
+            'id': 896,
+            'channel': 'A',
+            'sequence_num': 0,
+            'battery_ok': 1,
+            'message_type': 39,
+            'wind_avg_mi_h': 6.000,
+            'uv': 0,
+            'lux': 22900,
+            'byte8': 0,
+            'byte9': 37,
+            'byte89': 37,
+        },
+    )
     # {"time": "2019-12-14 16:57:07", "model": "Acurite-Atlas", "id": 896, "channel": "A", "sequence_num": 0, "battery_ok": 1, "message_type": 38, "wind_avg_mi_h": 6.000, "wind_dir_deg": 291.000, "rain_in": 0.290, "byte8": 0, "byte9": 37, "byte89": 37}}
-    # {"time": "2019-12-14 16:57:58", "model": "Acurite-Atlas", "id": 896, "channel": "A", "sequence_num": 0, "battery_ok": 1, "message_type": 39, "wind_avg_mi_h": 6.000, "uv": 0, "lux": 22900, "byte8": 0, "byte9": 37, "byte89": 37}
 
     # for battery, 0 means OK (assuming that 1 for battery_ok means OK)
     # message types: 37, 38, 39
@@ -75,7 +105,21 @@ class AcuriteAtlasPacket(Packet):
 
 class Acurite3n1PacketV2(Packet):
     # sample json output from rtl_433
-    # {"time" : "2021-12-27 02:53:38", "model" : "Acurite-3n1", "subtype" : 32, "id" : 7220, "channel" : "B", "sequence_num" : 1, "battery_ok" : 1, "wind_avg_mi_h" : 5.000, "temperature_F" : 5.100, "humidity" : 65, "mic" : "CHECKSUM"}
+    EXAMPLES = (
+        {
+            'time': '2021-12-27 02:53:38',
+            'model': 'Acurite-3n1',
+            'subtype': 32,
+            'id': 7220,
+            'channel': 'B',
+            'sequence_num': 1,
+            'battery_ok': 1,
+            'wind_avg_mi_h': 5.000,
+            'temperature_F': 5.100,
+            'humidity': 65,
+            'mic': 'CHECKSUM',
+        },
+    )
 
     IDENTIFIER = 'Acurite-3n1'
 
@@ -177,16 +221,88 @@ class Acurite5n1Packet(Packet):
         return Acurite.insert_ids(pkt, Acurite5n1Packet.__name__)
 
     # sample json output from rtl_433 as of jan2017
-    # {"time" : "2017-01-16 02:34:12", "model" : "Acurite 5n1 sensor", "sensor_id" : 3066, "channel" : "C", "sequence_num" : 1, "battery" : "OK", "message_type" : 49, "wind_speed" : 0.000, "wind_dir_deg" : 67.500, "wind_dir" : "ENE", "rainfall_accumulation" : 0.000, "raincounter_raw" : 8978}
-    # {"time" : "2017-01-16 02:37:33", "model" : "Acurite 5n1 sensor", "sensor_id" : 3066, "channel" : "C", "sequence_num" : 1, "battery" : "OK", "message_type" : 56, "wind_speed" : 0.000, "temperature_F" : 27.500, "humidity" : 56}
+    EXAMPLES = (
+        {
+            'time': '2017-01-16 02:34:12',
+            'model': 'Acurite 5n1 sensor',
+            'sensor_id': 3066,
+            'channel': 'C',
+            'sequence_num': 1,
+            'battery': 'OK',
+            'message_type': 49,
+            'wind_speed': 0.000,
+            'wind_dir_deg': 67.500,
+            'wind_dir': 'ENE',
+            'rainfall_accumulation': 0.000,
+            'raincounter_raw': 8978,
+        },
+        {
+            'time': '2017-01-16 02:37:33',
+            'model': 'Acurite 5n1 sensor',
+            'sensor_id': 3066,
+            'channel': 'C',
+            'sequence_num': 1,
+            'battery': 'OK',
+            'message_type': 56,
+            'wind_speed': 0.000,
+            'temperature_F': 27.500,
+            'humidity': 56,
+        },
+        {
+            'time': '2017-12-24 02:07:00',
+            'model': 'Acurite 5n1 sensor',
+            'sensor_id': 2662,
+            'channel': 'A',
+            'sequence_num': 2,
+            'battery': 'OK',
+            'message_type': 56,
+            'wind_speed_mph': 0.000,
+            'temperature_F': 47.500,
+            'humidity': 74,
+        },
+        {
+            'time': '2017-12-24 02:07:18',
+            'model': 'Acurite 5n1 sensor',
+            'sensor_id': 2662,
+            'channel': 'A',
+            'sequence_num': 2,
+            'battery': 'OK',
+            'message_type': 49,
+            'wind_speed_mph': 0.000,
+            'wind_dir_deg': 157.500,
+            'wind_dir': 'SSE',
+            'rainfall_accumulation_inch': 0.000,
+            'raincounter_raw': 421,
+        },
+        {
+            'time': '2019-01-04 02:37:10',
+            'model': 'Acurite 5n1 sensor',
+            'sensor_id': 2662,
+            'channel': 'A',
+            'sequence_num': 1,
+            'battery': 'OK',
+            'message_type': 56,
+            'wind_speed_kph': 0.000,
+            'temperature_F': 42.400,
+            'humidity': 83,
+        },
+        {
+            'time': '2019-01-04 02:37:28',
+            'model': 'Acurite 5n1 sensor',
+            'sensor_id': 2662,
+            'channel': 'A',
+            'sequence_num': 0,
+            'battery': 'LOW',
+            'message_type': 49,
+            'wind_speed_kph': 0.000,
+            'wind_dir_deg': 180.000,
+            'rain_inch': 28.970,
+        },
+    )
 
     # some changes to rtl_433 as of dec2017
-    # {"time" : "2017-12-24 02:07:00", "model" : "Acurite 5n1 sensor", "sensor_id" : 2662, "channel" : "A", "sequence_num" : 2, "battery" : "OK", "message_type" : 56, "wind_speed_mph" : 0.000, "temperature_F" : 47.500, "humidity" : 74}
-    # {"time" : "2017-12-24 02:07:18", "model" : "Acurite 5n1 sensor", "sensor_id" : 2662, "channel" : "A", "sequence_num" : 2, "battery" : "OK", "message_type" : 49, "wind_speed_mph" : 0.000, "wind_dir_deg" : 157.500, "wind_dir" : "SSE", "rainfall_accumulation_inch" : 0.000, "raincounter_raw" : 421}
 
     # more changes to rtl_433 as of dec2018
-    # {"time" : "2019-01-04 02:37:10", "model" : "Acurite 5n1 sensor", "sensor_id" : 2662, "channel" : "A", "sequence_num" : 1, "battery" : "OK", "message_type" : 56, "wind_speed_kph" : 0.000, "temperature_F" : 42.400, "humidity" : 83}
-    # {"time" : "2019-01-04 02:37:28", "model" : "Acurite 5n1 sensor", "sensor_id" : 2662, "channel" : "A", "sequence_num" : 0, "battery" : "LOW", "message_type" : 49, "wind_speed_kph" : 0.000, "wind_dir_deg" : 180.000, "rain_inch" : 28.970}
 
     @staticmethod
     def parse_json(obj):
@@ -236,10 +352,64 @@ class Acurite5n1PacketV2(Packet):
     # Based on Acurite5n1Packet class, but implemented for unsupported format
 
     # sample json output from rtl_433
-    # {"time" : "2019-07-29 07:46:22.482883", "protocol" : 40, "model" : "Acurite-5n1", "id" : 1234, "channel" : "B", "sequence_num" : 1, "battery_ok" : 1, "message_type" : 56, "wind_avg_km_h" : 0.000, "temperature_C" : 20.500, "humidity" : 93, "mod" : "ASK", "freq" : 433.934, "rssi" : -1.719, "snr" : 24.404, "noise" : -26.124}
-    # {"time" : "2020-02-05 02:20:54", "model" : "Acurite-5n1", "subtype" : 56, "id" : 956, "channel" : "A", "sequence_num" : 2, "battery_ok" : 1, "wind_avg_km_h" : 3.483, "temperature_F" : 31.300, "humidity" : 66}
-    # {"time" : "2020-10-26 22:09:12", "model" : "Acurite-5n1", "message_type" : 49, "id" : 2662, "channel" : "A", "sequence_num" : 0, "battery_ok" : 1, "wind_avg_km_h" : 15.900, "wind_dir_deg" : 337.500, "rain_in" : 7.290, "mic" : "CHECKSUM"}
-    # {"time" : "2020-10-26 22:08:54", "model" : "Acurite-5n1", "message_type" : 56, "id" : 2662, "channel" : "A", "sequence_num" : 2, "battery_ok" : 1, "wind_avg_km_h" : 9.278, "temperature_F" : 76.100, "humidity" : 15, "mic" : "CHECKSUM"}
+    EXAMPLES = (
+        {
+            'time': '2019-07-29 07:46:22.482883',
+            'protocol': 40,
+            'model': 'Acurite-5n1',
+            'id': 1234,
+            'channel': 'B',
+            'sequence_num': 1,
+            'battery_ok': 1,
+            'message_type': 56,
+            'wind_avg_km_h': 0.000,
+            'temperature_C': 20.500,
+            'humidity': 93,
+            'mod': 'ASK',
+            'freq': 433.934,
+            'rssi': -1.719,
+            'snr': 24.404,
+            'noise': -26.124,
+        },
+        {
+            'time': '2020-02-05 02:20:54',
+            'model': 'Acurite-5n1',
+            'subtype': 56,
+            'id': 956,
+            'channel': 'A',
+            'sequence_num': 2,
+            'battery_ok': 1,
+            'wind_avg_km_h': 3.483,
+            'temperature_F': 31.300,
+            'humidity': 66,
+        },
+        {
+            'time': '2020-10-26 22:09:12',
+            'model': 'Acurite-5n1',
+            'message_type': 49,
+            'id': 2662,
+            'channel': 'A',
+            'sequence_num': 0,
+            'battery_ok': 1,
+            'wind_avg_km_h': 15.900,
+            'wind_dir_deg': 337.500,
+            'rain_in': 7.290,
+            'mic': 'CHECKSUM',
+        },
+        {
+            'time': '2020-10-26 22:08:54',
+            'model': 'Acurite-5n1',
+            'message_type': 56,
+            'id': 2662,
+            'channel': 'A',
+            'sequence_num': 2,
+            'battery_ok': 1,
+            'wind_avg_km_h': 9.278,
+            'temperature_F': 76.100,
+            'humidity': 15,
+            'mic': 'CHECKSUM',
+        },
+    )
 
     IDENTIFIER = 'Acurite-5n1'
 
@@ -319,12 +489,50 @@ class AcuriteTowerPacket(Packet):
         return pkt
 
     # JSON format as of mid-2018
-    # {"time" : "2018-07-21 01:53:56", "model" : "Acurite tower sensor", "id" : 13009, "sensor_id" : 13009, "channel" : "A", "temperature_C" : 15.000, "humidity" : 16, "battery_low" : 1}
-    # {"time" : "2018-07-21 01:52:24", "model" : "Acurite tower sensor", "id" : 13009, "sensor_id" : 13009, "channel" : "A", "temperature_C" : 15.600, "humidity" : 16, "battery_low" : 0}
+    EXAMPLES = (
+        {
+            'time': '2018-07-21 01:53:56',
+            'model': 'Acurite tower sensor',
+            'id': 13009,
+            'sensor_id': 13009,
+            'channel': 'A',
+            'temperature_C': 15.000,
+            'humidity': 16,
+            'battery_low': 1,
+        },
+        {
+            'time': '2018-07-21 01:52:24',
+            'model': 'Acurite tower sensor',
+            'id': 13009,
+            'sensor_id': 13009,
+            'channel': 'A',
+            'temperature_C': 15.600,
+            'humidity': 16,
+            'battery_low': 0,
+        },
+        {
+            'time': '2017-01-12 03:43:05',
+            'model': 'Acurite tower sensor',
+            'id': 521,
+            'channel': 'A',
+            'temperature_C': 0.800,
+            'humidity': 68,
+            'battery': 0,
+            'status': 68,
+        },
+        {
+            'time': '2017-01-12 03:43:11',
+            'model': 'Acurite tower sensor',
+            'id': 5585,
+            'channel': 'C',
+            'temperature_C': 21.100,
+            'humidity': 32,
+            'battery': 0,
+            'status': 68,
+        },
+    )
 
     # JSON format as of early 2017
-    # {"time" : "2017-01-12 03:43:05", "model" : "Acurite tower sensor", "id" : 521, "channel" : "A", "temperature_C" : 0.800, "humidity" : 68, "battery" : 0, "status" : 68}
-    # {"time" : "2017-01-12 03:43:11", "model" : "Acurite tower sensor", "id" : 5585, "channel" : "C", "temperature_C" : 21.100, "humidity" : 32, "battery" : 0, "status" : 68}
 
     @staticmethod
     def parse_json(obj):
@@ -347,8 +555,34 @@ class AcuriteTowerPacketV2(Packet):
     # Based on AcuriteTowerPacket type, but implemented for unsupported format
 
     # Sample data:
-    # {"time" : "2019-07-29 07:44:23.005624", "protocol" : 40, "model" : "Acurite-Tower", "id" : 1234, "sensor_id" : 1234, "channel" : "A", "temperature_C" : 22.600, "humidity" : 45, "battery_ok" : 0, "mod" : "ASK", "freq" : 433.938, "rssi" : -0.134, "snr" : 14.391, "noise" : -14.525}
-    # {"time" : "2021-12-20 20:00:59", "model" : "Acurite-Tower", "id" : 11041, "channel" : "B", "battery_ok" : 1, "temperature_C" : -3.500, "humidity" : 71, "mic" : "CHECKSUM"}
+    EXAMPLES = (
+        {
+            'time': '2019-07-29 07:44:23.005624',
+            'protocol': 40,
+            'model': 'Acurite-Tower',
+            'id': 1234,
+            'sensor_id': 1234,
+            'channel': 'A',
+            'temperature_C': 22.600,
+            'humidity': 45,
+            'battery_ok': 0,
+            'mod': 'ASK',
+            'freq': 433.938,
+            'rssi': -0.134,
+            'snr': 14.391,
+            'noise': -14.525,
+        },
+        {
+            'time': '2021-12-20 20:00:59',
+            'model': 'Acurite-Tower',
+            'id': 11041,
+            'channel': 'B',
+            'battery_ok': 1,
+            'temperature_C': -3.500,
+            'humidity': 71,
+            'mic': 'CHECKSUM',
+        },
+    )
 
     IDENTIFIER = 'Acurite-Tower'
 
@@ -378,7 +612,15 @@ class AcuriteTowerPacketV2(Packet):
 
 class Acurite606TXPacket(Packet):
     # 2017-03-20: Acurite 606TX Temperature Sensor
-    # {"time" : "2017-03-04 16:18:12", "model" : "Acurite 606TX Sensor", "id" : 48, "battery" : "OK", "temperature_C" : -1.100}
+    EXAMPLES = (
+        {
+            'time': '2017-03-04 16:18:12',
+            'model': 'Acurite 606TX Sensor',
+            'id': 48,
+            'battery': 'OK',
+            'temperature_C': -1.100,
+        },
+    )
 
     IDENTIFIER = 'Acurite 606TX Sensor'
 
@@ -399,8 +641,24 @@ class Acurite606TXPacket(Packet):
 
 class Acurite606TXPacketV2(Packet):
     # 2021-02-23: Acurite 606TX Temperature Sensor
-    # {"time" : "2021-02-23 16:24:07", "model" : "Acurite-606TX", "id" : 153, "battery_ok" : 1, "temperature_C" : 18.800, "mic" : "CHECKSUM"}
-    # {"time" : "2021-10-26 23:39:49", "model" : "Acurite-606TX", "id" : 194, "battery_ok" : 1, "temperature_C" : 19.200, "mic" : "CHECKSUM"}
+    EXAMPLES = (
+        {
+            'time': '2021-02-23 16:24:07',
+            'model': 'Acurite-606TX',
+            'id': 153,
+            'battery_ok': 1,
+            'temperature_C': 18.800,
+            'mic': 'CHECKSUM',
+        },
+        {
+            'time': '2021-10-26 23:39:49',
+            'model': 'Acurite-606TX',
+            'id': 194,
+            'battery_ok': 1,
+            'temperature_C': 19.200,
+            'mic': 'CHECKSUM',
+        },
+    )
 
     IDENTIFIER = 'Acurite-606TX'
 
@@ -421,9 +679,32 @@ class Acurite606TXPacketV2(Packet):
 
 class AcuriteRain899Packet(Packet):
     # Sample data:
-    # {"time" : "2019-12-05 16:32:20", "model" : "Acurite-Rain899", "id" : 1699, "channel" : 0, "battery_ok" : 0, "rain_mm" : 6.096}
-    # {"time" : "2019-12-05 16:32:20", "model" : "Acurite-Rain899", "id" : 1699, "channel" : 0, "battery_ok" : 0, "rain_mm" : 6.096}
-    # {"time" : "2019-12-05 16:32:20", "model" : "Acurite-Rain899", "id" : 1699, "channel" : 0, "battery_ok" : 0, "rain_mm" : 6.096}
+    EXAMPLES = (
+        {
+            'time': '2019-12-05 16:32:20',
+            'model': 'Acurite-Rain899',
+            'id': 1699,
+            'channel': 0,
+            'battery_ok': 0,
+            'rain_mm': 6.096,
+        },
+        {
+            'time': '2019-12-05 16:32:20',
+            'model': 'Acurite-Rain899',
+            'id': 1699,
+            'channel': 0,
+            'battery_ok': 0,
+            'rain_mm': 6.096,
+        },
+        {
+            'time': '2019-12-05 16:32:20',
+            'model': 'Acurite-Rain899',
+            'id': 1699,
+            'channel': 0,
+            'battery_ok': 0,
+            'rain_mm': 6.096,
+        },
+    )
 
     IDENTIFIER = 'Acurite-Rain899'
 
@@ -444,8 +725,27 @@ class AcuriteRain899Packet(Packet):
 class Acurite986Packet(Packet):
     # 2016-10-31 15:24:29 Acurite 986 sensor 0x2c87 - 2F: 16.7 C 62 F
     # 2016-10-31 15:23:54 Acurite 986 sensor 0x85ed - 1R: 16.7 C 62 F
-    # {"time" : "2018-04-22 18:01:03", "model" : "Acurite 986 Sensor", "id" : 43248, "channel" : "1R", "temperature_F" : 69, "battery" : "OK", "status" : 0}
-    # {"time" : "2020-10-19 07:00:32", "model" : "Acurite-986", "id" : 9534, "channel" : "2F", "battery_ok" : 1, "temperature_F" : -10.000, "status" : 0, "mic" : "CRC"}
+    EXAMPLES = (
+        {
+            'time': '2018-04-22 18:01:03',
+            'model': 'Acurite 986 Sensor',
+            'id': 43248,
+            'channel': '1R',
+            'temperature_F': 69,
+            'battery': 'OK',
+            'status': 0,
+        },
+        {
+            'time': '2020-10-19 07:00:32',
+            'model': 'Acurite-986',
+            'id': 9534,
+            'channel': '2F',
+            'battery_ok': 1,
+            'temperature_F': -10.000,
+            'status': 0,
+            'mic': 'CRC',
+        },
+    )
 
     # The 986 hardware_id changes, so using the 2F and 1R as the hardware
     # identifer.  As long as you only have one set of sendors and your
@@ -504,8 +804,39 @@ class AcuriteLightningPacket(Packet):
     # 2017-01-16 02:37:39 Acurite lightning 0x526F Ch A Msg Type 0x11: 67 C 38 % RH Strikes 47 Distance 81 - dd  52* 6f  a6  11  c3  af  d1  98*
 
     # April 21, 2018 - JSON support
-    # {"time" : "2018-04-21 19:12:53", "model" : "Acurite Lightning 6045M", "id" : 151, "channel" : "C", "temperature_F" : 66.900, "humidity" : 33, "strike_count" : 47, "storm_dist" : 12, "active" : 1, "rfi" : 0, "ussb1" : 1, "battery" : "LOW", "exception" : 0, "raw_msg" : "0097af2150f9afcc2b"}
-    # {"time" : "2020-10-13 22:49:34", "model" : "Acurite-6045M", "id" : 15431, "channel" : "A", "battery_ok" : 0, "temperature_F" : 91.800, "humidity" : 21, "strike_count" : 171, "storm_dist" : 12, "active" : 1, "rfi" : 0, "exception" : 0, "raw_msg" : "fc47af95d2de55cc58"}
+    EXAMPLES = (
+        {
+            'time': '2018-04-21 19:12:53',
+            'model': 'Acurite Lightning 6045M',
+            'id': 151,
+            'channel': 'C',
+            'temperature_F': 66.900,
+            'humidity': 33,
+            'strike_count': 47,
+            'storm_dist': 12,
+            'active': 1,
+            'rfi': 0,
+            'ussb1': 1,
+            'battery': 'LOW',
+            'exception': 0,
+            'raw_msg': '0097af2150f9afcc2b',
+        },
+        {
+            'time': '2020-10-13 22:49:34',
+            'model': 'Acurite-6045M',
+            'id': 15431,
+            'channel': 'A',
+            'battery_ok': 0,
+            'temperature_F': 91.800,
+            'humidity': 21,
+            'strike_count': 171,
+            'storm_dist': 12,
+            'active': 1,
+            'rfi': 0,
+            'exception': 0,
+            'raw_msg': 'fc47af95d2de55cc58',
+        },
+    )
 
     #    IDENTIFIER = "Acurite lightning"
     #    IDENTIFIER = "Acurite Lightning 6045M"
@@ -556,8 +887,30 @@ class AcuriteLightningPacket(Packet):
 
 
 class Acurite00275MPacket(Packet):
-    # {"time" : "2017-03-09 21:59:11", "model" : "00275rm", "probe" : 2, "id" : 3942, "battery" : "OK", "temperature_C" : 23.300, "humidity" : 34, "ptemperature_C" : 22.700, "crc" : "ok"}
-    # {"time" : "2017-03-09 21:59:11", "model" : "00275rm", "probe" : 2, "id" : 3942, "battery" : "OK", "temperature_C" : 23.300, "humidity" : 34, "temperature_1_C" : 22.700, "crc" : "ok"}
+    EXAMPLES = (
+        {
+            'time': '2017-03-09 21:59:11',
+            'model': '00275rm',
+            'probe': 2,
+            'id': 3942,
+            'battery': 'OK',
+            'temperature_C': 23.300,
+            'humidity': 34,
+            'ptemperature_C': 22.700,
+            'crc': 'ok',
+        },
+        {
+            'time': '2017-03-09 21:59:11',
+            'model': '00275rm',
+            'probe': 2,
+            'id': 3942,
+            'battery': 'OK',
+            'temperature_C': 23.300,
+            'humidity': 34,
+            'temperature_1_C': 22.700,
+            'crc': 'ok',
+        },
+    )
 
     IDENTIFIER = '00275rm'
 
@@ -579,9 +932,35 @@ class Acurite00275MPacket(Packet):
 
 
 class AcuriteWT450Packet(Packet):
-    # {"time" : "2017-09-14 20:24:43", "model" : "WT450 sensor", "id" : 1, "channel" : 2, "battery" : "OK", "temperature_C" : 25.090, "humidity" : 49}
-    # {"time" : "2017-09-14 20:24:44", "model" : "WT450 sensor", "id" : 1, "channel" : 2, "battery" : "OK", "temperature_C" : 25.110, "humidity" : 49}
-    # {"time" : "2017-09-14 20:24:44", "model" : "WT450 sensor", "id" : 1, "channel" : 2, "battery" : "OK", "temperature_C" : 25.120, "humidity" : 49}
+    EXAMPLES = (
+        {
+            'time': '2017-09-14 20:24:43',
+            'model': 'WT450 sensor',
+            'id': 1,
+            'channel': 2,
+            'battery': 'OK',
+            'temperature_C': 25.090,
+            'humidity': 49,
+        },
+        {
+            'time': '2017-09-14 20:24:44',
+            'model': 'WT450 sensor',
+            'id': 1,
+            'channel': 2,
+            'battery': 'OK',
+            'temperature_C': 25.110,
+            'humidity': 49,
+        },
+        {
+            'time': '2017-09-14 20:24:44',
+            'model': 'WT450 sensor',
+            'id': 1,
+            'channel': 2,
+            'battery': 'OK',
+            'temperature_C': 25.120,
+            'humidity': 49,
+        },
+    )
 
     IDENTIFIER = 'WT450 sensor'
 

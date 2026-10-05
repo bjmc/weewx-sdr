@@ -40,9 +40,39 @@ class OSPCR800Packet(Packet):
         pkt.update(Packet.parse_lines(lines, OSPCR800Packet.PARSEINFO))
         return OS.insert_ids(pkt, OSPCR800Packet.__name__)
 
-    # {"time" : "2018-08-04 15:29:27", "brand" : "OS", "model" : "PCR800",        "id" : 236, "channel" : 0, "battery" : "OK", "rain_rate" : 0.000, "rain_total" : 109.594}
-    # {"time" : "2020-08-19 19:31:13", "brand" : "OS", "model" : "Oregon-PCR800", "id" : 80, "channel" : 0, "battery_ok" : 1, "rain_rate_in_h" : 0.000, "rain_in" : 27.741}
-    # {"time" : "2020-06-06 20:15:17", "brand" : "OS", "model" : "Oregon-PCR800", "id" : 32, "channel" : 0, "battery_ok" : 1, "rain_rate_in_h" : 0.150, "rain_in" : 0.082}
+    EXAMPLES = (
+        {
+            'time': '2018-08-04 15:29:27',
+            'brand': 'OS',
+            'model': 'PCR800',
+            'id': 236,
+            'channel': 0,
+            'battery': 'OK',
+            'rain_rate': 0.000,
+            'rain_total': 109.594,
+        },
+        {
+            'time': '2020-08-19 19:31:13',
+            'brand': 'OS',
+            'model': 'Oregon-PCR800',
+            'id': 80,
+            'channel': 0,
+            'battery_ok': 1,
+            'rain_rate_in_h': 0.000,
+            'rain_in': 27.741,
+        },
+        {
+            'time': '2020-06-06 20:15:17',
+            'brand': 'OS',
+            'model': 'Oregon-PCR800',
+            'id': 32,
+            'channel': 0,
+            'battery_ok': 1,
+            'rain_rate_in_h': 0.150,
+            'rain_in': 0.082,
+        },
+    )
+
     @staticmethod
     def parse_json(obj):
         pkt = dict()
@@ -76,7 +106,18 @@ class OSBTHR918Packet(Packet):
         return OS.insert_ids(pkt, OSBTHR918Packet.__name__)
 
     # original rtl_433 output
-    # {"time" : "2021-07-25 15:11:11", "model" : "Oregon-BTHR918", "id" : 20, "channel" : 0, "battery_ok" : 1, "temperature_C" : 22.200, "humidity" : 58, "pressure_hPa" : 1009.000}
+    EXAMPLES = (
+        {
+            'time': '2021-07-25 15:11:11',
+            'model': 'Oregon-BTHR918',
+            'id': 20,
+            'channel': 0,
+            'battery_ok': 1,
+            'temperature_C': 22.200,
+            'humidity': 58,
+            'pressure_hPa': 1009.000,
+        },
+    )
 
     @staticmethod
     def parse_json(obj):
@@ -126,9 +167,32 @@ class OSBTHR968Packet(Packet):
         return OS.insert_ids(pkt, OSBTHR968Packet.__name__)
 
     # original rtl_433 output
-    # {"time" : "2017-01-18 14:56:03", "brand" : "OS", "model" :"BHTR968", "id" : 111, "channel" : 0, "battery" : "OK", "temperature_C" : 27.200, "temperature_F" : 80.960,  "humidity" : 46, "pressure" : 1013}
+    EXAMPLES = (
+        {
+            'time': '2017-01-18 14:56:03',
+            'brand': 'OS',
+            'model': 'BHTR968',
+            'id': 111,
+            'channel': 0,
+            'battery': 'OK',
+            'temperature_C': 27.200,
+            'temperature_F': 80.960,
+            'humidity': 46,
+            'pressure': 1013,
+        },
+        {
+            'time': '2019-03-06 13:27:23',
+            'brand': 'OS',
+            'model': 'BHTR968',
+            'id': 179,
+            'channel': 0,
+            'battery': 'LOW',
+            'temperature_C': 19.800,
+            'humidity': 54,
+            'pressure_hPa': 974.000,
+        },
+    )
     # by 06mar2019
-    # {"time" : "2019-03-06 13:27:23", "brand" : "OS", "model" : "BHTR968", "id" : 179, "channel" : 0, "battery" : "LOW", "temperature_C" : 19.800, "humidity" : 54, "pressure_hPa" : 974.000}
     # by 03mar2022
     # out:['{"time" : "2022-03-03 15:44:25", "model" : "Oregon-BHTR968", "id" : 219, "channel" : 0, "battery_ok" : 1, "temperature_C" : 21.700, "humidity" : 40, "pressure_hPa" : 990.000}
 
@@ -174,7 +238,18 @@ class OSTHGR122NPacket(Packet):
         pkt.update(Packet.parse_lines(lines, OSTHGR122NPacket.PARSEINFO))
         return OS.insert_ids(pkt, OSTHGR122NPacket.__name__)
 
-    # {"time" : "2017-01-18 14:56:03", "brand" : "OS", "model" :"THGR122N", "id" : 211, "channel" : 1, "battery" : "LOW", "temperature_C" : 7.900, "humidity" : 27}
+    EXAMPLES = (
+        {
+            'time': '2017-01-18 14:56:03',
+            'brand': 'OS',
+            'model': 'THGR122N',
+            'id': 211,
+            'channel': 1,
+            'battery': 'LOW',
+            'temperature_C': 7.900,
+            'humidity': 27,
+        },
+    )
 
     @staticmethod
     def parse_json(obj):
@@ -226,7 +301,18 @@ class OSTHGR810Packet(Packet):
         pkt.update(Packet.parse_lines(lines, OSTHGR810Packet.PARSEINFO))
         return OS.insert_ids(pkt, OSTHGR810Packet.__name__)
 
-    # {"time" : "2020-06-06 20:08:12", "brand" : "OS", "model" : "Oregon-THGR810", "id" : 153, "channel" : 1, "battery_ok" : 1, "temperature_C" : 18.200, "humidity" : 49}
+    EXAMPLES = (
+        {
+            'time': '2020-06-06 20:08:12',
+            'brand': 'OS',
+            'model': 'Oregon-THGR810',
+            'id': 153,
+            'channel': 1,
+            'battery_ok': 1,
+            'temperature_C': 18.200,
+            'humidity': 49,
+        },
+    )
 
     @staticmethod
     def parse_json(obj):
@@ -264,7 +350,18 @@ class OSTHR128Packet(Packet):
         pkt.update(Packet.parse_lines(lines, OSTHR128Packet.PARSEINFO))
         return OS.insert_ids(pkt, OSTHR128Packet.__name__)
 
-    # {"time" : "2019-04-30 20:44:00", "brand" : "OS", "model" : "OSv1 Temperature Sensor", "sid" : 5, "channel" : 1, "battery" : "OK", "temperature_C" : 18.800}
+    EXAMPLES = (
+        {
+            'time': '2019-04-30 20:44:00',
+            'brand': 'OS',
+            'model': 'OSv1 Temperature Sensor',
+            'sid': 5,
+            'channel': 1,
+            'battery': 'OK',
+            'temperature_C': 18.800,
+        },
+    )
+
     @staticmethod
     def parse_json(obj):
         pkt = dict()
@@ -336,9 +433,26 @@ class OSUV800Packet(Packet):
         pkt.update(Packet.parse_lines(lines, OSUV800Packet.PARSEINFO))
         return OS.insert_ids(pkt, OSUV800Packet.__name__)
 
-    # {"time" : "2017-01-30 22:19:40", "brand" : "OS", "model" : "UV800", "id" : 207, "channel" : 1, "battery" : "OK", "uv" : 0}
+    EXAMPLES = (
+        {
+            'time': '2017-01-30 22:19:40',
+            'brand': 'OS',
+            'model': 'UV800',
+            'id': 207,
+            'channel': 1,
+            'battery': 'OK',
+            'uv': 0,
+        },
+        {
+            'time': '2022-03-03 15:51:53',
+            'model': 'Oregon-UV800',
+            'id': 255,
+            'channel': 1,
+            'battery_ok': 1,
+            'uv': 0,
+        },
+    )
     # on 03mar2022
-    # {"time" : "2022-03-03 15:51:53", "model" : "Oregon-UV800", "id" : 255, "channel" : 1, "battery_ok" : 1, "uv" : 0}
 
     @staticmethod
     def parse_json(obj):
@@ -373,8 +487,22 @@ class OSUVR128Packet(Packet):
         pkt.update(Packet.parse_lines(lines, OSUVR128Packet.PARSEINFO))
         return OS.insert_ids(pkt, OSUVR128Packet.__name__)
 
-    # {"time" : "2019-11-05 07:07:07", "model" : "Oregon-UVR128", "id" : 116, "uv" : 0, "battery" : "OK"}
-    # {"time" : "2019-11-19 06:44:53", "model" : "Oregon-UVR128", "id" : 116, "uv" : 0, "battery" : "OK"}
+    EXAMPLES = (
+        {
+            'time': '2019-11-05 07:07:07',
+            'model': 'Oregon-UVR128',
+            'id': 116,
+            'uv': 0,
+            'battery': 'OK',
+        },
+        {
+            'time': '2019-11-19 06:44:53',
+            'model': 'Oregon-UVR128',
+            'id': 116,
+            'uv': 0,
+            'battery': 'OK',
+        },
+    )
 
     @staticmethod
     def parse_json(obj):
@@ -414,7 +542,20 @@ class OSWGR800Packet(Packet):
         pkt.update(Packet.parse_lines(lines, OSWGR800Packet.PARSEINFO))
         return OS.insert_ids(pkt, OSWGR800Packet.__name__)
 
-    # {"time" : "2020-06-06 21:44:43", "brand" : "OS", "model" : "Oregon-WGR800", "id" : 245, "channel" : 0, "battery_ok" : 1, "wind_max_m_s" : 3.100, "wind_avg_m_s" : 0.000, "wind_dir_deg" : 90.000}
+    EXAMPLES = (
+        {
+            'time': '2020-06-06 21:44:43',
+            'brand': 'OS',
+            'model': 'Oregon-WGR800',
+            'id': 245,
+            'channel': 0,
+            'battery_ok': 1,
+            'wind_max_m_s': 3.100,
+            'wind_avg_m_s': 0.000,
+            'wind_dir_deg': 90.000,
+        },
+    )
+
     @staticmethod
     def parse_json(obj):
         pkt = dict()
@@ -452,7 +593,17 @@ class OSTHN802Packet(Packet):
         pkt.update(Packet.parse_lines(lines, OSTHN802Packet.PARSEINFO))
         return OS.insert_ids(pkt, OSTHN802Packet.__name__)
 
-    # {"time" : "2017-08-03 17:41:24", "brand" : "OS", "model" : "THN802", "id" : 157, "channel" : 3, "battery" : "OK", "temperature_C" : 26.700}
+    EXAMPLES = (
+        {
+            'time': '2017-08-03 17:41:24',
+            'brand': 'OS',
+            'model': 'THN802',
+            'id': 157,
+            'channel': 3,
+            'battery': 'OK',
+            'temperature_C': 26.700,
+        },
+    )
 
     @staticmethod
     def parse_json(obj):
@@ -493,7 +644,19 @@ class OSBTHGN129Packet(Packet):
         pkt.update(Packet.parse_lines(lines, OSBTHGN129Packet.PARSEINFO))
         return OS.insert_ids(pkt, OSBTHGN129Packet.__name__)
 
-    # {"time" : "2017-08-03 17:41:48", "brand" : "OS", "model" : "BTHGN129", "id" : 146, "channel" : 5, "battery" : "OK", "temperature_C" : 31.700, "humidity" : 52, "pressure_hPa" : 959.364}
+    EXAMPLES = (
+        {
+            'time': '2017-08-03 17:41:48',
+            'brand': 'OS',
+            'model': 'BTHGN129',
+            'id': 146,
+            'channel': 5,
+            'battery': 'OK',
+            'temperature_C': 31.700,
+            'humidity': 52,
+            'pressure_hPa': 959.364,
+        },
+    )
 
     @staticmethod
     def parse_json(obj):
@@ -510,7 +673,18 @@ class OSBTHGN129Packet(Packet):
 
 
 class OSTHGR968Packet(Packet):
-    # {"time" : "2019-02-15 13:43:25", "brand" : "OS", "model" : "THGR968", "id" : 187, "channel" : 1, "battery" : "OK", "temperature_C" : 16.500, "humidity" : 11}
+    EXAMPLES = (
+        {
+            'time': '2019-02-15 13:43:25',
+            'brand': 'OS',
+            'model': 'THGR968',
+            'id': 187,
+            'channel': 1,
+            'battery': 'OK',
+            'temperature_C': 16.500,
+            'humidity': 11,
+        },
+    )
     # '{"time" : "2019-02-15 13:43:26", "brand" : "OS", "model" : "THGR968", "id" : 187, "channel" : 1, "battery" : "OK", "temperature_C" : 16.500, "humidity" : 11}
 
     IDENTIFIER = 'THGR968'
@@ -529,8 +703,28 @@ class OSTHGR968Packet(Packet):
 
 
 class OSRGR968Packet(Packet):
-    # {"time" : "2019-02-15 14:32:51", "brand" : "OS", "model" : "RGR968", "id" : 48, "channel" : 0, "battery" : "OK", "rain_rate" : 0.000, "total_rain" : 6935.100}
-    # {"time" : "2019-02-15 14:32:51", "brand" : "OS", "model" : "RGR968", "id" : 48, "channel" : 0, "battery" : "OK", "rain_rate" : 0.000, "total_rain" : 6935.100}
+    EXAMPLES = (
+        {
+            'time': '2019-02-15 14:32:51',
+            'brand': 'OS',
+            'model': 'RGR968',
+            'id': 48,
+            'channel': 0,
+            'battery': 'OK',
+            'rain_rate': 0.000,
+            'total_rain': 6935.100,
+        },
+        {
+            'time': '2019-02-15 14:32:51',
+            'brand': 'OS',
+            'model': 'RGR968',
+            'id': 48,
+            'channel': 0,
+            'battery': 'OK',
+            'rain_rate': 0.000,
+            'total_rain': 6935.100,
+        },
+    )
 
     IDENTIFIER = 'RGR968'
 

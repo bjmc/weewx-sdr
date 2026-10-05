@@ -7,7 +7,22 @@ from ..units import to_C
 class EM3551HPacket(Packet):
     # The EMAX-EM3551H sensor cluster, used in the raddy weather station
 
-    # {"time" : "2024-10-25 17:51:33", "model" : "Emax-EM3551H", "id" : 1001, "channel" : 4, "battery_ok" : 1, "temperature_F" : 55.700,"humidity" : 95, "wind_avg_km_h" : 0.000, "wind_max_km_h" : 0.000, "wind_dir_deg" : 169, "rain_mm" : 0.000, "mic" : "CHECKSUM"}
+    EXAMPLES = (
+        {
+            'time': '2024-10-25 17:51:33',
+            'model': 'Emax-EM3551H',
+            'id': 1001,
+            'channel': 4,
+            'battery_ok': 1,
+            'temperature_F': 55.700,
+            'humidity': 95,
+            'wind_avg_km_h': 0.000,
+            'wind_max_km_h': 0.000,
+            'wind_dir_deg': 169,
+            'rain_mm': 0.000,
+            'mic': 'CHECKSUM',
+        },
+    )
 
     IDENTIFIER = 'Emax-EM3551H'
 

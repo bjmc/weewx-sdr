@@ -38,9 +38,30 @@ class LaCrosseWSPacket(Packet):
     # 2016-11-03 17:43:20 :LaCrosse WS :9 :202
     # Rainfall: 850.04 mm
 
-    # {"time" : "2016-11-04 14:42:49", "model" : "LaCrosse WS", "ws_id" : 9, "id" : 202, "temperature_C" : 12.100}
-    # {"time" : "2016-11-04 14:44:58", "model" : "LaCrosse WS", "ws_id" : 9, "id" : 202, "humidity" : 67}
-    # {"time" : "2016-11-04 14:49:16", "model" : "LaCrosse WS", "ws_id" : 9, "id" : 202, "wind_speed_ms" : 0.800, "wind_direction" : 270.000}
+    EXAMPLES = (
+        {
+            'time': '2016-11-04 14:42:49',
+            'model': 'LaCrosse WS',
+            'ws_id': 9,
+            'id': 202,
+            'temperature_C': 12.100,
+        },
+        {
+            'time': '2016-11-04 14:44:58',
+            'model': 'LaCrosse WS',
+            'ws_id': 9,
+            'id': 202,
+            'humidity': 67,
+        },
+        {
+            'time': '2016-11-04 14:49:16',
+            'model': 'LaCrosse WS',
+            'ws_id': 9,
+            'id': 202,
+            'wind_speed_ms': 0.800,
+            'wind_direction': 270.000,
+        },
+    )
 
     IDENTIFIER = 'LaCrosse WS'
     PARSEINFO = {
@@ -92,7 +113,17 @@ class LaCrosseWSPacket(Packet):
 
 
 class LaCrosseTX141Bv3Packet(Packet):
-    # {"time" : "2023-03-29 20:55:22", "model" : "LaCrosse-TX141Bv3", "id" : 172, "channel" : 1, "battery_ok" : 1, "temperature_C" : 3.700, "test" : "No"}
+    EXAMPLES = (
+        {
+            'time': '2023-03-29 20:55:22',
+            'model': 'LaCrosse-TX141Bv3',
+            'id': 172,
+            'channel': 1,
+            'battery_ok': 1,
+            'temperature_C': 3.700,
+            'test': 'No',
+        },
+    )
 
     IDENTIFIER = 'LaCrosse-TX141Bv3'
 
@@ -109,8 +140,27 @@ class LaCrosseTX141Bv3Packet(Packet):
 
 
 class LaCrosseTX141THBv2Packet(Packet):
-    # {"time" : "2017-01-16 15:24:43", "temperature" : 54.140, "humidity" : 34, "id" : 221, "model" : "LaCrosse TX141TH-Bv2 sensor", "battery" : "OK", "test" : "Yes"}
-    # {"time" : "2020-10-28 00:22:25", "model" : "LaCrosse-TX141THBv2", "id" : 50, "channel" : 0, "battery_ok" : 1, "temperature_C" : -0.600, "humidity" : 60, "test" : "No"}
+    EXAMPLES = (
+        {
+            'time': '2017-01-16 15:24:43',
+            'temperature': 54.140,
+            'humidity': 34,
+            'id': 221,
+            'model': 'LaCrosse TX141TH-Bv2 sensor',
+            'battery': 'OK',
+            'test': 'Yes',
+        },
+        {
+            'time': '2020-10-28 00:22:25',
+            'model': 'LaCrosse-TX141THBv2',
+            'id': 50,
+            'channel': 0,
+            'battery_ok': 1,
+            'temperature_C': -0.600,
+            'humidity': 60,
+            'test': 'No',
+        },
+    )
     IDENTIFIER = 'LaCrosse-TX141THBv2'
 
     @staticmethod
@@ -127,8 +177,20 @@ class LaCrosseTX141THBv2Packet(Packet):
 
 
 class LaCrosseTXPacket(Packet):
-    # {"time" : "2017-07-30 21:11:19", "model" : "LaCrosse TX Sensor", "id" : 127, "humidity" : 34.000}
-    # {"time" : "2017-07-30 21:11:19", "model" : "LaCrosse TX Sensor", "id" : 127, "temperature_C" : 27.100}
+    EXAMPLES = (
+        {
+            'time': '2017-07-30 21:11:19',
+            'model': 'LaCrosse TX Sensor',
+            'id': 127,
+            'humidity': 34.000,
+        },
+        {
+            'time': '2017-07-30 21:11:19',
+            'model': 'LaCrosse TX Sensor',
+            'id': 127,
+            'temperature_C': 27.100,
+        },
+    )
 
     IDENTIFIER = 'LaCrosse TX Sensor'
 
@@ -145,9 +207,16 @@ class LaCrosseTXPacket(Packet):
 
 
 class LaCrosseTX18Packet(Packet):
-    # {"time" : "2020-04-21 05:21:19", "model" : "LaCrosse-WS3600", "id" : 184, "temperature_C" : 9.400}
-    # {"time" : "2020-04-21 05:21:19", "model" : "LaCrosse-WS3600", "id" : 184, "humidity" : 52}
-    # {"time" : "2020-04-21 05:21:20", "model" : "LaCrosse-WS3600", "id" : 184, "rain_mm" : 0.000}
+    EXAMPLES = (
+        {
+            'time': '2020-04-21 05:21:19',
+            'model': 'LaCrosse-WS3600',
+            'id': 184,
+            'temperature_C': 9.400,
+        },
+        {'time': '2020-04-21 05:21:19', 'model': 'LaCrosse-WS3600', 'id': 184, 'humidity': 52},
+        {'time': '2020-04-21 05:21:20', 'model': 'LaCrosse-WS3600', 'id': 184, 'rain_mm': 0.000},
+    )
 
     IDENTIFIER = 'LaCrosse-WS3600'
 

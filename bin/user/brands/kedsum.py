@@ -4,7 +4,19 @@ from ..packet import Packet
 
 
 class KedsumTHPacket(Packet):
-    # {"time" : "2022-06-17 00:23:59", "model" : "Kedsum-TH", "id" : 235, "channel" : 1, "battery_ok" : 0, "flags" : 8, "temperature_F" : 59.000, "humidity" : 74, "mic" : "CRC"}
+    EXAMPLES = (
+        {
+            'time': '2022-06-17 00:23:59',
+            'model': 'Kedsum-TH',
+            'id': 235,
+            'channel': 1,
+            'battery_ok': 0,
+            'flags': 8,
+            'temperature_F': 59.000,
+            'humidity': 74,
+            'mic': 'CRC',
+        },
+    )
 
     IDENTIFIER = 'Kedsum-TH'
 

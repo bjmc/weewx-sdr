@@ -32,7 +32,17 @@ class RubicsonTempPacket(Packet):
         sensor_id = '%s:%s' % (channel, code)
         return Packet.add_identifiers(pkt, sensor_id, RubicsonTempPacket.__name__)
 
-    # {"time" : "2017-01-17 20:47:41", "model" : "Rubicson Temperature Sensor", "id" : 14, "channel" : 1, "battery" : "OK", "temperature_C" : -1.800, "crc" : "OK"}
+    EXAMPLES = (
+        {
+            'time': '2017-01-17 20:47:41',
+            'model': 'Rubicson Temperature Sensor',
+            'id': 14,
+            'channel': 1,
+            'battery': 'OK',
+            'temperature_C': -1.800,
+            'crc': 'OK',
+        },
+    )
 
     @staticmethod
     def parse_json(obj):
@@ -48,7 +58,18 @@ class RubicsonTempPacket(Packet):
 
 
 class RubicsonTempPacketV2(Packet):
-    # {"time" : "2023-04-04 19:57:28", "protocol" : 2, "model" : "Rubicson-Temperature", "id" : 183, "channel" : 3, "battery_ok" : 1, "temperature_C" : 21.700, "mic" : "CRC"}
+    EXAMPLES = (
+        {
+            'time': '2023-04-04 19:57:28',
+            'protocol': 2,
+            'model': 'Rubicson-Temperature',
+            'id': 183,
+            'channel': 3,
+            'battery_ok': 1,
+            'temperature_C': 21.700,
+            'mic': 'CRC',
+        },
+    )
 
     IDENTIFIER = 'Rubicson-Temperature'
 

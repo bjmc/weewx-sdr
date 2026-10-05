@@ -6,8 +6,24 @@ from ..packet import Packet
 
 
 class TFADropPacket(Packet):
-    # {"time" : "2022-06-19 09:18:57", "model" : "TFA-Drop", "id" : 549565, "battery_ok" : 1, "rain_mm" : 0.000, "mic" : "CHECKSUM"}
-    # {"time" : "2024-08-24 13:51:38", "model" : "TFA-Drop", "id" : 899964, "battery_ok" : 1, "rain_mm" : 17.780, "mic" : "CHECKSUM"}
+    EXAMPLES = (
+        {
+            'time': '2022-06-19 09:18:57',
+            'model': 'TFA-Drop',
+            'id': 549565,
+            'battery_ok': 1,
+            'rain_mm': 0.000,
+            'mic': 'CHECKSUM',
+        },
+        {
+            'time': '2024-08-24 13:51:38',
+            'model': 'TFA-Drop',
+            'id': 899964,
+            'battery_ok': 1,
+            'rain_mm': 17.780,
+            'mic': 'CHECKSUM',
+        },
+    )
 
     IDENTIFIER = 'TFA-Drop'
 
@@ -30,7 +46,18 @@ class TFATwinPlus303049Packet(Packet):
     # Temperature: 8.40 C
     # Humidity: 91 %
 
-    # {"time" : "2019-09-25 17:15:12", "model" : "TFA-Twin-Plus-30.3049", "id" : 13, "channel" : 1, "battery" : "OK", "temperature_C" : 8.400, "humidity" : 91, "mic" : "CHECK  SUM"}
+    EXAMPLES = (
+        {
+            'time': '2019-09-25 17:15:12',
+            'model': 'TFA-Twin-Plus-30.3049',
+            'id': 13,
+            'channel': 1,
+            'battery': 'OK',
+            'temperature_C': 8.400,
+            'humidity': 91,
+            'mic': 'CHECK  SUM',
+        },
+    )
 
     IDENTIFIER = 'TFA-Twin-Plus-30.3049'
     PARSEINFO = {

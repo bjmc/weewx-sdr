@@ -22,10 +22,21 @@ class Bresser5in1Packet(Packet):
     # "data" : "e7897fd71fd6ef9bff78f7feff18768028e02910640087080100",
     # "mic" : "CHECKSUM"}#012
 
-    # {"time" : "2020-04-20 20:58:46", "model" : "Bresser-5in1", "id" : 182,
-    # "battery_ok" : 1, "temperature_C" : 17.000, "humidity" : 92,
-    # "wind_max_m_s" : 4.000, "wind_avg_m_s" : 2.400, "wind_dir_deg" : 67.500,
-    # "rain_mm" : 0.800, "mic" : "CHECKSUM"}
+    EXAMPLES = (
+        {
+            'time': '2020-04-20 20:58:46',
+            'model': 'Bresser-5in1',
+            'id': 182,
+            'battery_ok': 1,
+            'temperature_C': 17.000,
+            'humidity': 92,
+            'wind_max_m_s': 4.000,
+            'wind_avg_m_s': 2.400,
+            'wind_dir_deg': 67.500,
+            'rain_mm': 0.800,
+            'mic': 'CHECKSUM',
+        },
+    )
 
     IDENTIFIER = 'Bresser-5in1'
 
@@ -119,11 +130,24 @@ class Bresser6in1Packet(Packet):
 
 
 class Bresser7in1Packet(Packet):
-    # {"time" : "2023-06-11 17:09:05", "model" : "Bresser-7in1", "id" : 50437,
-    #  "temperature_C" : 23.500, "humidity" : 67, "wind_max_m_s" : 0.000,
-    #  "wind_avg_m_s" : 0.000, "wind_dir_deg" : 102, "rain_mm" : 3.500,
-    #  "light_klx" : 8.592, "light_lux" : 8592.000, "uv" : 1.000,
-    #  "battery_ok" : 1, "mic " : "CRC"}
+    EXAMPLES = (
+        {
+            'time': '2023-06-11 17:09:05',
+            'model': 'Bresser-7in1',
+            'id': 50437,
+            'temperature_C': 23.500,
+            'humidity': 67,
+            'wind_max_m_s': 0.000,
+            'wind_avg_m_s': 0.000,
+            'wind_dir_deg': 102,
+            'rain_mm': 3.500,
+            'light_klx': 8.592,
+            'light_lux': 8592.000,
+            'uv': 1.000,
+            'battery_ok': 1,
+            'mic ': 'CRC',
+        },
+    )
 
     IDENTIFIER = 'Bresser-7in1'
 

@@ -5,7 +5,17 @@ from ..packet import Packet
 
 class WT0124Packet(Packet):
     # 2019-04-23: WT0124 Pool Thermometer
-    # {"time" : "2019-04-23 12:28:52", "model" : "WT0124 Pool Thermometer", "rid" : 122, "channel" : 1, "temperature_C" : 22.800, "mic" : "CHECKSUM", "data" : 172}
+    EXAMPLES = (
+        {
+            'time': '2019-04-23 12:28:52',
+            'model': 'WT0124 Pool Thermometer',
+            'rid': 122,
+            'channel': 1,
+            'temperature_C': 22.800,
+            'mic': 'CHECKSUM',
+            'data': 172,
+        },
+    )
 
     IDENTIFIER = 'WT0124 Pool Thermometer'
 

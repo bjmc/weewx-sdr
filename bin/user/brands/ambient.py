@@ -33,9 +33,27 @@ class AmbientF007THPacket(Packet):
         pkt = Packet.add_identifiers(pkt, sensor_id, AmbientF007THPacket.__name__)
         return pkt
 
-    # {"time" : "2017-01-21 13:01:30", "model" : "Ambient Weather F007TH Thermo-Hygrometer", "device" : 80, "channel" : 1, "temperature_F" : 61.800, "humidity" : 10}
+    EXAMPLES = (
+        {
+            'time': '2017-01-21 13:01:30',
+            'model': 'Ambient Weather F007TH Thermo-Hygrometer',
+            'device': 80,
+            'channel': 1,
+            'temperature_F': 61.800,
+            'humidity': 10,
+        },
+        {
+            'time': '2020-02-05 19:33:11',
+            'model': 'Ambientweather-F007TH',
+            'id': 201,
+            'channel': 5,
+            'battery_ok': 1,
+            'temperature_F': 39.400,
+            'humidity': 60,
+            'mic': 'CRC',
+        },
+    )
     # as of 06feb2020:
-    # {"time" : "2020-02-05 19:33:11", "model" : "Ambientweather-F007TH", "id" : 201, "channel" : 5, "battery_ok" : 1, "temperature_F" : 39.400, "humidity" : 60, "mic" : "CRC"}
 
     @staticmethod
     def parse_json(obj):
@@ -58,7 +76,17 @@ class AmbientF007THPacket(Packet):
 
 
 class AmbientTX8300Packet(Packet):
-    # {"time" : "2021-06-14 21:38:43", "model" : "AmbientWeather-TX8300", "id" : 116, "channel" : 1, "battery" : 2, "temperature_C" : 28.500, "mic" : "CHECKSUM"}
+    EXAMPLES = (
+        {
+            'time': '2021-06-14 21:38:43',
+            'model': 'AmbientWeather-TX8300',
+            'id': 116,
+            'channel': 1,
+            'battery': 2,
+            'temperature_C': 28.500,
+            'mic': 'CHECKSUM',
+        },
+    )
 
     IDENTIFIER = 'AmbientWeather-TX8300'
 
@@ -76,7 +104,26 @@ class AmbientTX8300Packet(Packet):
 
 
 class AmbientWH31EPacket(Packet):
-    # {"time" : "2019-02-14 17:24:41.259441", "protocol" : 113, "model" : "AmbientWeather-WH31E", "id" : 24, "channel" : 1, "battery" : "OK", "temperature_C" : 6.000, "humidity" : 42, "data" :"2f00000000", "mic" : "CRC", "mod" : "FSK", "freq1" : 914.984, "freq2" : 914.906, "rssi" : -13.328, "snr" : 13.197, "noise" : -26.525}
+    EXAMPLES = (
+        {
+            'time': '2019-02-14 17:24:41.259441',
+            'protocol': 113,
+            'model': 'AmbientWeather-WH31E',
+            'id': 24,
+            'channel': 1,
+            'battery': 'OK',
+            'temperature_C': 6.000,
+            'humidity': 42,
+            'data': '2f00000000',
+            'mic': 'CRC',
+            'mod': 'FSK',
+            'freq1': 914.984,
+            'freq2': 914.906,
+            'rssi': -13.328,
+            'snr': 13.197,
+            'noise': -26.525,
+        },
+    )
 
     IDENTIFIER = 'AmbientWeather-WH31E'
 
@@ -103,7 +150,19 @@ class AmbientWH31EPacket(Packet):
 
 
 class AmbientWH31BPacket(Packet):
-    # {'time': '2024-03-04 17:36:20', 'model': 'AmbientWeather-WH31B', 'id': 196, 'channel': 3, 'battery_ok': 1, 'temperature_C': 21.6, 'humidity': 40, 'data': 'ea00000000', 'mic': 'CRC'}
+    EXAMPLES = (
+        {
+            'time': '2024-03-04 17:36:20',
+            'model': 'AmbientWeather-WH31B',
+            'id': 196,
+            'channel': 3,
+            'battery_ok': 1,
+            'temperature_C': 21.6,
+            'humidity': 40,
+            'data': 'ea00000000',
+            'mic': 'CRC',
+        },
+    )
     IDENTIFIER = 'AmbientWeather-WH31B'
 
     @staticmethod

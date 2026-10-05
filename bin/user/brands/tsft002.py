@@ -8,7 +8,18 @@ class TSFT002Packet(Packet):
     # model : TS-FT002 Id : 127
     # Depth : 186 Temperature: 20.9 C Transmit Interval: 180 Battery Flag?: 8 MIC : CHECKSUM
 
-    # {"time" : "2019-12-22 22:54:58", "model" : "TS-FT002", "id" : 127, "depth_cm" : 186, "temperature_C" : 20.700, "transmit_s" : 180, "flags" : 8, "mic" : "CHECKSUM"}
+    EXAMPLES = (
+        {
+            'time': '2019-12-22 22:54:58',
+            'model': 'TS-FT002',
+            'id': 127,
+            'depth_cm': 186,
+            'temperature_C': 20.700,
+            'transmit_s': 180,
+            'flags': 8,
+            'mic': 'CHECKSUM',
+        },
+    )
 
     IDENTIFIER = 'TS-FT002'
 

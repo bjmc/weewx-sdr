@@ -4,7 +4,18 @@ from ..packet import Packet
 
 
 class InFactoryTHPacket(Packet):
-    # {"time" : "2021-03-03 10:19:53", "model" : "inFactory-TH", "id" : 195, "channel" : 1, "battery_ok" : 1, "temperature_F" : 73.200, "humidity" : 55, "mic" : "CRC"}
+    EXAMPLES = (
+        {
+            'time': '2021-03-03 10:19:53',
+            'model': 'inFactory-TH',
+            'id': 195,
+            'channel': 1,
+            'battery_ok': 1,
+            'temperature_F': 73.200,
+            'humidity': 55,
+            'mic': 'CRC',
+        },
+    )
 
     IDENTIFIER = 'nFactory-TH'
 

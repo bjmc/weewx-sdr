@@ -15,7 +15,21 @@ class Cotech367959Packet(Packet):
     #
     # thanks to user gremlin205
 
-    # {"time" : "2022-03-01 14:11:42", "model" : "Cotech-367959", "id" : 24, "battery_ok" : 1, "temperature_F" : 46.900, "humidity" : 62, "rain_mm" : 18.600, "wind_dir_deg" : 16, "wind_avg_m_s" : 0.600, "wind_max_m_s" : 0.700, "mic" : "CRC"}
+    EXAMPLES = (
+        {
+            'time': '2022-03-01 14:11:42',
+            'model': 'Cotech-367959',
+            'id': 24,
+            'battery_ok': 1,
+            'temperature_F': 46.900,
+            'humidity': 62,
+            'rain_mm': 18.600,
+            'wind_dir_deg': 16,
+            'wind_avg_m_s': 0.600,
+            'wind_max_m_s': 0.700,
+            'mic': 'CRC',
+        },
+    )
 
     IDENTIFIER = 'Cotech-367959'
 

@@ -23,8 +23,27 @@ class HidekiTS04Packet(Packet):
     # Temperature: 27.30 C
     # Humidity: 60 %
 
-    # {"time" : "2016-11-04 14:44:37", "model" : "HIDEKI TS04 sensor", "rc" : 9, "channel" : 1, "battery" : "OK", "temperature_C" : 12.400, "humidity" : 61}
-    # {"time" : "2020-10-15 07:13:33", "model" : "Hideki-TS04", "id" : 14, "channel" : 1, "battery_ok" : 1, "temperature_C" : 20.700, "humidity" : 10, "mic" : "CRC"}
+    EXAMPLES = (
+        {
+            'time': '2016-11-04 14:44:37',
+            'model': 'HIDEKI TS04 sensor',
+            'rc': 9,
+            'channel': 1,
+            'battery': 'OK',
+            'temperature_C': 12.400,
+            'humidity': 61,
+        },
+        {
+            'time': '2020-10-15 07:13:33',
+            'model': 'Hideki-TS04',
+            'id': 14,
+            'channel': 1,
+            'battery_ok': 1,
+            'temperature_C': 20.700,
+            'humidity': 10,
+            'mic': 'CRC',
+        },
+    )
 
     IDENTIFIER = 'Hideki-TS04'
     PARSEINFO = {
@@ -65,9 +84,44 @@ class HidekiWindPacket(Packet):
     # Wind Strength: 2.57 km/h
     # Direction: 45.0 \xc2\xb0
 
-    # {"time" : "2017-01-16 04:38:39", "model" : "HIDEKI Wind sensor", "rc" : 0, "channel" : 4, "battery" : "OK", "temperature_C" : -4.400, "windstrength" : 2.897, "winddirection" : 292.500}
-    # {"time" : "2019-11-24 19:13:41", "model" : "HIDEKI Wind sensor", "rc" : 3, "channel" : 4, "battery" : "OK", "temperature_C" : 11.000, "wind_speed_mph" : 1.300, "gust_speed_mph" : 0.100, "wind_approach" : 1, "wind_direction" : 270.000, "mic" : "CRC"}
-    # {"time" : "2021-02-07 03:44:54", "model" : "Hideki-Wind", "id" : 8, "channel" : 4, "battery_ok" : 1, "temperature_C" : 15.200, "wind_avg_mi_h" : 2.600, "wind_max_mi_h" : 2.900, "wind_approach" : 1, "wind_dir_deg" : 337.500, "mic" : "CRC"}
+    EXAMPLES = (
+        {
+            'time': '2017-01-16 04:38:39',
+            'model': 'HIDEKI Wind sensor',
+            'rc': 0,
+            'channel': 4,
+            'battery': 'OK',
+            'temperature_C': -4.400,
+            'windstrength': 2.897,
+            'winddirection': 292.500,
+        },
+        {
+            'time': '2019-11-24 19:13:41',
+            'model': 'HIDEKI Wind sensor',
+            'rc': 3,
+            'channel': 4,
+            'battery': 'OK',
+            'temperature_C': 11.000,
+            'wind_speed_mph': 1.300,
+            'gust_speed_mph': 0.100,
+            'wind_approach': 1,
+            'wind_direction': 270.000,
+            'mic': 'CRC',
+        },
+        {
+            'time': '2021-02-07 03:44:54',
+            'model': 'Hideki-Wind',
+            'id': 8,
+            'channel': 4,
+            'battery_ok': 1,
+            'temperature_C': 15.200,
+            'wind_avg_mi_h': 2.600,
+            'wind_max_mi_h': 2.900,
+            'wind_approach': 1,
+            'wind_dir_deg': 337.500,
+            'mic': 'CRC',
+        },
+    )
 
     #    IDENTIFIER = "HIDEKI Wind sensor"
     IDENTIFIER = 'Hideki-Wind'
@@ -136,10 +190,43 @@ class HidekiRainPacket(Packet):
     # Battery: OK
     # Rain: 2622.900
 
-    # {"time" : "2017-01-16 04:38:50", "model" : "HIDEKI Rain sensor", "rc" : 0, "channel" : 4, "battery" : "OK", "rain" : 2622.900}
-    # {"time" : "2019-11-24 19:13:52", "model" : "HIDEKI Rain sensor", "rc" : 0, "channel" : 4, "battery" : "OK", "rain_mm" : 274.400, "mic" : "CRC"}
-    # {"time" : "2021-02-07 03:45:10", "model" : "Hideki-Rain", "id" : 0, "channel" : 4, "battery_ok" : 1, "rain_mm" : 1382.500, "mic" : "CRC"}
-    # {"time" : "2023-11-10 14:42:06", "model" : "Hideki-Rain", "id" : 0, "channel" : 4, "battery_ok" : 1, "rain_mm" : 2255.400, "mic" : "CRC"}
+    EXAMPLES = (
+        {
+            'time': '2017-01-16 04:38:50',
+            'model': 'HIDEKI Rain sensor',
+            'rc': 0,
+            'channel': 4,
+            'battery': 'OK',
+            'rain': 2622.900,
+        },
+        {
+            'time': '2019-11-24 19:13:52',
+            'model': 'HIDEKI Rain sensor',
+            'rc': 0,
+            'channel': 4,
+            'battery': 'OK',
+            'rain_mm': 274.400,
+            'mic': 'CRC',
+        },
+        {
+            'time': '2021-02-07 03:45:10',
+            'model': 'Hideki-Rain',
+            'id': 0,
+            'channel': 4,
+            'battery_ok': 1,
+            'rain_mm': 1382.500,
+            'mic': 'CRC',
+        },
+        {
+            'time': '2023-11-10 14:42:06',
+            'model': 'Hideki-Rain',
+            'id': 0,
+            'channel': 4,
+            'battery_ok': 1,
+            'rain_mm': 2255.400,
+            'mic': 'CRC',
+        },
+    )
 
     #    IDENTIFIER = "HIDEKI Rain sensor"
     IDENTIFIER = 'Hideki-Rain'

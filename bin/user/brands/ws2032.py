@@ -4,7 +4,21 @@ from ..packet import Packet
 
 
 class WS2032Packet(Packet):
-    # {"time" : "2020-10-19 22:41:24", "model" : "WS2032", "id" : 11768, "temperature_C" : 3.800, "humidity" : 48, "wind_dir_deg" : 315.000, "wind_avg_km_h" : 7.740, "wind_max_km_h" : 15.480, "maybe_flags" : 0, "maybe_rain" : 256, "mic" : "CRC"}
+    EXAMPLES = (
+        {
+            'time': '2020-10-19 22:41:24',
+            'model': 'WS2032',
+            'id': 11768,
+            'temperature_C': 3.800,
+            'humidity': 48,
+            'wind_dir_deg': 315.000,
+            'wind_avg_km_h': 7.740,
+            'wind_max_km_h': 15.480,
+            'maybe_flags': 0,
+            'maybe_rain': 256,
+            'mic': 'CRC',
+        },
+    )
 
     IDENTIFIER = 'WS2032'
 

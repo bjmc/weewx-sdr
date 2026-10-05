@@ -4,7 +4,18 @@ from ..packet import Packet
 
 
 class HolmanWS5029Packet(Packet):
-    # {"time" : "2019-08-07 10:35:07", "model" : "Holman Industries WS5029 weather station", "id" : 53761, "temperature_C" : 9.100, "humidity" : 102, "rain_mm" : 39.500, "wind_avg_km_h" : 0, "direction_deg" : 338}
+    EXAMPLES = (
+        {
+            'time': '2019-08-07 10:35:07',
+            'model': 'Holman Industries WS5029 weather station',
+            'id': 53761,
+            'temperature_C': 9.100,
+            'humidity': 102,
+            'rain_mm': 39.500,
+            'wind_avg_km_h': 0,
+            'direction_deg': 338,
+        },
+    )
 
     IDENTIFIER = 'Holman Industries WS5029 weather station'
 

@@ -6,7 +6,17 @@ from ..packet import Packet
 class EsperanzaEWSPacket(Packet):
     # This is for a Esperanza-EWS temperature humidity sensor
 
-    # {"time" : "2022-06-30 08:29:25", "model" : "Esperanza-EWS", "id" : 198, "channel" : 2, "temperature_F" : 69.200, "humidity" : 0, "mic" : "CRC"}
+    EXAMPLES = (
+        {
+            'time': '2022-06-30 08:29:25',
+            'model': 'Esperanza-EWS',
+            'id': 198,
+            'channel': 2,
+            'temperature_F': 69.200,
+            'humidity': 0,
+            'mic': 'CRC',
+        },
+    )
 
     IDENTIFIER = 'Esperanza-EWS'
 
