@@ -152,11 +152,15 @@ class AsyncReader(threading.Thread):
     def run(self):
         logdbg('start async reader for %s' % self.getName())
         self._running = True
-        for line in iter(self._fd.readline, ''):
-            if line:
+        try:
+            while self._running:
+                line = self._fd.readline()
+                if not line:
+                    break  # end of file
                 self._queue.put(line)
-            if not self._running:
-                break
+        except (OSError, ValueError):
+            # the pipe was closed underneath us while shutting down
+            logdbg('%s: stream closed' % self.getName())
 
     def stop_running(self):
         self._running = False
