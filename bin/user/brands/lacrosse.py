@@ -42,16 +42,6 @@ class LaCrosseBreezeProPacket(Packet):
 
 
 class LaCrosseWSPacket(Packet):
-    # 2016-09-08 00:43:52 :LaCrosse WS :9 :202
-    # Temperature: 21.0 C
-    # 2016-09-08 00:43:53 :LaCrosse WS :9 :202
-    # Humidity: 92
-    # 2016-09-08 00:43:53 :LaCrosse WS :9 :202
-    # Wind speed: 0.0 m/s
-    # Direction: 67.500
-    # 2016-11-03 17:43:20 :LaCrosse WS :9 :202
-    # Rainfall: 850.04 mm
-
     IDENTIFIER = 'LaCrosse WS'
 
     EXAMPLES = (
@@ -77,6 +67,25 @@ class LaCrosseWSPacket(Packet):
             'wind_speed_ms': 0.800,
             'wind_direction': 270.000,
         },
+    )
+    TEXT_EXAMPLES = (
+        (
+            '2016-09-08 00:43:52 :LaCrosse WS :9 :202',
+            'Temperature: 21.0 C',
+        ),
+        (
+            '2016-09-08 00:43:53 :LaCrosse WS :9 :202',
+            'Humidity: 92',
+        ),
+        (
+            '2016-09-08 00:43:53 :LaCrosse WS :9 :202',
+            'Wind speed: 0.0 m/s',
+            'Direction: 67.500',
+        ),
+        (
+            '2016-11-03 17:43:20 :LaCrosse WS :9 :202',
+            'Rainfall: 850.04 mm',
+        ),
     )
 
     PARSEINFO = {
@@ -249,9 +258,19 @@ class LaCrosseTX18Packet(Packet):
 
 
 class LaCrosseLTVR3Packet(Packet):
-    # "time" : "2022-01-16 04:43:25", "model" : "LaCrosse-R3", "id" : 7417878, "battery_ok" : 1, "seq" : 1, "rain_mm" : 10921.750, "rain2_mm" : 10921.750, "mic" : "CRC"
-
     IDENTIFIER = 'LaCrosse-R3'
+    EXAMPLES = (
+        {
+            'time': '2022-01-16 04:43:25',
+            'model': 'LaCrosse-R3',
+            'id': 7417878,
+            'battery_ok': 1,
+            'seq': 1,
+            'rain_mm': 10921.75,
+            'rain2_mm': 10921.75,
+            'mic': 'CRC',
+        },
+    )
 
     @staticmethod
     def parse_json(obj):

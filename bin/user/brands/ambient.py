@@ -6,12 +6,6 @@ from ..packet import Packet
 
 
 class AmbientF007THPacket(Packet):
-    # 2017-01-21 18:17:16 : Ambient Weather F007TH Thermo-Hygrometer
-    # House Code: 80
-    # Channel: 1
-    # Temperature: 61.8
-    # Humidity: 13 %
-
     #    IDENTIFIER = "Ambient Weather F007TH Thermo-Hygrometer"
     IDENTIFIER = 'Ambientweather-F007TH'
     PARSEINFO = {
@@ -52,6 +46,15 @@ class AmbientF007THPacket(Packet):
             'humidity': 60,
             'mic': 'CRC',
         },
+    )
+    TEXT_EXAMPLES = (
+        (
+            '2017-01-21 18:17:16 : Ambient Weather F007TH Thermo-Hygrometer',
+            'House Code: 80',
+            'Channel: 1',
+            'Temperature: 61.8',
+            'Humidity: 13 %',
+        ),
     )
     # as of 06feb2020:
 

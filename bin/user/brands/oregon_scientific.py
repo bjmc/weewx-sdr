@@ -15,13 +15,6 @@ class OS(object):
 
 
 class OSPCR800Packet(Packet):
-    # 2016-11-03 04:36:23 : OS : PCR800
-    # House Code: 93
-    # Channel: 0
-    # Battery: OK
-    # Rain Rate: 0.0 in/hr
-    # Total Rain: 41.0 in
-
     # IDENTIFIER = "PCR800"
     IDENTIFIER = 'Oregon-PCR800'
     PARSEINFO = {
@@ -71,6 +64,16 @@ class OSPCR800Packet(Packet):
             'rain_rate_in_h': 0.150,
             'rain_in': 0.082,
         },
+    )
+    TEXT_EXAMPLES = (
+        (
+            '2016-11-03 04:36:23 : OS : PCR800',
+            'House Code: 93',
+            'Channel: 0',
+            'Battery: OK',
+            'Rain Rate: 0.0 in/hr',
+            'Total Rain: 41.0 in',
+        ),
     )
 
     @staticmethod
@@ -139,14 +142,6 @@ class OSBTHR918Packet(Packet):
 # apparently rtl_433 uses BHTR968 when it should be BTHR968
 class OSBTHR968Packet(Packet):
     # Added 2017-04-22 ALG
-    # 2017-09-12 21:44:55     :       OS :    BHTR968
-    # House Code:      111
-    # Channel:         0
-    # Battery:         OK
-    # Celcius:         26.20 C
-    # Fahrenheit:      79.16 F
-    # Humidity:        36 %
-    # Pressure:        1012 mbar
 
     IDENTIFIER = 'BHTR968'
     PARSEINFO = {
@@ -191,10 +186,31 @@ class OSBTHR968Packet(Packet):
             'humidity': 54,
             'pressure_hPa': 974.000,
         },
+        {
+            'time': '2022-03-03 15:44:25',
+            'model': 'Oregon-BHTR968',
+            'id': 219,
+            'channel': 0,
+            'battery_ok': 1,
+            'temperature_C': 21.7,
+            'humidity': 40,
+            'pressure_hPa': 990.0,
+        },
+    )
+    TEXT_EXAMPLES = (
+        (
+            '2017-09-12 21:44:55     :       OS :    BHTR968',
+            'House Code:      111',
+            'Channel:         0',
+            'Battery:         OK',
+            'Celcius:         26.20 C',
+            'Fahrenheit:      79.16 F',
+            'Humidity:        36 %',
+            'Pressure:        1012 mbar',
+        ),
     )
     # by 06mar2019
     # by 03mar2022
-    # out:['{"time" : "2022-03-03 15:44:25", "model" : "Oregon-BHTR968", "id" : 219, "channel" : 0, "battery_ok" : 1, "temperature_C" : 21.700, "humidity" : 40, "pressure_hPa" : 990.000}
 
     @staticmethod
     def parse_json(obj):
@@ -214,13 +230,6 @@ class OSBTHR968Packet(Packet):
 
 
 class OSTHGR122NPacket(Packet):
-    # 2016-09-12 21:44:55     :       OS :    THGR122N
-    # House Code:      96
-    # Channel:         3
-    # Battery:         OK
-    # Temperature:     27.30 C
-    # Humidity:        36 %
-
     IDENTIFIER = 'THGR122N'
     PARSEINFO = {
         'House Code': ['house_code', None, lambda x: int(x)],
@@ -250,6 +259,16 @@ class OSTHGR122NPacket(Packet):
             'humidity': 27,
         },
     )
+    TEXT_EXAMPLES = (
+        (
+            '2016-09-12 21:44:55     :       OS :    THGR122N',
+            'House Code:      96',
+            'Channel:         3',
+            'Battery:         OK',
+            'Temperature:     27.30 C',
+            'Humidity:        36 %',
+        ),
+    )
 
     @staticmethod
     def parse_json(obj):
@@ -266,22 +285,8 @@ class OSTHGR122NPacket(Packet):
 
 class OSTHGR810Packet(Packet):
     # rtl_433 circa jul 2016 emits this
-    # 2016-09-01 22:05:47 :Weather Sensor THGR810
-    # House Code: 122
-    # Channel: 1
-    # Battery: OK
-    # Celcius: 26.70 C
-    # Fahrenheit: 80.06 F
-    # Humidity: 58 %
 
     # rtl_433 circa nov 2016 emits this
-    # 2016-11-04 02:21:37 :OS :THGR810
-    # House Code: 122
-    # Channel: 1
-    # Battery: OK
-    # Celcius: 22.20 C
-    # Fahrenheit: 71.96 F
-    # Humidity: 57 %
 
     IDENTIFIER = 'THGR810'
     PARSEINFO = {
@@ -312,6 +317,26 @@ class OSTHGR810Packet(Packet):
             'temperature_C': 18.200,
             'humidity': 49,
         },
+    )
+    TEXT_EXAMPLES = (
+        (
+            '2016-09-01 22:05:47 :Weather Sensor THGR810',
+            'House Code: 122',
+            'Channel: 1',
+            'Battery: OK',
+            'Celcius: 26.70 C',
+            'Fahrenheit: 80.06 F',
+            'Humidity: 58 %',
+        ),
+        (
+            '2016-11-04 02:21:37 :OS :THGR810',
+            'House Code: 122',
+            'Channel: 1',
+            'Battery: OK',
+            'Celcius: 22.20 C',
+            'Fahrenheit: 71.96 F',
+            'Humidity: 57 %',
+        ),
     )
 
     @staticmethod
@@ -375,13 +400,26 @@ class OSTHR128Packet(Packet):
 
 
 class OSTHR228NPacket(Packet):
-    # 2016-09-09 11:59:10 :   Thermo Sensor THR228N
-    # House Code:      111
-    # Channel:         2
-    # Battery:         OK
-    # Temperature:     24.70 C
-
     IDENTIFIER = 'Oregon-THR228N'
+    EXAMPLES = (
+        {
+            'time': '2022-06-07 08:17:09',
+            'model': 'Oregon-THR228N',
+            'id': 211,
+            'channel': 1,
+            'battery_ok': 0,
+            'temperature_C': -19.9,
+        },
+    )
+    TEXT_EXAMPLES = (
+        (
+            '2016-09-09 11:59:10 :   Thermo Sensor THR228N',
+            'House Code:      111',
+            'Channel:         2',
+            'Battery:         OK',
+            'Temperature:     24.70 C',
+        ),
+    )
     PARSEINFO = {
         'House Code': ['house_code', None, lambda x: int(x)],
         'Channel': ['channel', None, lambda x: int(x)],
@@ -397,7 +435,6 @@ class OSTHR228NPacket(Packet):
         pkt.update(Packet.parse_lines(lines, OSTHR228NPacket.PARSEINFO))
         return OS.insert_ids(pkt, OSTHR228NPacket.__name__)
 
-    # "time" : "2022-06-07 08:17:09", "model" : "Oregon-THR228N", "id" : 211, "channel" : 1, "battery_ok" : 0, "temperature_C" : -19.900}
     @staticmethod
     def parse_json(obj):
         pkt = dict()
@@ -411,12 +448,6 @@ class OSTHR228NPacket(Packet):
 
 
 class OSUV800Packet(Packet):
-    # 2017-01-30 22:00:12 : OS : UV800
-    # House Code: 207
-    # Channel: 1
-    # Battery: OK
-    # UV Index: 0
-
     IDENTIFIER = 'UV800'
     PARSEINFO = {
         'House Code': ['house_code', None, lambda x: int(x)],
@@ -452,6 +483,15 @@ class OSUV800Packet(Packet):
             'uv': 0,
         },
     )
+    TEXT_EXAMPLES = (
+        (
+            '2017-01-30 22:00:12 : OS : UV800',
+            'House Code: 207',
+            'Channel: 1',
+            'Battery: OK',
+            'UV Index: 0',
+        ),
+    )
     # on 03mar2022
 
     @staticmethod
@@ -467,11 +507,6 @@ class OSUV800Packet(Packet):
 
 
 class OSUVR128Packet(Packet):
-    # 2019-11-05 07:07:07 : Oregon Scientific UVR128
-    # House Code: 116
-    # UV Index: 0
-    # Battery: OK
-
     IDENTIFIER = 'UVR128'
     PARSEINFO = {
         'House Code': ['house_code', None, lambda x: int(x)],
@@ -503,6 +538,14 @@ class OSUVR128Packet(Packet):
             'battery': 'OK',
         },
     )
+    TEXT_EXAMPLES = (
+        (
+            '2019-11-05 07:07:07 : Oregon Scientific UVR128',
+            'House Code: 116',
+            'UV Index: 0',
+            'Battery: OK',
+        ),
+    )
 
     @staticmethod
     def parse_json(obj):
@@ -516,14 +559,6 @@ class OSUVR128Packet(Packet):
 
 
 class OSWGR800Packet(Packet):
-    # 2016-11-03 04:36:34 : OS : WGR800
-    # House Code: 85
-    # Channel: 0
-    # Battery: OK
-    # Gust: 1.1 m/s
-    # Average: 1.1 m/s
-    # Direction: 22.5 degrees
-
     IDENTIFIER = 'WGR800'
     PARSEINFO = {
         'House Code': ['house_code', None, lambda x: int(x)],
@@ -555,6 +590,17 @@ class OSWGR800Packet(Packet):
             'wind_dir_deg': 90.000,
         },
     )
+    TEXT_EXAMPLES = (
+        (
+            '2016-11-03 04:36:34 : OS : WGR800',
+            'House Code: 85',
+            'Channel: 0',
+            'Battery: OK',
+            'Gust: 1.1 m/s',
+            'Average: 1.1 m/s',
+            'Direction: 22.5 degrees',
+        ),
+    )
 
     @staticmethod
     def parse_json(obj):
@@ -571,12 +617,6 @@ class OSWGR800Packet(Packet):
 
 
 class OSTHN802Packet(Packet):
-    # 2017-08-03 17:24:08     :       OS :    THN802
-    # House Code:      157
-    # Channel:         3
-    # Battery:         OK
-    # Celcius:         26.60 C
-
     IDENTIFIER = 'THN802'
     PARSEINFO = {
         'House Code': ['house_code', None, lambda x: int(x)],
@@ -604,6 +644,15 @@ class OSTHN802Packet(Packet):
             'temperature_C': 26.700,
         },
     )
+    TEXT_EXAMPLES = (
+        (
+            '2017-08-03 17:24:08     :       OS :    THN802',
+            'House Code:      157',
+            'Channel:         3',
+            'Battery:         OK',
+            'Celcius:         26.60 C',
+        ),
+    )
 
     @staticmethod
     def parse_json(obj):
@@ -618,14 +667,6 @@ class OSTHN802Packet(Packet):
 
 
 class OSBTHGN129Packet(Packet):
-    # 2017-08-03 17:24:03     :       OS :    BTHGN129
-    # House Code:      146
-    # Channel:         5
-    # Battery:         OK
-    # Celcius:         32.00 C
-    # Humidity:        50 %
-    # Pressure:        959.36 mPa
-
     IDENTIFIER = 'BTHGN129'
     PARSEINFO = {
         'House Code': ['house_code', None, lambda x: int(x)],
@@ -657,6 +698,17 @@ class OSBTHGN129Packet(Packet):
             'pressure_hPa': 959.364,
         },
     )
+    TEXT_EXAMPLES = (
+        (
+            '2017-08-03 17:24:03     :       OS :    BTHGN129',
+            'House Code:      146',
+            'Channel:         5',
+            'Battery:         OK',
+            'Celcius:         32.00 C',
+            'Humidity:        50 %',
+            'Pressure:        959.36 mPa',
+        ),
+    )
 
     @staticmethod
     def parse_json(obj):
@@ -673,8 +725,6 @@ class OSBTHGN129Packet(Packet):
 
 
 class OSTHGR968Packet(Packet):
-    # '{"time" : "2019-02-15 13:43:26", "brand" : "OS", "model" : "THGR968", "id" : 187, "channel" : 1, "battery" : "OK", "temperature_C" : 16.500, "humidity" : 11}
-
     IDENTIFIER = 'THGR968'
 
     EXAMPLES = (
@@ -686,6 +736,16 @@ class OSTHGR968Packet(Packet):
             'channel': 1,
             'battery': 'OK',
             'temperature_C': 16.500,
+            'humidity': 11,
+        },
+        {
+            'time': '2019-02-15 13:43:26',
+            'brand': 'OS',
+            'model': 'THGR968',
+            'id': 187,
+            'channel': 1,
+            'battery': 'OK',
+            'temperature_C': 16.5,
             'humidity': 11,
         },
     )

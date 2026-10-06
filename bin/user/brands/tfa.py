@@ -39,12 +39,6 @@ class TFADropPacket(Packet):
 
 
 class TFATwinPlus303049Packet(Packet):
-    # 2019-09-25 17:15:12 :   TFA-Twin-Plus-30.3049
-    # Channel: 1
-    # Battery: OK
-    # Temperature: 8.40 C
-    # Humidity: 91 %
-
     IDENTIFIER = 'TFA-Twin-Plus-30.3049'
 
     EXAMPLES = (
@@ -58,6 +52,15 @@ class TFATwinPlus303049Packet(Packet):
             'humidity': 91,
             'mic': 'CHECK  SUM',
         },
+    )
+    TEXT_EXAMPLES = (
+        (
+            '2019-09-25 17:15:12 :   TFA-Twin-Plus-30.3049',
+            'Channel: 1',
+            'Battery: OK',
+            'Temperature: 8.40 C',
+            'Humidity: 91 %',
+        ),
     )
 
     PARSEINFO = {

@@ -38,9 +38,21 @@ class ProloguePacket(Packet):
 
 class PrologueTHPacket(Packet):
     # 2021-09-03 : Prologue-TH Temperature and Humidity Sensor
-    # out:[u'{"time" : "2021-09-02 23:47:40", "model" : "Prologue-TH", "subtype" : 5, "id" : 70, "channel" : 1, "battery_ok" : 1, "temperature_C" : 24.800, "humidity" : 49, "button" : 0}\n']
 
     IDENTIFIER = 'Prologue-TH'
+    EXAMPLES = (
+        {
+            'time': '2021-09-02 23:47:40',
+            'model': 'Prologue-TH',
+            'subtype': 5,
+            'id': 70,
+            'channel': 1,
+            'battery_ok': 1,
+            'temperature_C': 24.8,
+            'humidity': 49,
+            'button': 0,
+        },
+    )
 
     @staticmethod
     def parse_json(obj):

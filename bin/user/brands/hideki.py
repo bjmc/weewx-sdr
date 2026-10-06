@@ -16,13 +16,6 @@ class Hideki(object):
 
 
 class HidekiTS04Packet(Packet):
-    # 2016-08-31 17:41:30 :   HIDEKI TS04 sensor
-    # Rolling Code: 9
-    # Channel: 1
-    # Battery: OK
-    # Temperature: 27.30 C
-    # Humidity: 60 %
-
     IDENTIFIER = 'Hideki-TS04'
 
     EXAMPLES = (
@@ -45,6 +38,16 @@ class HidekiTS04Packet(Packet):
             'humidity': 10,
             'mic': 'CRC',
         },
+    )
+    TEXT_EXAMPLES = (
+        (
+            '2016-08-31 17:41:30 :   HIDEKI TS04 sensor',
+            'Rolling Code: 9',
+            'Channel: 1',
+            'Battery: OK',
+            'Temperature: 27.30 C',
+            'Humidity: 60 %',
+        ),
     )
 
     PARSEINFO = {
@@ -77,14 +80,6 @@ class HidekiTS04Packet(Packet):
 
 
 class HidekiWindPacket(Packet):
-    # 2017-01-16 05:39:42 : HIDEKI Wind sensor
-    # Rolling Code: 0
-    # Channel: 4
-    # Battery: OK
-    # Temperature: -5.0 C
-    # Wind Strength: 2.57 km/h
-    # Direction: 45.0 \xc2\xb0
-
     #    IDENTIFIER = "HIDEKI Wind sensor"
     IDENTIFIER = 'Hideki-Wind'
 
@@ -125,6 +120,17 @@ class HidekiWindPacket(Packet):
             'wind_dir_deg': 337.500,
             'mic': 'CRC',
         },
+    )
+    TEXT_EXAMPLES = (
+        (
+            '2017-01-16 05:39:42 : HIDEKI Wind sensor',
+            'Rolling Code: 0',
+            'Channel: 4',
+            'Battery: OK',
+            'Temperature: -5.0 C',
+            'Wind Strength: 2.57 km/h',
+            'Direction: 45.0 \\xc2\\xb0',
+        ),
     )
 
     PARSEINFO = {
@@ -185,12 +191,6 @@ class HidekiWindPacket(Packet):
 
 
 class HidekiRainPacket(Packet):
-    # 2017-01-16 05:39:42 : HIDEKI Rain sensor
-    # Rolling Code: 0
-    # Channel: 4
-    # Battery: OK
-    # Rain: 2622.900
-
     #    IDENTIFIER = "HIDEKI Rain sensor"
     IDENTIFIER = 'Hideki-Rain'
 
@@ -230,6 +230,15 @@ class HidekiRainPacket(Packet):
             'rain_mm': 2255.400,
             'mic': 'CRC',
         },
+    )
+    TEXT_EXAMPLES = (
+        (
+            '2017-01-16 05:39:42 : HIDEKI Rain sensor',
+            'Rolling Code: 0',
+            'Channel: 4',
+            'Battery: OK',
+            'Rain: 2622.900',
+        ),
     )
 
     PARSEINFO = {

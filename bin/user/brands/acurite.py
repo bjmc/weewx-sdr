@@ -164,9 +164,6 @@ class Acurite3n1PacketV2(Packet):
 
 
 class Acurite5n1Packet(Packet):
-    # 2016-08-31 16:41:39 Acurite 5n1 sensor 0x0BFA Ch C, Msg 31, Wind 15 kmph / 9.3 mph 270.0^ W (3), rain gauge 0.00 in
-    # 2016-08-30 23:57:25 Acurite 5n1 sensor 0x0BFA Ch C, Msg 38, Wind 2 kmph / 1.2 mph, 21.3 C 70.3 F 70 % RH
-    # 2016-09-27 17:09:34 Acurite 5n1 sensor 0x062C Ch A, Total rain fall since last reset: 2.00
     #
     # the 'rain fall since last reset' seems to be emitted once when rtl_433
     # starts up, then never again.  the rain measure in the type 31 messages
@@ -311,6 +308,20 @@ class Acurite5n1Packet(Packet):
             'wind_dir_deg': 180.000,
             'rain_inch': 28.970,
         },
+    )
+    TEXT_EXAMPLES = (
+        (
+            '2016-08-31 16:41:39 Acurite 5n1 sensor 0x0BFA Ch C, Msg 31, Wind 15 kmph / 9.3 mph '
+            '270.0^ W (3), rain gauge 0.00 in',
+        ),
+        (
+            '2016-08-30 23:57:25 Acurite 5n1 sensor 0x0BFA Ch C, Msg 38, Wind 2 kmph / 1.2 mph, '
+            '21.3 C 70.3 F 70 % RH',
+        ),
+        (
+            '2016-09-27 17:09:34 Acurite 5n1 sensor 0x062C Ch A, Total rain fall since last reset: '
+            '2.00',
+        ),
     )
 
     # some changes to rtl_433 as of dec2017
@@ -472,7 +483,6 @@ class Acurite5n1PacketV2(Packet):
 
 class AcuriteTowerPacket(Packet):
     # initial implementation was single-line
-    # 2016-08-30 23:57:20 Acurite tower sensor 0x37FC Ch A: 26.7 C 80.1 F 16 % RH
     #
     # multi-line was introduced nov2016 - only single line is supported here
     # 2017-01-12 02:55:10 : Acurite tower sensor : 12391 : B
@@ -544,6 +554,9 @@ class AcuriteTowerPacket(Packet):
             'battery': 0,
             'status': 68,
         },
+    )
+    TEXT_EXAMPLES = (
+        ('2016-08-30 23:57:20 Acurite tower sensor 0x37FC Ch A: 26.7 C 80.1 F 16 % RH',),
     )
 
     # JSON format as of early 2017
@@ -741,9 +754,6 @@ class AcuriteRain899Packet(Packet):
 
 
 class Acurite986Packet(Packet):
-    # 2016-10-31 15:24:29 Acurite 986 sensor 0x2c87 - 2F: 16.7 C 62 F
-    # 2016-10-31 15:23:54 Acurite 986 sensor 0x85ed - 1R: 16.7 C 62 F
-
     # The 986 hardware_id changes, so using the 2F and 1R as the hardware
     # identifer.  As long as you only have one set of sendors and your
     # close neighbors have none.
@@ -776,6 +786,10 @@ class Acurite986Packet(Packet):
             'status': 0,
             'mic': 'CRC',
         },
+    )
+    TEXT_EXAMPLES = (
+        ('2016-10-31 15:24:29 Acurite 986 sensor 0x2c87 - 2F: 16.7 C 62 F',),
+        ('2016-10-31 15:23:54 Acurite 986 sensor 0x85ed - 1R: 16.7 C 62 F',),
     )
 
     PATTERN = re.compile(r'0x([0-9a-fA-F]+) - (1R|2F): ([\d.-]+) C ([\d.-]+) F')
@@ -814,14 +828,8 @@ class Acurite986Packet(Packet):
 
 class AcuriteLightningPacket(Packet):
     # with rtl_433 update of 19mar2017
-    # 2017-03-19 16:48:31 Acurite lightning 0x976F Ch A Msg Type 0x02: 66.2 F 25 % RH Strikes 1 Distance 0 L_status 0x02 - c0 97* 6f  99  50  72  81  c0  62*
-    # 2017-03-19 16:48:47 Acurite lightning 0x976F Ch A Msg Type 0x02: 66.2 F 25 % RH Strikes 1 Distance 0 L_status 0x02 - c0  97* 6f  99  50  72  81  c0  62*
 
     # pre-19mar2017
-    # 2016-11-04 04:34:58 Acurite lightning 0x536F Ch A Msg Type 0x51: 15 C 58 % RH Strikes 50 Distance 69 - c0  53  6f  3a  d1  0f  b2  c5  13*
-    # 2016-11-04 04:43:14 Acurite lightning 0x536F Ch A Msg Type 0x51: 15 C 58 % RH Strikes 55 Distance 5 - c0  53  6f  3a  d1  0f  b7  05  58*
-    # 2016-11-04 04:43:22 Acurite lightning 0x536F Ch A Msg Type 0x51: 15 C 58 % RH Strikes 55 Distance 69 - c0  53  6f  3a  d1  0f  b7  c5  18
-    # 2017-01-16 02:37:39 Acurite lightning 0x526F Ch A Msg Type 0x11: 67 C 38 % RH Strikes 47 Distance 81 - dd  52* 6f  a6  11  c3  af  d1  98*
 
     # April 21, 2018 - JSON support
 
@@ -862,9 +870,36 @@ class AcuriteLightningPacket(Packet):
             'raw_msg': 'fc47af95d2de55cc58',
         },
     )
+    TEXT_EXAMPLES = (
+        (
+            '2017-03-19 16:48:31 Acurite lightning 0x976F Ch A Msg Type 0x02: 66.2 F 25 % RH '
+            'Strikes 1 Distance 0 L_status 0x02 - c0 97* 6f  99  50  72  81  c0  62*',
+        ),
+        (
+            '2017-03-19 16:48:47 Acurite lightning 0x976F Ch A Msg Type 0x02: 66.2 F 25 % RH '
+            'Strikes 1 Distance 0 L_status 0x02 - c0  97* 6f  99  50  72  81  c0  62*',
+        ),
+        (
+            '2016-11-04 04:34:58 Acurite lightning 0x536F Ch A Msg Type 0x51: 15 C 58 % RH Strikes '
+            '50 Distance 69 - c0  53  6f  3a  d1  0f  b2  c5  13*',
+        ),
+        (
+            '2016-11-04 04:43:14 Acurite lightning 0x536F Ch A Msg Type 0x51: 15 C 58 % RH Strikes '
+            '55 Distance 5 - c0  53  6f  3a  d1  0f  b7  05  58*',
+        ),
+        (
+            '2016-11-04 04:43:22 Acurite lightning 0x536F Ch A Msg Type 0x51: 15 C 58 % RH Strikes '
+            '55 Distance 69 - c0  53  6f  3a  d1  0f  b7  c5  18',
+        ),
+        (
+            '2017-01-16 02:37:39 Acurite lightning 0x526F Ch A Msg Type 0x11: 67 C 38 % RH Strikes '
+            '47 Distance 81 - dd  52* 6f  a6  11  c3  af  d1  98*',
+        ),
+    )
 
     PATTERN = re.compile(
-        r'0x([0-9a-fA-F]+) Ch (.) Msg Type 0x([0-9a-fA-F]+): ([\d.-]+) ([CF]) ([\d.]+) % RH Strikes ([\d]+) Distance ([\d.]+)'
+        r'0x([0-9a-fA-F]+) Ch (.) Msg Type 0x([0-9a-fA-F]+): '
+        r'([\d.-]+) ([CF]) ([\d.]+) % RH Strikes ([\d]+) Distance ([\d.]+)'
     )
 
     @staticmethod
@@ -1003,10 +1038,28 @@ class AcuriteWT450Packet(Packet):
 class Acurite515Packet(Packet):
     # refrigerator (XR) and freezer (XF) sensors
     # X is one of A, B, or C
-    # "time" : "2022-01-21 21:55:54", "model" : "Acurite-515", "id" : 2375, "channel" : "BR", "battery_ok" : 1, "temperature_F" : 47.600, "mic" : "CHECKSUM"
-    # "time" : "2022-01-21 21:55:44", "model" : "Acurite-515", "id" : 78, "channel" : "BF", "battery_ok" : 1, "temperature_F" : 47.100, "mic" : "CHECKSUM"
 
     IDENTIFIER = 'Acurite-515'
+    EXAMPLES = (
+        {
+            'time': '2022-01-21 21:55:54',
+            'model': 'Acurite-515',
+            'id': 2375,
+            'channel': 'BR',
+            'battery_ok': 1,
+            'temperature_F': 47.6,
+            'mic': 'CHECKSUM',
+        },
+        {
+            'time': '2022-01-21 21:55:44',
+            'model': 'Acurite-515',
+            'id': 78,
+            'channel': 'BF',
+            'battery_ok': 1,
+            'temperature_F': 47.1,
+            'mic': 'CHECKSUM',
+        },
+    )
 
     @staticmethod
     def parse_json(obj):

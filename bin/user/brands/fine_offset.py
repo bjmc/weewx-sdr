@@ -7,18 +7,6 @@ from ..units import to_v
 
 
 class FOWH1080Packet(Packet):
-    # 2016-09-02 22:26:05 :Fine Offset WH1080 weather station
-    # Msg type: 0
-    # StationID: 0026
-    # Temperature: 19.9 C
-    # Humidity: 78 %
-    # Wind string: E
-    # Wind degrees: 90
-    # Wind avg speed: 0.00
-    # Wind gust: 1.22
-    # Total rainfall: 144.3
-    # Battery: OK
-
     # this assumes rain total is in mm
     # this assumes wind speed is kph
 
@@ -39,6 +27,21 @@ class FOWH1080Packet(Packet):
             'rain': 249.600,
             'battery': 'OK',
         },
+    )
+    TEXT_EXAMPLES = (
+        (
+            '2016-09-02 22:26:05 :Fine Offset WH1080 weather station',
+            'Msg type: 0',
+            'StationID: 0026',
+            'Temperature: 19.9 C',
+            'Humidity: 78 %',
+            'Wind string: E',
+            'Wind degrees: 90',
+            'Wind avg speed: 0.00',
+            'Wind gust: 1.22',
+            'Total rainfall: 144.3',
+            'Battery: OK',
+        ),
     )
 
     PARSEINFO = {
@@ -450,19 +453,7 @@ class FOWH24BPacket(Packet):
 
 
 class FOWH25Packet(Packet):
-    # 2016-09-02 22:26:05 :   Fine Offset Electronics, WH25
-    # ID:     239
-    # Temperature: 19.9 C
-    # Humidity: 78 %
-    # Pressure: 1007.9 hPa
     #
-    # 2018-10-09 19:45:12 :   Fine Offset Electronics, WH25
-    # id : 21
-    # temperature_C : 20.900
-    # humidity : 65
-    # pressure_hPa : 980.400
-    # battery : OK
-    # mic : CHECKSUM
 
     IDENTIFIER = 'Fineoffset-WH25'
 
@@ -515,6 +506,24 @@ class FOWH25Packet(Packet):
             'pressure_hPa': 987.800,
             'mic': 'CRC',
         },
+    )
+    TEXT_EXAMPLES = (
+        (
+            '2016-09-02 22:26:05 :   Fine Offset Electronics, WH25',
+            'ID:     239',
+            'Temperature: 19.9 C',
+            'Humidity: 78 %',
+            'Pressure: 1007.9 hPa',
+        ),
+        (
+            '2018-10-09 19:45:12 :   Fine Offset Electronics, WH25',
+            'id : 21',
+            'temperature_C : 20.900',
+            'humidity : 65',
+            'pressure_hPa : 980.400',
+            'battery : OK',
+            'mic : CHECKSUM',
+        ),
     )
 
     PARSEINFO = {

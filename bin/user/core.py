@@ -608,7 +608,10 @@ Hide:
         '--hide',
         dest='hidden',
         default='empty',
-        help='output to be hidden as comma-delimited list: out, parsed, unparsed, mapped, unmapped, empty',
+        help=(
+            'output to be hidden as comma-delimited list: '
+            'out, parsed, unparsed, mapped, unmapped, empty'
+        ),
     )
     parser.add_option(
         '--action',

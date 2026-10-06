@@ -15,6 +15,7 @@ from user.brands import (
     Acurite3n1PacketV2,
     Acurite5n1Packet,
     Acurite5n1PacketV2,
+    Acurite515Packet,
     Acurite606TXPacket,
     Acurite606TXPacketV2,
     Acurite986Packet,
@@ -36,6 +37,7 @@ from user.brands import (
     Bresser6in1Packet,
     Bresser7in1Packet,
     BresserProRainGaugePacket,
+    CalibeurRF104Packet,
     Cotech367959Packet,
     EcoWittWH40Packet,
     EcoWittWS68Packet,
@@ -66,11 +68,13 @@ from user.brands import (
     InFactoryTHPacket,
     KedsumTHPacket,
     LaCrosseBreezeProPacket,
+    LaCrosseLTVR3Packet,
     LaCrosseTX18Packet,
     LaCrosseTX141Bv3Packet,
     LaCrosseTX141THBv2Packet,
     LaCrosseTXPacket,
     LaCrosseWSPacket,
+    NexusTemperaturePacket,
     OSBTHGN129Packet,
     OSBTHR918Packet,
     OSBTHR968Packet,
@@ -81,10 +85,12 @@ from user.brands import (
     OSTHGR968Packet,
     OSTHN802Packet,
     OSTHR128Packet,
+    OSTHR228NPacket,
     OSUV800Packet,
     OSUVR128Packet,
     OSWGR800Packet,
     ProloguePacket,
+    PrologueTHPacket,
     RubicsonTempPacket,
     RubicsonTempPacketV2,
     SpringfieldTMPacket,
@@ -95,6 +101,7 @@ from user.brands import (
     WS2032Packet,
     WT0124Packet,
 )
+from user.core import PacketFactory
 
 TEST_CASES = (
     pytest.param(
@@ -2081,6 +2088,92 @@ TEST_CASES = (
         {'dateTime': 1556022532, 'temperature.122.WT0124Packet': 22.8, 'usUnits': 16},
         id='WT0124Packet.EXAMPLES[0]',
     ),
+    pytest.param(
+        OSBTHR968Packet,
+        OSBTHR968Packet.EXAMPLES[2],
+        {
+            'dateTime': 1646322265,
+            'usUnits': 16,
+            'battery.0:219.OSBTHR968Packet': 0,
+            'temperature.0:219.OSBTHR968Packet': 21.7,
+            'humidity.0:219.OSBTHR968Packet': 40.0,
+            'pressure.0:219.OSBTHR968Packet': 990.0,
+        },
+        id='OSBTHR968Packet.EXAMPLES[2]',
+    ),
+    pytest.param(
+        OSTHR228NPacket,
+        OSTHR228NPacket.EXAMPLES[0],
+        {
+            'dateTime': 1654589829,
+            'usUnits': 16,
+            'battery.1:211.OSTHR228NPacket': 1,
+            'temperature.1:211.OSTHR228NPacket': -19.9,
+        },
+        id='OSTHR228NPacket.EXAMPLES[0]',
+    ),
+    pytest.param(
+        OSTHGR968Packet,
+        OSTHGR968Packet.EXAMPLES[1],
+        {
+            'dateTime': 1550238206,
+            'usUnits': 16,
+            'battery.1:187.OSTHGR968Packet': 0,
+            'temperature.1:187.OSTHGR968Packet': 16.5,
+            'humidity.1:187.OSTHGR968Packet': 11.0,
+        },
+        id='OSTHGR968Packet.EXAMPLES[1]',
+    ),
+    pytest.param(
+        PrologueTHPacket,
+        PrologueTHPacket.EXAMPLES[0],
+        {
+            'dateTime': 1630626460,
+            'usUnits': 16,
+            'model.70.PrologueTHPacket': 'Prologue-TH',
+            'temperature.70.PrologueTHPacket': 24.8,
+            'humidity.70.PrologueTHPacket': 49.0,
+            'battery.70.PrologueTHPacket': 0,
+            'channel.70.PrologueTHPacket': 1,
+        },
+        id='PrologueTHPacket.EXAMPLES[0]',
+    ),
+    pytest.param(
+        Acurite515Packet,
+        Acurite515Packet.EXAMPLES[0],
+        {
+            'dateTime': 1642802154,
+            'usUnits': 1,
+            'channel.0947.Acurite515Packet': None,
+            'battery.0947.Acurite515Packet': 0,
+            'temperature.0947.Acurite515Packet': 47.6,
+        },
+        id='Acurite515Packet.EXAMPLES[0]',
+    ),
+    pytest.param(
+        Acurite515Packet,
+        Acurite515Packet.EXAMPLES[1],
+        {
+            'dateTime': 1642802144,
+            'usUnits': 1,
+            'channel.004E.Acurite515Packet': None,
+            'battery.004E.Acurite515Packet': 0,
+            'temperature.004E.Acurite515Packet': 47.1,
+        },
+        id='Acurite515Packet.EXAMPLES[1]',
+    ),
+    pytest.param(
+        LaCrosseLTVR3Packet,
+        LaCrosseLTVR3Packet.EXAMPLES[0],
+        {
+            'dateTime': 1642308205,
+            'usUnits': 16,
+            'rain_total.7417878.LaCrosseLTVR3Packet': 10921.75,
+            'rain2_total.7417878.LaCrosseLTVR3Packet': 10921.75,
+            'battery.7417878.LaCrosseLTVR3Packet': 0,
+        },
+        id='LaCrosseLTVR3Packet.EXAMPLES[0]',
+    ),
 )
 
 
@@ -2097,3 +2190,502 @@ def test_cases_cover_every_example():
 @pytest.mark.parametrize('packet_cls, example, expected', TEST_CASES)
 def test_matches_master_output(packet_cls, example, expected):
     assert packet_cls.parse_json(dict(example)) == expected
+
+
+TEXT_CASES = (
+    pytest.param(
+        Acurite5n1Packet,
+        0,
+        {
+            'dateTime': 1472661699,
+            'usUnits': 16,
+            'channel.0BFA.Acurite5n1Packet': 'C',
+            'wind_speed.0BFA.Acurite5n1Packet': 15.0,
+            'wind_speed_mph.0BFA.Acurite5n1Packet': 9.3,
+            'wind_dir.0BFA.Acurite5n1Packet': 270.0,
+            'rain_total.0BFA.Acurite5n1Packet': 0.0,
+        },
+        id='Acurite5n1Packet.TEXT_EXAMPLES[0]',
+    ),
+    pytest.param(
+        Acurite5n1Packet,
+        1,
+        {
+            'dateTime': 1472601445,
+            'usUnits': 16,
+            'channel.0BFA.Acurite5n1Packet': 'C',
+            'wind_speed.0BFA.Acurite5n1Packet': 2.0,
+            'wind_speed_mph.0BFA.Acurite5n1Packet': 1.2,
+            'temperature.0BFA.Acurite5n1Packet': 21.3,
+            'temperature_F.0BFA.Acurite5n1Packet': 70.3,
+            'humidity.0BFA.Acurite5n1Packet': 70.0,
+        },
+        id='Acurite5n1Packet.TEXT_EXAMPLES[1]',
+    ),
+    pytest.param(
+        Acurite5n1Packet,
+        2,
+        {
+            'dateTime': 1474996174,
+            'usUnits': 16,
+            'channel.062C.Acurite5n1Packet': 'A',
+            'rain_since_reset.062C.Acurite5n1Packet': 2.0,
+        },
+        id='Acurite5n1Packet.TEXT_EXAMPLES[2]',
+    ),
+    pytest.param(
+        AcuriteTowerPacket,
+        0,
+        {
+            'dateTime': 1472601440,
+            'usUnits': 16,
+            'channel.37FC.AcuriteTowerPacket': 'A',
+            'temperature.37FC.AcuriteTowerPacket': 26.7,
+            'temperature_F.37FC.AcuriteTowerPacket': 80.1,
+            'humidity.37FC.AcuriteTowerPacket': 16.0,
+        },
+        id='AcuriteTowerPacket.TEXT_EXAMPLES[0]',
+    ),
+    pytest.param(
+        Acurite986Packet,
+        0,
+        {
+            'dateTime': 1477927469,
+            'usUnits': 16,
+            'channel.2C87.Acurite986Packet': '2F',
+            'temperature.2C87.Acurite986Packet': 16.7,
+            'temperature_F.2C87.Acurite986Packet': 62.0,
+        },
+        id='Acurite986Packet.TEXT_EXAMPLES[0]',
+    ),
+    pytest.param(
+        Acurite986Packet,
+        1,
+        {
+            'dateTime': 1477927434,
+            'usUnits': 16,
+            'channel.85ED.Acurite986Packet': '1R',
+            'temperature.85ED.Acurite986Packet': 16.7,
+            'temperature_F.85ED.Acurite986Packet': 62.0,
+        },
+        id='Acurite986Packet.TEXT_EXAMPLES[1]',
+    ),
+    pytest.param(
+        AcuriteLightningPacket,
+        0,
+        {
+            'dateTime': 1489942111,
+            'usUnits': 1,
+            'channel.976F.AcuriteLightningPacket': 'A',
+            'msg_type.976F.AcuriteLightningPacket': '02',
+            'temperature.976F.AcuriteLightningPacket': 66.2,
+            'humidity.976F.AcuriteLightningPacket': 25.0,
+            'strikes_total.976F.AcuriteLightningPacket': 1.0,
+            'distance.976F.AcuriteLightningPacket': 0.0,
+        },
+        id='AcuriteLightningPacket.TEXT_EXAMPLES[0]',
+    ),
+    pytest.param(
+        AcuriteLightningPacket,
+        1,
+        {
+            'dateTime': 1489942127,
+            'usUnits': 1,
+            'channel.976F.AcuriteLightningPacket': 'A',
+            'msg_type.976F.AcuriteLightningPacket': '02',
+            'temperature.976F.AcuriteLightningPacket': 66.2,
+            'humidity.976F.AcuriteLightningPacket': 25.0,
+            'strikes_total.976F.AcuriteLightningPacket': 1.0,
+            'distance.976F.AcuriteLightningPacket': 0.0,
+        },
+        id='AcuriteLightningPacket.TEXT_EXAMPLES[1]',
+    ),
+    pytest.param(
+        AcuriteLightningPacket,
+        2,
+        {
+            'dateTime': 1478234098,
+            'usUnits': 16,
+            'channel.536F.AcuriteLightningPacket': 'A',
+            'msg_type.536F.AcuriteLightningPacket': '51',
+            'temperature.536F.AcuriteLightningPacket': 15.0,
+            'humidity.536F.AcuriteLightningPacket': 58.0,
+            'strikes_total.536F.AcuriteLightningPacket': 50.0,
+            'distance.536F.AcuriteLightningPacket': 69.0,
+        },
+        id='AcuriteLightningPacket.TEXT_EXAMPLES[2]',
+    ),
+    pytest.param(
+        AcuriteLightningPacket,
+        3,
+        {
+            'dateTime': 1478234594,
+            'usUnits': 16,
+            'channel.536F.AcuriteLightningPacket': 'A',
+            'msg_type.536F.AcuriteLightningPacket': '51',
+            'temperature.536F.AcuriteLightningPacket': 15.0,
+            'humidity.536F.AcuriteLightningPacket': 58.0,
+            'strikes_total.536F.AcuriteLightningPacket': 55.0,
+            'distance.536F.AcuriteLightningPacket': 5.0,
+        },
+        id='AcuriteLightningPacket.TEXT_EXAMPLES[3]',
+    ),
+    pytest.param(
+        AcuriteLightningPacket,
+        4,
+        {
+            'dateTime': 1478234602,
+            'usUnits': 16,
+            'channel.536F.AcuriteLightningPacket': 'A',
+            'msg_type.536F.AcuriteLightningPacket': '51',
+            'temperature.536F.AcuriteLightningPacket': 15.0,
+            'humidity.536F.AcuriteLightningPacket': 58.0,
+            'strikes_total.536F.AcuriteLightningPacket': 55.0,
+            'distance.536F.AcuriteLightningPacket': 69.0,
+        },
+        id='AcuriteLightningPacket.TEXT_EXAMPLES[4]',
+    ),
+    pytest.param(
+        AcuriteLightningPacket,
+        5,
+        {
+            'dateTime': 1484534259,
+            'usUnits': 16,
+            'channel.526F.AcuriteLightningPacket': 'A',
+            'msg_type.526F.AcuriteLightningPacket': '11',
+            'temperature.526F.AcuriteLightningPacket': 67.0,
+            'humidity.526F.AcuriteLightningPacket': 38.0,
+            'strikes_total.526F.AcuriteLightningPacket': 47.0,
+            'distance.526F.AcuriteLightningPacket': 81.0,
+        },
+        id='AcuriteLightningPacket.TEXT_EXAMPLES[5]',
+    ),
+    pytest.param(
+        AmbientF007THPacket,
+        0,
+        {
+            'dateTime': 1485022636,
+            'usUnits': 16,
+            'temperature.1:80.AmbientF007THPacket': 61.8,
+            'humidity.1:80.AmbientF007THPacket': 13.0,
+        },
+        id='AmbientF007THPacket.TEXT_EXAMPLES[0]',
+    ),
+    pytest.param(
+        CalibeurRF104Packet,
+        0,
+        {
+            'dateTime': 1477963528,
+            'usUnits': 16,
+            'temperature.1.CalibeurRF104Packet': 1.8,
+            'humidity.1.CalibeurRF104Packet': 71.0,
+        },
+        id='CalibeurRF104Packet.TEXT_EXAMPLES[0]',
+    ),
+    pytest.param(
+        CalibeurRF104Packet,
+        1,
+        {
+            'dateTime': 1478236599,
+            'usUnits': 16,
+            'temperature.1.CalibeurRF104Packet': -2.2,
+            'humidity.1.CalibeurRF104Packet': 71.0,
+        },
+        id='CalibeurRF104Packet.TEXT_EXAMPLES[1]',
+    ),
+    pytest.param(
+        FOWH1080Packet,
+        0,
+        {
+            'dateTime': 1472855165,
+            'usUnits': 16,
+            'temperature.0026.FOWH1080Packet': 19.9,
+            'humidity.0026.FOWH1080Packet': 78.0,
+            'wind_dir.0026.FOWH1080Packet': 90,
+            'wind_speed.0026.FOWH1080Packet': 0.0,
+            'wind_gust.0026.FOWH1080Packet': 1.22,
+            'rain_total.0026.FOWH1080Packet': 144.3,
+            'battery.0026.FOWH1080Packet': 0,
+        },
+        id='FOWH1080Packet.TEXT_EXAMPLES[0]',
+    ),
+    pytest.param(
+        FOWH25Packet,
+        0,
+        {
+            'dateTime': 1472855165,
+            'usUnits': 16,
+            'temperature.239.FOWH25Packet': 19.9,
+            'humidity.239.FOWH25Packet': 78.0,
+            'pressure.239.FOWH25Packet': 1007.9,
+        },
+        id='FOWH25Packet.TEXT_EXAMPLES[0]',
+    ),
+    pytest.param(
+        FOWH25Packet,
+        1,
+        {'dateTime': 1539114312, 'usUnits': 16},
+        id='FOWH25Packet.TEXT_EXAMPLES[1]',
+    ),
+    pytest.param(
+        HidekiTS04Packet,
+        0,
+        {
+            'dateTime': 1472665290,
+            'usUnits': 16,
+            'battery.1:9.HidekiTS04Packet': 0,
+            'temperature.1:9.HidekiTS04Packet': 27.3,
+            'humidity.1:9.HidekiTS04Packet': 60.0,
+        },
+        id='HidekiTS04Packet.TEXT_EXAMPLES[0]',
+    ),
+    pytest.param(
+        HidekiWindPacket,
+        0,
+        {
+            'dateTime': 1484545182,
+            'usUnits': 16,
+            'battery.4:0.HidekiWindPacket': 0,
+            'temperature.4:0.HidekiWindPacket': -5.0,
+            'wind_speed.4:0.HidekiWindPacket': 2.57,
+            'wind_dir.4:0.HidekiWindPacket': 45.0,
+        },
+        id='HidekiWindPacket.TEXT_EXAMPLES[0]',
+    ),
+    pytest.param(
+        HidekiRainPacket,
+        0,
+        {
+            'dateTime': 1484545182,
+            'usUnits': 16,
+            'battery.4:0.HidekiRainPacket': 0,
+            'rain_total.4:0.HidekiRainPacket': 2622.9,
+        },
+        id='HidekiRainPacket.TEXT_EXAMPLES[0]',
+    ),
+    pytest.param(
+        LaCrosseWSPacket,
+        0,
+        {'dateTime': 1473295432, 'usUnits': 17, 'temperature.9:202.LaCrosseWSPacket': 21.0},
+        id='LaCrosseWSPacket.TEXT_EXAMPLES[0]',
+    ),
+    pytest.param(
+        LaCrosseWSPacket,
+        1,
+        {'dateTime': 1473295433, 'usUnits': 17, 'humidity.9:202.LaCrosseWSPacket': 92},
+        id='LaCrosseWSPacket.TEXT_EXAMPLES[1]',
+    ),
+    pytest.param(
+        LaCrosseWSPacket,
+        2,
+        {
+            'dateTime': 1473295433,
+            'usUnits': 17,
+            'wind_speed.9:202.LaCrosseWSPacket': 0.0,
+            'wind_dir.9:202.LaCrosseWSPacket': 67.5,
+        },
+        id='LaCrosseWSPacket.TEXT_EXAMPLES[2]',
+    ),
+    pytest.param(
+        LaCrosseWSPacket,
+        3,
+        {'dateTime': 1478195000, 'usUnits': 17, 'rain_total.9:202.LaCrosseWSPacket': 850.04},
+        id='LaCrosseWSPacket.TEXT_EXAMPLES[3]',
+    ),
+    pytest.param(
+        NexusTemperaturePacket,
+        0,
+        {
+            'dateTime': 1530321132,
+            'usUnits': 16,
+            'battery.1:55.NexusTemperaturePacket': 0,
+            'temperature.1:55.NexusTemperaturePacket': 27.1,
+        },
+        id='NexusTemperaturePacket.TEXT_EXAMPLES[0]',
+    ),
+    pytest.param(
+        NexusTemperaturePacket,
+        1,
+        {
+            'dateTime': 1533160991,
+            'usUnits': 16,
+            'battery.1:180.NexusTemperaturePacket': 0,
+            'temperature.1:180.NexusTemperaturePacket': 20.1,
+            'humidity.1:180.NexusTemperaturePacket': 42.0,
+        },
+        id='NexusTemperaturePacket.TEXT_EXAMPLES[1]',
+    ),
+    pytest.param(
+        OSPCR800Packet,
+        0,
+        {
+            'dateTime': 1478147783,
+            'usUnits': 1,
+            'battery.0:93.OSPCR800Packet': 0,
+            'rain_rate.0:93.OSPCR800Packet': 0.0,
+            'rain_total.0:93.OSPCR800Packet': 41.0,
+        },
+        id='OSPCR800Packet.TEXT_EXAMPLES[0]',
+    ),
+    pytest.param(
+        OSBTHR968Packet,
+        0,
+        {
+            'dateTime': 1505252695,
+            'usUnits': 16,
+            'battery.0:111.OSBTHR968Packet': 0,
+            'humidity.0:111.OSBTHR968Packet': 36.0,
+            'pressure.0:111.OSBTHR968Packet': 1012.0,
+        },
+        id='OSBTHR968Packet.TEXT_EXAMPLES[0]',
+    ),
+    pytest.param(
+        OSTHGR122NPacket,
+        0,
+        {
+            'dateTime': 1473716695,
+            'usUnits': 16,
+            'battery.3:96.OSTHGR122NPacket': 0,
+            'temperature.3:96.OSTHGR122NPacket': 27.3,
+            'humidity.3:96.OSTHGR122NPacket': 36.0,
+        },
+        id='OSTHGR122NPacket.TEXT_EXAMPLES[0]',
+    ),
+    pytest.param(
+        OSTHGR810Packet,
+        0,
+        {
+            'dateTime': 1472767547,
+            'usUnits': 16,
+            'battery.1:122.OSTHGR810Packet': 0,
+            'temperature.1:122.OSTHGR810Packet': 26.7,
+            'temperature_F.1:122.OSTHGR810Packet': 80.06,
+            'humidity.1:122.OSTHGR810Packet': 58.0,
+        },
+        id='OSTHGR810Packet.TEXT_EXAMPLES[0]',
+    ),
+    pytest.param(
+        OSTHGR810Packet,
+        1,
+        {
+            'dateTime': 1478226097,
+            'usUnits': 16,
+            'battery.1:122.OSTHGR810Packet': 0,
+            'temperature.1:122.OSTHGR810Packet': 22.2,
+            'temperature_F.1:122.OSTHGR810Packet': 71.96,
+            'humidity.1:122.OSTHGR810Packet': 57.0,
+        },
+        id='OSTHGR810Packet.TEXT_EXAMPLES[1]',
+    ),
+    pytest.param(
+        OSTHR228NPacket,
+        0,
+        {
+            'dateTime': 1473422350,
+            'usUnits': 16,
+            'battery.2:111.OSTHR228NPacket': 0,
+            'temperature.2:111.OSTHR228NPacket': 24.7,
+        },
+        id='OSTHR228NPacket.TEXT_EXAMPLES[0]',
+    ),
+    pytest.param(
+        OSUV800Packet,
+        0,
+        {
+            'dateTime': 1485813612,
+            'usUnits': 16,
+            'battery.1:207.OSUV800Packet': 0,
+            'uv_index.1:207.OSUV800Packet': 0.0,
+        },
+        id='OSUV800Packet.TEXT_EXAMPLES[0]',
+    ),
+    pytest.param(
+        OSUVR128Packet,
+        0,
+        {
+            'dateTime': 1572937627,
+            'usUnits': 16,
+            'uv_index.0:116.OSUVR128Packet': 0.0,
+            'battery.0:116.OSUVR128Packet': 0,
+        },
+        id='OSUVR128Packet.TEXT_EXAMPLES[0]',
+    ),
+    pytest.param(
+        OSWGR800Packet,
+        0,
+        {
+            'dateTime': 1478147794,
+            'usUnits': 17,
+            'battery.0:85.OSWGR800Packet': 0,
+            'wind_gust.0:85.OSWGR800Packet': 1.1,
+            'wind_speed.0:85.OSWGR800Packet': 1.1,
+            'wind_dir.0:85.OSWGR800Packet': 22.5,
+        },
+        id='OSWGR800Packet.TEXT_EXAMPLES[0]',
+    ),
+    pytest.param(
+        OSTHN802Packet,
+        0,
+        {
+            'dateTime': 1501781048,
+            'usUnits': 16,
+            'battery.3:157.OSTHN802Packet': 0,
+            'temperature.3:157.OSTHN802Packet': 26.6,
+        },
+        id='OSTHN802Packet.TEXT_EXAMPLES[0]',
+    ),
+    pytest.param(
+        OSBTHGN129Packet,
+        0,
+        {
+            'dateTime': 1501781043,
+            'usUnits': 16,
+            'battery.5:146.OSBTHGN129Packet': 0,
+            'temperature.5:146.OSBTHGN129Packet': 32.0,
+            'humidity.5:146.OSBTHGN129Packet': 50.0,
+            'pressure.5:146.OSBTHGN129Packet': 959.36,
+        },
+        id='OSBTHGN129Packet.TEXT_EXAMPLES[0]',
+    ),
+    pytest.param(
+        RubicsonTempPacket,
+        0,
+        {
+            'dateTime': 1484491743,
+            'usUnits': 16,
+            'battery.1:14.RubicsonTempPacket': 0,
+            'temperature.1:14.RubicsonTempPacket': 4.5,
+        },
+        id='RubicsonTempPacket.TEXT_EXAMPLES[0]',
+    ),
+    pytest.param(
+        TFATwinPlus303049Packet,
+        0,
+        {
+            'dateTime': 1569431712,
+            'usUnits': 16,
+            'channel.0000.TFATwinPlus303049Packet': 1,
+            'battery.0000.TFATwinPlus303049Packet': 0,
+            'temperature.0000.TFATwinPlus303049Packet': 8.4,
+            'humidity.0000.TFATwinPlus303049Packet': 91.0,
+        },
+        id='TFATwinPlus303049Packet.TEXT_EXAMPLES[0]',
+    ),
+)
+
+
+def test_text_cases_cover_every_example():
+    """TEXT_CASES stays in sync with every class TEXT_EXAMPLES."""
+    keys = {
+        f'{name}.TEXT_EXAMPLES[{i}]'
+        for name, cls in inspect.getmembers(brands, inspect.isclass)
+        for i in range(len(getattr(cls, 'TEXT_EXAMPLES', ())))
+    }
+    assert {case.id for case in TEXT_CASES} == keys
+
+
+@pytest.mark.parametrize('packet_cls, index, expected', TEXT_CASES)
+def test_parse_text_matches_master(packet_cls, index, expected):
+    lines = list(packet_cls.TEXT_EXAMPLES[index])
+    ts, payload = PacketFactory.parse_firstline(lines[0])
+    assert packet_cls.parse_text(ts, payload, lines) == expected

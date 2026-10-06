@@ -6,13 +6,6 @@ from ..packet import Packet
 
 
 class RubicsonTempPacket(Packet):
-    # 2017-01-15 14:49:03 : Rubicson Temperature Sensor
-    # House Code: 14
-    # Channel: 1
-    # Battery: OK
-    # Temperature: 4.5 C
-    # CRC: OK
-
     IDENTIFIER = 'Rubicson Temperature Sensor'
     PARSEINFO = {
         'House Code': ['house_code', None, lambda x: int(x)],
@@ -42,6 +35,16 @@ class RubicsonTempPacket(Packet):
             'temperature_C': -1.800,
             'crc': 'OK',
         },
+    )
+    TEXT_EXAMPLES = (
+        (
+            '2017-01-15 14:49:03 : Rubicson Temperature Sensor',
+            'House Code: 14',
+            'Channel: 1',
+            'Battery: OK',
+            'Temperature: 4.5 C',
+            'CRC: OK',
+        ),
     )
 
     @staticmethod
