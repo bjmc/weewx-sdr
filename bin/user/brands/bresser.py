@@ -5,6 +5,9 @@ from ..packet import Packet
 
 class Bresser5in1Packet(Packet):
     IDENTIFIER = 'Bresser-5in1'
+
+    IDENTIFIER = 'Bresser-5in1'
+
     EXAMPLES = (
         {
             'time': '2018-12-15 16:04:04',
@@ -33,8 +36,6 @@ class Bresser5in1Packet(Packet):
             'mic': 'CHECKSUM',
         },
     )
-
-    IDENTIFIER = 'Bresser-5in1'
 
     @staticmethod
     def parse_json(obj):
@@ -123,6 +124,8 @@ class Bresser6in1Packet(Packet):
 
 
 class Bresser7in1Packet(Packet):
+    IDENTIFIER = 'Bresser-7in1'
+
     EXAMPLES = (
         {
             'time': '2023-06-11 17:09:05',
@@ -141,8 +144,6 @@ class Bresser7in1Packet(Packet):
             'mic ': 'CRC',
         },
     )
-
-    IDENTIFIER = 'Bresser-7in1'
 
     @staticmethod
     def parse_json(obj):

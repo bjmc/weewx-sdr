@@ -4,6 +4,8 @@ from ..packet import Packet
 
 
 class KedsumTHPacket(Packet):
+    IDENTIFIER = 'Kedsum-TH'
+
     EXAMPLES = (
         {
             'time': '2022-06-17 00:23:59',
@@ -17,8 +19,6 @@ class KedsumTHPacket(Packet):
             'mic': 'CRC',
         },
     )
-
-    IDENTIFIER = 'Kedsum-TH'
 
     @staticmethod
     def parse_json(obj):

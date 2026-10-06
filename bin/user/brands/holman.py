@@ -4,6 +4,8 @@ from ..packet import Packet
 
 
 class HolmanWS5029Packet(Packet):
+    IDENTIFIER = 'Holman Industries WS5029 weather station'
+
     EXAMPLES = (
         {
             'time': '2019-08-07 10:35:07',
@@ -16,8 +18,6 @@ class HolmanWS5029Packet(Packet):
             'direction_deg': 338,
         },
     )
-
-    IDENTIFIER = 'Holman Industries WS5029 weather station'
 
     @staticmethod
     def parse_json(obj):

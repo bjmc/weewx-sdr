@@ -23,6 +23,8 @@ class HidekiTS04Packet(Packet):
     # Temperature: 27.30 C
     # Humidity: 60 %
 
+    IDENTIFIER = 'Hideki-TS04'
+
     EXAMPLES = (
         {
             'time': '2016-11-04 14:44:37',
@@ -45,7 +47,6 @@ class HidekiTS04Packet(Packet):
         },
     )
 
-    IDENTIFIER = 'Hideki-TS04'
     PARSEINFO = {
         'Rolling Code': ['rolling_code', None, lambda x: int(x)],
         'Channel': ['channel', None, lambda x: int(x)],
@@ -83,6 +84,9 @@ class HidekiWindPacket(Packet):
     # Temperature: -5.0 C
     # Wind Strength: 2.57 km/h
     # Direction: 45.0 \xc2\xb0
+
+    #    IDENTIFIER = "HIDEKI Wind sensor"
+    IDENTIFIER = 'Hideki-Wind'
 
     EXAMPLES = (
         {
@@ -122,9 +126,6 @@ class HidekiWindPacket(Packet):
             'mic': 'CRC',
         },
     )
-
-    #    IDENTIFIER = "HIDEKI Wind sensor"
-    IDENTIFIER = 'Hideki-Wind'
 
     PARSEINFO = {
         'Rolling Code': ['rolling_code', None, lambda x: int(x)],
@@ -190,6 +191,9 @@ class HidekiRainPacket(Packet):
     # Battery: OK
     # Rain: 2622.900
 
+    #    IDENTIFIER = "HIDEKI Rain sensor"
+    IDENTIFIER = 'Hideki-Rain'
+
     EXAMPLES = (
         {
             'time': '2017-01-16 04:38:50',
@@ -227,9 +231,6 @@ class HidekiRainPacket(Packet):
             'mic': 'CRC',
         },
     )
-
-    #    IDENTIFIER = "HIDEKI Rain sensor"
-    IDENTIFIER = 'Hideki-Rain'
 
     PARSEINFO = {
         'Rolling Code': ['rolling_code', None, lambda x: int(x)],

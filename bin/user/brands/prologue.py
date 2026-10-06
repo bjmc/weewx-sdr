@@ -5,6 +5,9 @@ from ..packet import Packet
 
 class ProloguePacket(Packet):
     # 2017-03-19 : Prologue Temperature and Humidity Sensor
+
+    IDENTIFIER = 'Prologue sensor'
+
     EXAMPLES = (
         {
             'time': '2017-03-15 20:14:19',
@@ -18,8 +21,6 @@ class ProloguePacket(Packet):
             'humidity': 49,
         },
     )
-
-    IDENTIFIER = 'Prologue sensor'
 
     @staticmethod
     def parse_json(obj):

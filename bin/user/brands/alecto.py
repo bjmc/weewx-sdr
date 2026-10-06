@@ -4,6 +4,8 @@ from ..packet import Packet
 
 
 class AlectoV1TemperaturePacket(Packet):
+    IDENTIFIER = 'AlectoV1-Temperature'
+
     EXAMPLES = (
         {
             'time': '2024-12-28 09:06:10',
@@ -16,8 +18,6 @@ class AlectoV1TemperaturePacket(Packet):
             'mic': 'CHECKSUM',
         },
     )
-
-    IDENTIFIER = 'AlectoV1-Temperature'
 
     @staticmethod
     def parse_json(obj):
@@ -34,6 +34,8 @@ class AlectoV1TemperaturePacket(Packet):
 
 
 class AlectoV1WindPacket(Packet):
+    IDENTIFIER = 'AlectoV1-Wind'
+
     EXAMPLES = (
         {
             'time': '2024-12-28 09:06:41',
@@ -47,8 +49,6 @@ class AlectoV1WindPacket(Packet):
             'mic': 'CHECKSUM',
         },
     )
-
-    IDENTIFIER = 'AlectoV1-Wind'
 
     @staticmethod
     def parse_json(obj):
@@ -66,6 +66,8 @@ class AlectoV1WindPacket(Packet):
 
 
 class AlectoV1RainPacket(Packet):
+    IDENTIFIER = 'AlectoV1-Rain'
+
     EXAMPLES = (
         {
             'time': '2024-12-28 09:06:31',
@@ -77,8 +79,6 @@ class AlectoV1RainPacket(Packet):
             'mic': 'CHECKSUM',
         },
     )
-
-    IDENTIFIER = 'AlectoV1-Rain'
 
     @staticmethod
     def parse_json(obj):

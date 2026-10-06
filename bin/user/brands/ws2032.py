@@ -4,6 +4,8 @@ from ..packet import Packet
 
 
 class WS2032Packet(Packet):
+    IDENTIFIER = 'WS2032'
+
     EXAMPLES = (
         {
             'time': '2020-10-19 22:41:24',
@@ -19,8 +21,6 @@ class WS2032Packet(Packet):
             'mic': 'CRC',
         },
     )
-
-    IDENTIFIER = 'WS2032'
 
     @staticmethod
     def parse_json(obj):

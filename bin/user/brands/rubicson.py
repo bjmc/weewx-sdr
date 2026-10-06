@@ -58,6 +58,8 @@ class RubicsonTempPacket(Packet):
 
 
 class RubicsonTempPacketV2(Packet):
+    IDENTIFIER = 'Rubicson-Temperature'
+
     EXAMPLES = (
         {
             'time': '2023-04-04 19:57:28',
@@ -70,8 +72,6 @@ class RubicsonTempPacketV2(Packet):
             'mic': 'CRC',
         },
     )
-
-    IDENTIFIER = 'Rubicson-Temperature'
 
     @staticmethod
     def parse_json(obj):

@@ -8,6 +8,8 @@ class Vevor7in1Packet(Packet):
     # Vevor 7-in-1 weather station, thanks to ivan
     # https://sh.com.hr/weather-station/your-vevor-7-in-1-wi-fi-weather-station-yt60234-in-weewx/
 
+    IDENTIFIER = 'Vevor-7in1'
+
     EXAMPLES = (
         {
             'time': '2024-11-13 13:27:59',
@@ -26,8 +28,6 @@ class Vevor7in1Packet(Packet):
             'mic': 'CHECKSUM',
         },
     )
-
-    IDENTIFIER = 'Vevor-7in1'
 
     @staticmethod
     def parse_json(obj):

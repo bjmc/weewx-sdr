@@ -7,6 +7,8 @@ from ..units import to_C
 class EM3551HPacket(Packet):
     # The EMAX-EM3551H sensor cluster, used in the raddy weather station
 
+    IDENTIFIER = 'Emax-EM3551H'
+
     EXAMPLES = (
         {
             'time': '2024-10-25 17:51:33',
@@ -23,8 +25,6 @@ class EM3551HPacket(Packet):
             'mic': 'CHECKSUM',
         },
     )
-
-    IDENTIFIER = 'Emax-EM3551H'
 
     @staticmethod
     def parse_json(obj):

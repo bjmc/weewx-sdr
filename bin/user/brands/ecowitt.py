@@ -6,6 +6,8 @@ from ..packet import Packet
 class EcoWittWH40Packet(Packet):
     # This is for a WH40 rain sensor
 
+    IDENTIFIER = 'EcoWitt-WH40'
+
     EXAMPLES = (
         {
             'time': '2020-02-05 12:37:05',
@@ -16,8 +18,6 @@ class EcoWittWH40Packet(Packet):
             'mic': 'CRC',
         },
     )
-
-    IDENTIFIER = 'EcoWitt-WH40'
 
     @staticmethod
     def parse_json(obj):
@@ -40,6 +40,8 @@ class EcoWittWH40Packet(Packet):
 class EcoWittWS68Packet(Packet):
     # This is for a WS68 wind/solar sensor
 
+    IDENTIFIER = 'EcoWitt-WS68'
+
     EXAMPLES = (
         {
             'time': '2022-09-26 00:47:41',
@@ -55,8 +57,6 @@ class EcoWittWS68Packet(Packet):
             'mic': 'CRC',
         },
     )
-
-    IDENTIFIER = 'EcoWitt-WS68'
 
     @staticmethod
     def parse_json(obj):

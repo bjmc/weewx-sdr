@@ -117,6 +117,9 @@ class AcuriteAtlasPacket(Packet):
 
 class Acurite3n1PacketV2(Packet):
     # sample json output from rtl_433
+
+    IDENTIFIER = 'Acurite-3n1'
+
     EXAMPLES = (
         {
             'time': '2021-12-27 02:53:38',
@@ -132,8 +135,6 @@ class Acurite3n1PacketV2(Packet):
             'mic': 'CHECKSUM',
         },
     )
-
-    IDENTIFIER = 'Acurite-3n1'
 
     @staticmethod
     def parse_json(obj):
@@ -364,6 +365,9 @@ class Acurite5n1PacketV2(Packet):
     # Based on Acurite5n1Packet class, but implemented for unsupported format
 
     # sample json output from rtl_433
+
+    IDENTIFIER = 'Acurite-5n1'
+
     EXAMPLES = (
         {
             'time': '2019-07-29 07:46:22.482883',
@@ -422,8 +426,6 @@ class Acurite5n1PacketV2(Packet):
             'mic': 'CHECKSUM',
         },
     )
-
-    IDENTIFIER = 'Acurite-5n1'
 
     @staticmethod
     def parse_json(obj):
@@ -567,6 +569,9 @@ class AcuriteTowerPacketV2(Packet):
     # Based on AcuriteTowerPacket type, but implemented for unsupported format
 
     # Sample data:
+
+    IDENTIFIER = 'Acurite-Tower'
+
     EXAMPLES = (
         {
             'time': '2019-07-29 07:44:23.005624',
@@ -596,8 +601,6 @@ class AcuriteTowerPacketV2(Packet):
         },
     )
 
-    IDENTIFIER = 'Acurite-Tower'
-
     @staticmethod
     def parse_json(obj):
         pkt = dict()
@@ -624,6 +627,9 @@ class AcuriteTowerPacketV2(Packet):
 
 class Acurite606TXPacket(Packet):
     # 2017-03-20: Acurite 606TX Temperature Sensor
+
+    IDENTIFIER = 'Acurite 606TX Sensor'
+
     EXAMPLES = (
         {
             'time': '2017-03-04 16:18:12',
@@ -633,8 +639,6 @@ class Acurite606TXPacket(Packet):
             'temperature_C': -1.100,
         },
     )
-
-    IDENTIFIER = 'Acurite 606TX Sensor'
 
     @staticmethod
     def parse_json(obj):
@@ -653,6 +657,9 @@ class Acurite606TXPacket(Packet):
 
 class Acurite606TXPacketV2(Packet):
     # 2021-02-23: Acurite 606TX Temperature Sensor
+
+    IDENTIFIER = 'Acurite-606TX'
+
     EXAMPLES = (
         {
             'time': '2021-02-23 16:24:07',
@@ -672,8 +679,6 @@ class Acurite606TXPacketV2(Packet):
         },
     )
 
-    IDENTIFIER = 'Acurite-606TX'
-
     @staticmethod
     def parse_json(obj):
         pkt = dict()
@@ -691,6 +696,9 @@ class Acurite606TXPacketV2(Packet):
 
 class AcuriteRain899Packet(Packet):
     # Sample data:
+
+    IDENTIFIER = 'Acurite-Rain899'
+
     EXAMPLES = (
         {
             'time': '2019-12-05 16:32:20',
@@ -718,8 +726,6 @@ class AcuriteRain899Packet(Packet):
         },
     )
 
-    IDENTIFIER = 'Acurite-Rain899'
-
     @staticmethod
     def parse_json(obj):
         pkt = dict()
@@ -737,6 +743,19 @@ class AcuriteRain899Packet(Packet):
 class Acurite986Packet(Packet):
     # 2016-10-31 15:24:29 Acurite 986 sensor 0x2c87 - 2F: 16.7 C 62 F
     # 2016-10-31 15:23:54 Acurite 986 sensor 0x85ed - 1R: 16.7 C 62 F
+
+    # The 986 hardware_id changes, so using the 2F and 1R as the hardware
+    # identifer.  As long as you only have one set of sendors and your
+    # close neighbors have none.
+
+    # Older releases of rtl_433 used 'Acurite 986 sensor', while recent
+    # versions use 'Acurite 986 Sensor'.  So we try to be compatible by
+    # matching on the least that we can.
+
+    # IDENTIFIER = "Acurite 986 sensor"
+    # IDENTIFIER = "Acurite 986 Sensor"
+    IDENTIFIER = 'Acurite-986'
+
     EXAMPLES = (
         {
             'time': '2018-04-22 18:01:03',
@@ -759,17 +778,6 @@ class Acurite986Packet(Packet):
         },
     )
 
-    # The 986 hardware_id changes, so using the 2F and 1R as the hardware
-    # identifer.  As long as you only have one set of sendors and your
-    # close neighbors have none.
-
-    # Older releases of rtl_433 used 'Acurite 986 sensor', while recent
-    # versions use 'Acurite 986 Sensor'.  So we try to be compatible by
-    # matching on the least that we can.
-
-    # IDENTIFIER = "Acurite 986 sensor"
-    # IDENTIFIER = "Acurite 986 Sensor"
-    IDENTIFIER = 'Acurite-986'
     PATTERN = re.compile(r'0x([0-9a-fA-F]+) - (1R|2F): ([\d.-]+) C ([\d.-]+) F')
 
     @staticmethod
@@ -816,6 +824,11 @@ class AcuriteLightningPacket(Packet):
     # 2017-01-16 02:37:39 Acurite lightning 0x526F Ch A Msg Type 0x11: 67 C 38 % RH Strikes 47 Distance 81 - dd  52* 6f  a6  11  c3  af  d1  98*
 
     # April 21, 2018 - JSON support
+
+    #    IDENTIFIER = "Acurite lightning"
+    #    IDENTIFIER = "Acurite Lightning 6045M"
+    IDENTIFIER = 'Acurite-6045M'
+
     EXAMPLES = (
         {
             'time': '2018-04-21 19:12:53',
@@ -850,9 +863,6 @@ class AcuriteLightningPacket(Packet):
         },
     )
 
-    #    IDENTIFIER = "Acurite lightning"
-    #    IDENTIFIER = "Acurite Lightning 6045M"
-    IDENTIFIER = 'Acurite-6045M'
     PATTERN = re.compile(
         r'0x([0-9a-fA-F]+) Ch (.) Msg Type 0x([0-9a-fA-F]+): ([\d.-]+) ([CF]) ([\d.]+) % RH Strikes ([\d]+) Distance ([\d.]+)'
     )
@@ -899,6 +909,8 @@ class AcuriteLightningPacket(Packet):
 
 
 class Acurite00275MPacket(Packet):
+    IDENTIFIER = '00275rm'
+
     EXAMPLES = (
         {
             'time': '2017-03-09 21:59:11',
@@ -924,8 +936,6 @@ class Acurite00275MPacket(Packet):
         },
     )
 
-    IDENTIFIER = '00275rm'
-
     @staticmethod
     def parse_json(obj):
         pkt = dict()
@@ -944,6 +954,8 @@ class Acurite00275MPacket(Packet):
 
 
 class AcuriteWT450Packet(Packet):
+    IDENTIFIER = 'WT450 sensor'
+
     EXAMPLES = (
         {
             'time': '2017-09-14 20:24:43',
@@ -973,8 +985,6 @@ class AcuriteWT450Packet(Packet):
             'humidity': 49,
         },
     )
-
-    IDENTIFIER = 'WT450 sensor'
 
     @staticmethod
     def parse_json(obj):

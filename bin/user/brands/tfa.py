@@ -45,6 +45,8 @@ class TFATwinPlus303049Packet(Packet):
     # Temperature: 8.40 C
     # Humidity: 91 %
 
+    IDENTIFIER = 'TFA-Twin-Plus-30.3049'
+
     EXAMPLES = (
         {
             'time': '2019-09-25 17:15:12',
@@ -58,7 +60,6 @@ class TFATwinPlus303049Packet(Packet):
         },
     )
 
-    IDENTIFIER = 'TFA-Twin-Plus-30.3049'
     PARSEINFO = {
         'Channel': ['channel', None, lambda x: int(x)],
         'Battery': ['battery', None, lambda x: 0 if x == 'OK' else 1],

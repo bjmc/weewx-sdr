@@ -8,6 +8,8 @@ class TSFT002Packet(Packet):
     # model : TS-FT002 Id : 127
     # Depth : 186 Temperature: 20.9 C Transmit Interval: 180 Battery Flag?: 8 MIC : CHECKSUM
 
+    IDENTIFIER = 'TS-FT002'
+
     EXAMPLES = (
         {
             'time': '2019-12-22 22:54:58',
@@ -20,8 +22,6 @@ class TSFT002Packet(Packet):
             'mic': 'CHECKSUM',
         },
     )
-
-    IDENTIFIER = 'TS-FT002'
 
     @staticmethod
     def parse_json(obj):

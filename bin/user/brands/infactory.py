@@ -4,6 +4,8 @@ from ..packet import Packet
 
 
 class InFactoryTHPacket(Packet):
+    IDENTIFIER = 'nFactory-TH'
+
     EXAMPLES = (
         {
             'time': '2021-03-03 10:19:53',
@@ -16,8 +18,6 @@ class InFactoryTHPacket(Packet):
             'mic': 'CRC',
         },
     )
-
-    IDENTIFIER = 'nFactory-TH'
 
     @staticmethod
     def parse_json(obj):

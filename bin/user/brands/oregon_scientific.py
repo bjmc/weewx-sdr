@@ -673,6 +673,10 @@ class OSBTHGN129Packet(Packet):
 
 
 class OSTHGR968Packet(Packet):
+    # '{"time" : "2019-02-15 13:43:26", "brand" : "OS", "model" : "THGR968", "id" : 187, "channel" : 1, "battery" : "OK", "temperature_C" : 16.500, "humidity" : 11}
+
+    IDENTIFIER = 'THGR968'
+
     EXAMPLES = (
         {
             'time': '2019-02-15 13:43:25',
@@ -685,9 +689,6 @@ class OSTHGR968Packet(Packet):
             'humidity': 11,
         },
     )
-    # '{"time" : "2019-02-15 13:43:26", "brand" : "OS", "model" : "THGR968", "id" : 187, "channel" : 1, "battery" : "OK", "temperature_C" : 16.500, "humidity" : 11}
-
-    IDENTIFIER = 'THGR968'
 
     @staticmethod
     def parse_json(obj):
@@ -703,6 +704,8 @@ class OSTHGR968Packet(Packet):
 
 
 class OSRGR968Packet(Packet):
+    IDENTIFIER = 'RGR968'
+
     EXAMPLES = (
         {
             'time': '2019-02-15 14:32:51',
@@ -725,8 +728,6 @@ class OSRGR968Packet(Packet):
             'total_rain': 6935.100,
         },
     )
-
-    IDENTIFIER = 'RGR968'
 
     @staticmethod
     def parse_json(obj):

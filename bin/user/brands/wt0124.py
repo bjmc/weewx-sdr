@@ -5,6 +5,9 @@ from ..packet import Packet
 
 class WT0124Packet(Packet):
     # 2019-04-23: WT0124 Pool Thermometer
+
+    IDENTIFIER = 'WT0124 Pool Thermometer'
+
     EXAMPLES = (
         {
             'time': '2019-04-23 12:28:52',
@@ -16,8 +19,6 @@ class WT0124Packet(Packet):
             'data': 172,
         },
     )
-
-    IDENTIFIER = 'WT0124 Pool Thermometer'
 
     @staticmethod
     def parse_json(obj):

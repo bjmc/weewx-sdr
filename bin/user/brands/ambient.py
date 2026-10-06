@@ -76,6 +76,8 @@ class AmbientF007THPacket(Packet):
 
 
 class AmbientTX8300Packet(Packet):
+    IDENTIFIER = 'AmbientWeather-TX8300'
+
     EXAMPLES = (
         {
             'time': '2021-06-14 21:38:43',
@@ -87,8 +89,6 @@ class AmbientTX8300Packet(Packet):
             'mic': 'CHECKSUM',
         },
     )
-
-    IDENTIFIER = 'AmbientWeather-TX8300'
 
     @staticmethod
     def parse_json(obj):
@@ -104,6 +104,8 @@ class AmbientTX8300Packet(Packet):
 
 
 class AmbientWH31EPacket(Packet):
+    IDENTIFIER = 'AmbientWeather-WH31E'
+
     EXAMPLES = (
         {
             'time': '2019-02-14 17:24:41.259441',
@@ -124,8 +126,6 @@ class AmbientWH31EPacket(Packet):
             'noise': -26.525,
         },
     )
-
-    IDENTIFIER = 'AmbientWeather-WH31E'
 
     @staticmethod
     def parse_json(obj):
@@ -150,6 +150,8 @@ class AmbientWH31EPacket(Packet):
 
 
 class AmbientWH31BPacket(Packet):
+    IDENTIFIER = 'AmbientWeather-WH31B'
+
     EXAMPLES = (
         {
             'time': '2024-03-04 17:36:20',
@@ -163,7 +165,6 @@ class AmbientWH31BPacket(Packet):
             'mic': 'CRC',
         },
     )
-    IDENTIFIER = 'AmbientWeather-WH31B'
 
     @staticmethod
     def parse_json(obj):

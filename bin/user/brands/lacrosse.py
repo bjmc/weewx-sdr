@@ -7,6 +7,9 @@ from ..packet import Packet
 
 class LaCrosseBreezeProPacket(Packet):
     # sample json output from rtl_433
+
+    IDENTIFIER = 'LaCrosse-BreezePro'
+
     EXAMPLES = (
         {
             'time': '2020-12-14 22:22:21',
@@ -21,8 +24,6 @@ class LaCrosseBreezeProPacket(Packet):
             'mic': 'CRC',
         },
     )
-
-    IDENTIFIER = 'LaCrosse-BreezePro'
 
     @staticmethod
     def parse_json(obj):
@@ -51,6 +52,8 @@ class LaCrosseWSPacket(Packet):
     # 2016-11-03 17:43:20 :LaCrosse WS :9 :202
     # Rainfall: 850.04 mm
 
+    IDENTIFIER = 'LaCrosse WS'
+
     EXAMPLES = (
         {
             'time': '2016-11-04 14:42:49',
@@ -76,7 +79,6 @@ class LaCrosseWSPacket(Packet):
         },
     )
 
-    IDENTIFIER = 'LaCrosse WS'
     PARSEINFO = {
         'Wind speed': ['wind_speed', re.compile(r'([\d.]+) m/s'), lambda x: float(x)],
         'Direction': ['wind_dir', None, lambda x: float(x)],
@@ -126,6 +128,8 @@ class LaCrosseWSPacket(Packet):
 
 
 class LaCrosseTX141Bv3Packet(Packet):
+    IDENTIFIER = 'LaCrosse-TX141Bv3'
+
     EXAMPLES = (
         {
             'time': '2023-03-29 20:55:22',
@@ -137,8 +141,6 @@ class LaCrosseTX141Bv3Packet(Packet):
             'test': 'No',
         },
     )
-
-    IDENTIFIER = 'LaCrosse-TX141Bv3'
 
     @staticmethod
     def parse_json(obj):
@@ -153,6 +155,8 @@ class LaCrosseTX141Bv3Packet(Packet):
 
 
 class LaCrosseTX141THBv2Packet(Packet):
+    IDENTIFIER = 'LaCrosse-TX141THBv2'
+
     EXAMPLES = (
         {
             'time': '2017-01-16 15:24:43',
@@ -174,7 +178,6 @@ class LaCrosseTX141THBv2Packet(Packet):
             'test': 'No',
         },
     )
-    IDENTIFIER = 'LaCrosse-TX141THBv2'
 
     @staticmethod
     def parse_json(obj):
@@ -190,6 +193,8 @@ class LaCrosseTX141THBv2Packet(Packet):
 
 
 class LaCrosseTXPacket(Packet):
+    IDENTIFIER = 'LaCrosse TX Sensor'
+
     EXAMPLES = (
         {
             'time': '2017-07-30 21:11:19',
@@ -205,8 +210,6 @@ class LaCrosseTXPacket(Packet):
         },
     )
 
-    IDENTIFIER = 'LaCrosse TX Sensor'
-
     @staticmethod
     def parse_json(obj):
         pkt = dict()
@@ -220,6 +223,8 @@ class LaCrosseTXPacket(Packet):
 
 
 class LaCrosseTX18Packet(Packet):
+    IDENTIFIER = 'LaCrosse-WS3600'
+
     EXAMPLES = (
         {
             'time': '2020-04-21 05:21:19',
@@ -230,8 +235,6 @@ class LaCrosseTX18Packet(Packet):
         {'time': '2020-04-21 05:21:19', 'model': 'LaCrosse-WS3600', 'id': 184, 'humidity': 52},
         {'time': '2020-04-21 05:21:20', 'model': 'LaCrosse-WS3600', 'id': 184, 'rain_mm': 0.000},
     )
-
-    IDENTIFIER = 'LaCrosse-WS3600'
 
     @staticmethod
     def parse_json(obj):

@@ -4,6 +4,8 @@ from ..packet import Packet
 
 
 class AuriolHG02832Packet(Packet):
+    IDENTIFIER = 'Auriol-HG02832'
+
     EXAMPLES = (
         {
             'time': '2017-09-14 20:24:43',
@@ -33,8 +35,6 @@ class AuriolHG02832Packet(Packet):
             'humidity': 49,
         },
     )
-
-    IDENTIFIER = 'Auriol-HG02832'
 
     @staticmethod
     def parse_json(obj):

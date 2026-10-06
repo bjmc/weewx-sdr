@@ -19,6 +19,11 @@ class FOWH1080Packet(Packet):
     # Total rainfall: 144.3
     # Battery: OK
 
+    # this assumes rain total is in mm
+    # this assumes wind speed is kph
+
+    IDENTIFIER = 'Fine Offset WH1080 weather station'
+
     EXAMPLES = (
         {
             'time': '2016-11-04 14:40:38',
@@ -36,10 +41,6 @@ class FOWH1080Packet(Packet):
         },
     )
 
-    # this assumes rain total is in mm
-    # this assumes wind speed is kph
-
-    IDENTIFIER = 'Fine Offset WH1080 weather station'
     PARSEINFO = {
         #        'Msg type': ['msg_type', None, None],
         'StationID': ['station_id', None, None],
@@ -118,6 +119,13 @@ class FOWHx080Packet(Packet):
     # this assumes rain total is in mm (as of dec 2019)
     # this assumes wind speed is kph (as of dec 2019)
 
+    # todays rtl_433 output
+
+    # IDENTIFIER = "Fine Offset Electronics WH1080 / WH3080 Weather Station"
+    # IDENTIFIER = "Fine Offset Electronics WH1080/WH3080 Weather Station"
+    # IDENTIFIER = "Fine Offset Electronics WH1080"
+    IDENTIFIER = 'Fineoffset-WHx080'
+
     EXAMPLES = (
         {
             'time': '2020-10-13 14:04:48',
@@ -173,12 +181,6 @@ class FOWHx080Packet(Packet):
             'mic': 'CRC',
         },
     )
-    # todays rtl_433 output
-
-    # IDENTIFIER = "Fine Offset Electronics WH1080 / WH3080 Weather Station"
-    # IDENTIFIER = "Fine Offset Electronics WH1080/WH3080 Weather Station"
-    # IDENTIFIER = "Fine Offset Electronics WH1080"
-    IDENTIFIER = 'Fineoffset-WHx080'
 
     @staticmethod
     def parse_json(obj):
@@ -225,6 +227,8 @@ class FOWH3080Packet(Packet):
     # Watts / m: 175.93
     # Foot-candles: 11167.33
 
+    IDENTIFIER = 'Fine Offset Electronics WH3080 Weather Station'
+
     EXAMPLES = (
         {
             'time': '2017-05-15 17:21:07',
@@ -238,8 +242,6 @@ class FOWH3080Packet(Packet):
             'fc': 728.346,
         },
     )
-
-    IDENTIFIER = 'Fine Offset Electronics WH3080 Weather Station'
 
     @staticmethod
     def parse_json(obj):
@@ -262,6 +264,8 @@ class FOWH3080Packet(Packet):
 
 
 class FOWH2Packet(Packet):
+    IDENTIFIER = 'Fine Offset Electronics, WH2'
+
     EXAMPLES = (
         {
             'time': '2018-08-29 17:08:33',
@@ -272,7 +276,6 @@ class FOWH2Packet(Packet):
         },
     )
 
-    IDENTIFIER = 'Fine Offset Electronics, WH2'
     PARSEINFO = {
         'ID': ['station_id', None, lambda x: int(x)],
         'Temperature': ['temperature', re.compile(r'([\d.-]+) C'), lambda x: float(x)],
@@ -302,6 +305,8 @@ class FOWH2Packet(Packet):
 
 
 class FOWH5Packet(Packet):
+    IDENTIFIER = 'Fine Offset WH5 sensor'
+
     EXAMPLES = (
         {
             'time': '2019-10-27 14:51:21',
@@ -313,7 +318,6 @@ class FOWH5Packet(Packet):
         },
     )
 
-    IDENTIFIER = 'Fine Offset WH5 sensor'
     PARSEINFO = {
         'ID': ['station_id', None, lambda x: int(x)],
         'Temperature': ['temperature', re.compile(r'([\d.-]+) C'), lambda x: float(x)],
@@ -345,6 +349,8 @@ class FOWH5Packet(Packet):
 
 class FOWH24Packet(Packet):
     # This is for a WH24 which is the sensor array for several station models
+
+    IDENTIFIER = 'Fine Offset WH24'
 
     EXAMPLES = (
         {
@@ -381,8 +387,6 @@ class FOWH24Packet(Packet):
         },
     )
 
-    IDENTIFIER = 'Fine Offset WH24'
-
     @staticmethod
     def parse_json(obj):
         sensor_id = obj.get('id')
@@ -405,6 +409,8 @@ class FOWH24Packet(Packet):
 class FOWH24BPacket(Packet):
     # different mappings for the WH24 sensor
 
+    IDENTIFIER = 'Fineoffset-WH24'
+
     EXAMPLES = (
         {
             'time': '2020-08-01 14:03:52',
@@ -423,8 +429,6 @@ class FOWH24BPacket(Packet):
             'mic': 'CRC',
         },
     )
-
-    IDENTIFIER = 'Fineoffset-WH24'
 
     @staticmethod
     def parse_json(obj):
@@ -459,6 +463,8 @@ class FOWH25Packet(Packet):
     # pressure_hPa : 980.400
     # battery : OK
     # mic : CHECKSUM
+
+    IDENTIFIER = 'Fineoffset-WH25'
 
     EXAMPLES = (
         {
@@ -511,8 +517,6 @@ class FOWH25Packet(Packet):
         },
     )
 
-    IDENTIFIER = 'Fineoffset-WH25'
-
     PARSEINFO = {
         'ID': ['station_id', None, lambda x: int(x)],
         'Temperature': ['temperature', re.compile(r'([\d.-]+) C'), lambda x: float(x)],
@@ -547,6 +551,8 @@ class FOWH25Packet(Packet):
 
 
 class FOWH32Packet(Packet):
+    IDENTIFIER = 'Fineoffset-WH32'
+
     EXAMPLES = (
         {
             'time': '2024-03-04 17:41:55',
@@ -558,8 +564,6 @@ class FOWH32Packet(Packet):
             'mic': 'CRC',
         },
     )
-
-    IDENTIFIER = 'Fineoffset-WH32'
 
     @staticmethod
     def parse_json(obj):
@@ -587,6 +591,8 @@ class FOWH32BPacket(Packet):
     # Pressure  : 1001.2 hPa
     # Battery   : OK
     # Integrity : CHECKSUM
+
+    IDENTIFIER = 'Fineoffset-WH32B'
 
     EXAMPLES = (
         {
@@ -617,8 +623,6 @@ class FOWH32BPacket(Packet):
         },
     )
 
-    IDENTIFIER = 'Fineoffset-WH32B'
-
     @staticmethod
     def parse_json(obj):
         sensor_id = obj.get('id')
@@ -641,6 +645,8 @@ class FOWH32BPacket(Packet):
 class FOWH45Packet(Packet):
     # This is for a WH45 Air Quality Monitor
 
+    IDENTIFIER = 'Fineoffset-WH45'
+
     EXAMPLES = (
         {
             'time': '2023-07-08 13:06:14',
@@ -656,8 +662,6 @@ class FOWH45Packet(Packet):
             'mic': 'CRC',
         },
     )
-
-    IDENTIFIER = 'Fineoffset-WH45'
 
     @staticmethod
     def parse_json(obj):
@@ -677,6 +681,9 @@ class FOWH45Packet(Packet):
 
 class FOWH51Packet(Packet):
     # This is for a WH051 Soil Moisture Sensor (Fine Offset / Ecowitt WH51)
+
+    IDENTIFIER = 'Fineoffset-WH51'
+
     EXAMPLES = (
         {
             'time': '2021-04-15 15:07:05',
@@ -696,8 +703,6 @@ class FOWH51Packet(Packet):
             'noise': -37.373,
         },
     )
-
-    IDENTIFIER = 'Fineoffset-WH51'
 
     @staticmethod
     def parse_json(obj):
@@ -737,6 +742,8 @@ class FOWH65BPacket(Packet):
     # battery : OK
     # mic : CRC
 
+    IDENTIFIER = 'Fine Offset WH65B'
+
     EXAMPLES = (
         {
             'time': '2018-10-10 13:37:02',
@@ -755,8 +762,6 @@ class FOWH65BPacket(Packet):
             'mic': 'CRC',
         },
     )
-
-    IDENTIFIER = 'Fine Offset WH65B'
 
     @staticmethod
     def parse_json(obj):
@@ -797,6 +802,8 @@ class FOWH65BAltPacket(Packet):
     # light_lux : 14616.000
     # battery_ok : OK
     # mic : CRC
+
+    IDENTIFIER = 'Fineoffset-WH65B'
 
     EXAMPLES = (
         {
@@ -855,8 +862,6 @@ class FOWH65BAltPacket(Packet):
         },
     )
 
-    IDENTIFIER = 'Fineoffset-WH65B'
-
     @staticmethod
     def parse_json(obj):
         sensor_id = obj.get('id')
@@ -883,6 +888,8 @@ class FOWH65BAltPacket(Packet):
 class FOWH0290Packet(Packet):
     # This is for a WH0290 Air Quality Monitor (Ambient Weather PM25)
 
+    IDENTIFIER = 'Fineoffset-WH0290'
+
     EXAMPLES = (
         {
             'time': '@0.084044s',
@@ -905,8 +912,6 @@ class FOWH0290Packet(Packet):
         },
     )
 
-    IDENTIFIER = 'Fineoffset-WH0290'
-
     @staticmethod
     def parse_json(obj):
         sensor_id = obj.get('id')
@@ -923,6 +928,8 @@ class FOWH0290Packet(Packet):
 class FOWH31LPacket(Packet):
     # This is for a WH31L lightning detector
 
+    IDENTIFIER = 'FineOffset-WH31L'
+
     EXAMPLES = (
         {
             'time': '2021-06-30 20:37:11',
@@ -936,8 +943,6 @@ class FOWH31LPacket(Packet):
             'mic': 'CRC',
         },
     )
-
-    IDENTIFIER = 'FineOffset-WH31L'
 
     @staticmethod
     def parse_json(obj):
@@ -957,6 +962,8 @@ class FOWH31LPacket(Packet):
 class FOWS80Packet(Packet):
     # This is for a Fine Offset Electronics WS80 weather station
 
+    IDENTIFIER = 'Fineoffset-WS80'
+
     EXAMPLES = (
         {
             'time': '2022-07-06 21:06:18',
@@ -975,8 +982,6 @@ class FOWS80Packet(Packet):
             'mic': 'CRC',
         },
     )
-
-    IDENTIFIER = 'Fineoffset-WS80'
 
     @staticmethod
     def parse_json(obj):
@@ -1015,6 +1020,8 @@ class FOWS90Packet(Packet):
     # battery_mV: 3280
     # mic : CRC
 
+    IDENTIFIER = 'Fineoffset-WS90'
+
     EXAMPLES = (
         {
             'time': '2023-03-08 22:00:38',
@@ -1042,8 +1049,6 @@ class FOWS90Packet(Packet):
             'noise': -33.113,
         },
     )
-
-    IDENTIFIER = 'Fineoffset-WS90'
 
     @staticmethod
     def parse_json(obj):

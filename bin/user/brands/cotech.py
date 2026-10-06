@@ -15,6 +15,8 @@ class Cotech367959Packet(Packet):
     #
     # thanks to user gremlin205
 
+    IDENTIFIER = 'Cotech-367959'
+
     EXAMPLES = (
         {
             'time': '2022-03-01 14:11:42',
@@ -30,8 +32,6 @@ class Cotech367959Packet(Packet):
             'mic': 'CRC',
         },
     )
-
-    IDENTIFIER = 'Cotech-367959'
 
     @staticmethod
     def parse_json(obj):

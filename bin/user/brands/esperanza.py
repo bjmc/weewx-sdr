@@ -6,6 +6,8 @@ from ..packet import Packet
 class EsperanzaEWSPacket(Packet):
     # This is for a Esperanza-EWS temperature humidity sensor
 
+    IDENTIFIER = 'Esperanza-EWS'
+
     EXAMPLES = (
         {
             'time': '2022-06-30 08:29:25',
@@ -17,8 +19,6 @@ class EsperanzaEWSPacket(Packet):
             'mic': 'CRC',
         },
     )
-
-    IDENTIFIER = 'Esperanza-EWS'
 
     @staticmethod
     def parse_json(obj):
