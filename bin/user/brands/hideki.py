@@ -1,6 +1,7 @@
 import re
 
 import weewx
+import weewx.units
 
 from ..packet import Packet
 

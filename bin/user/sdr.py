@@ -105,18 +105,15 @@ from .core import (
     DRIVER_NAME,
     DRIVER_VERSION,
     AsyncReader,
-    PacketFactory,
     ProcManager,
     SDRConfigurationEditor,
     SDRDriver,
     confeditor_loader,
     loader,
-    logdbg,
-    logerr,
-    loginf,
     main,
 )
-from .packet import Packet
+from .log import logdbg, logerr, loginf
+from .packet import Packet, PacketFactory
 from .units import (
     kmh_to_mps,
     to_C,

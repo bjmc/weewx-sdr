@@ -101,7 +101,7 @@ from user.brands import (
     WS2032Packet,
     WT0124Packet,
 )
-from user.core import PacketFactory
+from user.packet import PacketFactory
 
 TEST_CASES = (
     pytest.param(

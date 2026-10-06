@@ -1,8 +1,9 @@
 import re
 
 import weewx
+import weewx.units
 
-from ..core import loginf
+from ..log import loginf
 from ..packet import Packet
 from ..units import to_F, to_in, to_mph
 

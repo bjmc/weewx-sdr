@@ -39,6 +39,7 @@ FILES = [
     'bin/user/brands/ws2032.py',
     'bin/user/brands/wt0124.py',
     'bin/user/core.py',
+    'bin/user/log.py',
     'bin/user/packet.py',
     'bin/user/sdr.py',
     'bin/user/units.py',

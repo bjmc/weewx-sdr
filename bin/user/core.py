@@ -92,8 +92,6 @@ in the JSON data, for example 'wind_speed_mph' instead of just 'wind_speed'.
 
 from __future__ import with_statement
 
-from calendar import timegm
-
 try:
     # Python 3
     import queue
@@ -106,56 +104,13 @@ import os
 import re
 import subprocess
 import threading
-import time
-
-try:
-    import cjson as json
-
-    setattr(json, 'dumps', json.encode)
-    setattr(json, 'loads', json.decode)
-except (ImportError, AttributeError):
-    try:
-        import simplejson as json
-    except ImportError:
-        import json
 
 import weewx.drivers
 import weewx.units
 from weeutil.weeutil import tobool
 
-try:
-    # New-style weewx logging
-    import logging
-
-    import weeutil.logger  # noqa: F401  (imported for its logging side effects)
-
-    log = logging.getLogger(__name__)
-
-    def logdbg(msg):
-        log.debug(msg)
-
-    def loginf(msg):
-        log.info(msg)
-
-    def logerr(msg):
-        log.error(msg)
-
-except ImportError:
-    # Old-style weewx logging
-    import syslog
-
-    def logmsg(level, msg):
-        syslog.syslog(level, 'sdr: %s: %s' % (threading.currentThread().getName(), msg))
-
-    def logdbg(msg):
-        logmsg(syslog.LOG_DEBUG, msg)
-
-    def loginf(msg):
-        logmsg(syslog.LOG_INFO, msg)
-
-    def logerr(msg):
-        logmsg(syslog.LOG_ERR, msg)
-
+from .log import logdbg, logerr, loginf
+from .packet import PacketFactory
 
 DRIVER_NAME = 'SDR'
 DRIVER_VERSION = '0.96b1'
@@ -291,82 +246,6 @@ class ProcManager(object):
                 yield lines
                 lines = []
         yield lines
-
-
-class PacketFactory(object):
-    # known packets will be lazy-loaded by introspecting at first request
-    KNOWN_PACKETS = []
-
-    @staticmethod
-    def known_packets():
-        if not PacketFactory.KNOWN_PACKETS:
-            import inspect
-
-            from . import brands
-
-            objs = inspect.getmembers(brands, inspect.isclass)
-            for name, obj in objs:
-                if hasattr(obj, 'IDENTIFIER'):
-                    PacketFactory.KNOWN_PACKETS.append(obj)
-        return PacketFactory.KNOWN_PACKETS
-
-    @staticmethod
-    def create(lines):
-        # return a list of packets from the specified lines
-        while lines:
-            pkt = None
-            if lines[0].startswith('{'):
-                pkt = PacketFactory.parse_json(lines)
-                if pkt is None:
-                    logdbg("punt unrecognized line '%s'" % lines[0])
-                lines.pop(0)
-            else:
-                pkt = PacketFactory.parse_text(lines)
-            if pkt is not None:
-                yield pkt
-
-    @staticmethod
-    def parse_json(lines):
-        try:
-            obj = json.loads(lines[0])
-            if 'model' in obj:
-                for parser in PacketFactory.known_packets():
-                    if obj['model'].find(parser.IDENTIFIER) >= 0:
-                        return parser.parse_json(obj)
-                logdbg('parse_json: unknown model %s' % obj['model'])
-        except ValueError as e:
-            logdbg('parse_json failed: %s' % e)
-        return None
-
-    @staticmethod
-    def parse_text(lines):
-        ts, payload = PacketFactory.parse_firstline(lines[0])
-        if ts and payload:
-            logdbg('parse_text: ts=%s payload=%s' % (ts, payload))
-            for parser in PacketFactory.known_packets():
-                if payload.find(parser.IDENTIFIER) >= 0:
-                    pkt = parser.parse_text(ts, payload, lines)
-                    logdbg('pkt=%s' % pkt)
-                    return pkt
-            logdbg('parse_text: unknown format: ts=%s payload=%s' % (ts, payload))
-        logdbg('parse_text failed: ts=%s payload=%s line=%s' % (ts, payload, lines[0]))
-        lines.pop(0)
-        return None
-
-    TS_PATTERN = re.compile(r'(\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d)[\s]+:*(.*)')
-
-    @staticmethod
-    def parse_firstline(line):
-        ts = payload = None
-        try:
-            m = PacketFactory.TS_PATTERN.search(line)
-            if m:
-                utc = time.strptime(m.group(1), '%Y-%m-%d %H:%M:%S')
-                ts = timegm(utc)
-                payload = m.group(2).strip()
-        except Exception as e:
-            logerr("parse timestamp failed for '%s': %s" % (line, e))
-        return ts, payload
 
 
 class SDRConfigurationEditor(weewx.drivers.AbstractConfEditor):
@@ -684,7 +563,3 @@ Hide:
         for line in mgr.get_stderr():
             line = line.rstrip()
             print('err: %s' % line)
-
-
-if __name__ == '__main__':
-    main()
