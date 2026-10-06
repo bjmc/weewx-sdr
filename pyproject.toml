@@ -2,9 +2,11 @@
 name = "weewx-sdr"
 version = "0.96b1"
 description = "Weewx extension that captures data from software-defined radios."
-author = "Matthew Wall"
-readme = "readme"
+authors = [{ name = "Matthew Wall" }]
+readme = "README.md"
 requires-python = ">=3.11"
+license = "GPL-3.0-only"
+license-files = ["license"]
 classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
