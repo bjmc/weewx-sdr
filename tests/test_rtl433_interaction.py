@@ -1,15 +1,17 @@
 """How the driver drives the rtl_433 executable.
 
-These use a fake rtl_433 (a small Python script) so we can check what the driver
-does *to* the process: the command line it runs, the environment it passes, how
-it reads the output, and how it shuts the process down.
+Two levels:
+
+* With ``pytest-subprocess`` (the ``fp`` fixture) we check what the driver
+  *asks for* - the command line and the environment - without running anything.
+* With a real fake executable we check what it does *with* the process: reading
+  its output, noticing when it dies, and killing it on shutdown.
 """
 
 import itertools
 import time
 
 import pytest
-import user.core as core
 
 # Real rtl_433 text output.  rtl_433 in text mode emits one timestamped line per
 # packet, which is what the process manager groups on.
@@ -46,63 +48,62 @@ def collect_until(getter, timeout=5.0):
     return collected
 
 
-# --- what we run ------------------------------------------------------------
+# --- what we ask rtl_433 to do (no process involved) ------------------------
 
 
-def test_it_runs_the_configured_command(make_fake_rtl433):
-    fake = make_fake_rtl433()
-    manager = core.ProcManager()
-    try:
-        manager.startup(fake.cmd + ' -M utc -F json')
-        assert wait_until(lambda: fake.record() is not None)
-        assert fake.record()['argv'][1:] == ['-M', 'utc', '-F', 'json']
-    finally:
-        manager.shutdown()
+def test_the_driver_runs_the_configured_command(fp, open_driver):
+    fp.register(['rtl_433', '-M', 'utc', '-F', 'json'])
+
+    with open_driver(cmd='rtl_433 -M utc -F json'):
+        assert list(fp.calls) == [['rtl_433', '-M', 'utc', '-F', 'json']]
 
 
-def test_it_passes_path_and_ld_library_path_to_the_process(make_fake_rtl433):
-    fake = make_fake_rtl433()
-    manager = core.ProcManager()
-    try:
-        manager.startup(fake.cmd, path='/opt/rtl-433/bin', ld_library_path='/opt/rtl-sdr/lib')
-        assert wait_until(lambda: fake.record() is not None)
+def test_the_driver_starts_rtl_433_exactly_once(fp, open_driver):
+    fp.register(['rtl_433', '-M', 'utc', '-F', 'json'])
 
-        env = fake.record()['env']
-        assert env['PATH'].startswith('/opt/rtl-433/bin:')
-        assert env['LD_LIBRARY_PATH'] == '/opt/rtl-sdr/lib'
-    finally:
-        manager.shutdown()
+    with open_driver(cmd='rtl_433 -M utc -F json'):
+        assert len(fp.calls) == 1
 
 
-# --- what we do with its output ---------------------------------------------
+def test_the_driver_passes_path_and_ld_library_path(fp, open_driver, monkeypatch):
+    monkeypatch.setenv('PATH', '/usr/bin')
+    recorder = fp.register(['rtl_433', '-M', 'utc', '-F', 'json'])
+
+    with open_driver(
+        cmd='rtl_433 -M utc -F json',
+        path='/opt/rtl-433/bin',
+        ld_library_path='/opt/rtl-sdr/lib',
+    ):
+        env = recorder.calls[0].kwargs['env']
+
+    assert env['PATH'] == '/opt/rtl-433/bin:/usr/bin'
+    assert env['LD_LIBRARY_PATH'] == '/opt/rtl-sdr/lib'
 
 
-def test_it_notices_when_the_process_is_gone(make_fake_rtl433):
+# --- what we do with the process --------------------------------------------
+
+
+def test_it_notices_when_the_process_is_gone(make_fake_rtl433, manager):
     fake = make_fake_rtl433()  # exits immediately
-    manager = core.ProcManager()
     manager.startup(fake.cmd)
+
     assert wait_until(lambda: not manager.running())
-    manager.shutdown()
 
 
-def test_stderr_from_rtl_433_is_surfaced(make_fake_rtl433):
+def test_stderr_from_rtl_433_is_surfaced(make_fake_rtl433, manager):
     fake = make_fake_rtl433(stderr=['rtl_433: no tuner'], stay_alive=True)
-    manager = core.ProcManager()
-    try:
-        manager.startup(fake.cmd)
-        lines = collect_until(manager.get_stderr)
-        assert any('no tuner' in line for line in lines)
-    finally:
-        manager.shutdown()
+    manager.startup(fake.cmd)
+
+    lines = collect_until(manager.get_stderr)
+
+    assert any('no tuner' in line for line in lines)
 
 
-def test_a_packet_is_read_end_to_end_from_rtl_433(make_fake_rtl433):
+def test_a_packet_is_read_end_to_end_from_rtl_433(make_fake_rtl433, open_driver):
     fake = make_fake_rtl433(stdout=TOWER_TEXT, stay_alive=True)
-    driver = core.loader({'SDR': {'cmd': fake.cmd, 'sensor_map': TOWER_SENSOR_MAP}}, None)
-    try:
+
+    with open_driver(cmd=fake.cmd, sensor_map=TOWER_SENSOR_MAP) as driver:
         packets = list(itertools.islice(driver.genLoopPackets(), 1))
-    finally:
-        driver.closePort()
 
     assert packets[0]['outTemp'] == pytest.approx(26.7)
     assert packets[0]['outHumidity'] == pytest.approx(16.0)
@@ -111,9 +112,10 @@ def test_a_packet_is_read_end_to_end_from_rtl_433(make_fake_rtl433):
 # --- what we do to it on the way out ----------------------------------------
 
 
-def test_closePort_terminates_rtl_433(make_fake_rtl433):
+def test_closePort_terminates_rtl_433(make_fake_rtl433, load_driver):
+    # closePort is the subject here, so this test manages the driver itself
     fake = make_fake_rtl433(stay_alive=True)
-    driver = core.loader({'SDR': {'cmd': fake.cmd, 'sensor_map': TOWER_SENSOR_MAP}}, None)
+    driver = load_driver(cmd=fake.cmd, sensor_map=TOWER_SENSOR_MAP)
 
     process = driver._mgr._process
     assert process.poll() is None  # running

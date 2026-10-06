@@ -11,6 +11,7 @@ Two ways of standing in for rtl_433 are provided:
   behaves, with no process at all.
 """
 
+import contextlib
 import json
 import sys
 from pathlib import Path
@@ -102,9 +103,41 @@ def stub_rtl433(monkeypatch):
 
 @pytest.fixture
 def load_driver():
-    """Load the driver through the module-level ``loader()``, as WeeWX does."""
+    """Load the driver through the module-level ``loader()``, as WeeWX does.
+
+    The driver is not closed for you; prefer ``open_driver`` unless the test is
+    itself about shutting the driver down.
+    """
 
     def load(**stanza):
         return core.loader({'SDR': stanza}, None)
 
     return load
+
+
+@pytest.fixture
+def open_driver(load_driver):
+    """Open a driver for a ``with`` block and close it on the way out.
+
+    This is a context manager rather than a plain yield fixture because the
+    stanza differs from test to test - and is sometimes built at runtime, from
+    the fake rtl_433 command line - so it is not known when the fixture runs.
+    """
+
+    @contextlib.contextmanager
+    def open_driver(**stanza):
+        driver = load_driver(**stanza)
+        try:
+            yield driver
+        finally:
+            driver.closePort()
+
+    return open_driver
+
+
+@pytest.fixture
+def manager():
+    """A process manager, shut down when the test finishes."""
+    manager = core.ProcManager()
+    yield manager
+    manager.shutdown()
