@@ -19,6 +19,7 @@ dependencies = []
 dev = [
     "nox>=2026.8.17",
     "pytest>=9.1.1",
+    "pytest-subprocess>=1.6.0",
     "ruff>=0.16.10",
     "weewx>=5.5.2",
 ]
