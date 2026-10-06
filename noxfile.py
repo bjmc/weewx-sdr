@@ -23,9 +23,9 @@ WEEWX_VERSIONS = ['5.0.2', '5.1.0', '5.2.0', '5.3.1', '5.4.0', '5.5.2']
 @nox.session(python=PYTHON_VERSIONS)
 @nox.parametrize('weewx', WEEWX_VERSIONS)
 def tests(session, weewx):
-    """Run the test suite against a pinned WeeWX release."""
-    # everything from the 'dev' group, then override the weewx version
-    session.install('--group', 'dev')
+    """Run the test suite against a pinned WeeWX release.
+    """
+    session.install('--group', 'test')
     session.install(f'weewx=={weewx}')
     session.run('pytest', *session.posargs)
 
@@ -33,5 +33,5 @@ def tests(session, weewx):
 @nox.session(python=PYTHON_VERSIONS[-1], tags=['latest'])
 def latest(session):
     """Run the test suite against the newest WeeWX on the newest Python."""
-    session.install('--group', 'dev')
+    session.install('--group', 'test')
     session.run('pytest', *session.posargs)
