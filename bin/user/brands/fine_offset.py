@@ -90,6 +90,21 @@ class FOWH1080Packet(Packet):
 
 
 class FOWHx080Packet(Packet):
+    # apparently there are different identifiers for the same packet, depending
+    # on which version of rtl_433 is running.  one version has extra spaces,
+    # while another version does not.  so for now, and until rtl_433
+    # stabilizes, match on something unique to these packets that still matches
+    # the strings from different rtl_433 versions.
+
+    # this assumes rain total is in mm (as of dec 2019)
+    # this assumes wind speed is kph (as of dec 2019)
+
+    # todays rtl_433 output
+
+    # IDENTIFIER = "Fine Offset Electronics WH1080 / WH3080 Weather Station"
+    # IDENTIFIER = "Fine Offset Electronics WH1080/WH3080 Weather Station"
+    # IDENTIFIER = "Fine Offset Electronics WH1080"
+    IDENTIFIER = 'Fineoffset-WHx080'
     # 2017-05-15 11:58:31: Fine Offset Electronics WH1080 / WH3080 Weather Station
     # Msg type: 0
     # Station ID: 236
@@ -112,23 +127,6 @@ class FOWHx080Packet(Packet):
     # Year: 2165
     # Month: 25
     # Day: 70
-
-    # apparently there are different identifiers for the same packet, depending
-    # on which version of rtl_433 is running.  one version has extra spaces,
-    # while another version does not.  so for now, and until rtl_433
-    # stabilizes, match on something unique to these packets that still matches
-    # the strings from different rtl_433 versions.
-
-    # this assumes rain total is in mm (as of dec 2019)
-    # this assumes wind speed is kph (as of dec 2019)
-
-    # todays rtl_433 output
-
-    # IDENTIFIER = "Fine Offset Electronics WH1080 / WH3080 Weather Station"
-    # IDENTIFIER = "Fine Offset Electronics WH1080/WH3080 Weather Station"
-    # IDENTIFIER = "Fine Offset Electronics WH1080"
-    IDENTIFIER = 'Fineoffset-WHx080'
-
     EXAMPLES = (
         {
             'time': '2020-10-13 14:04:48',
@@ -221,6 +219,7 @@ class FOWHx080Packet(Packet):
 
 
 class FOWH3080Packet(Packet):
+    IDENTIFIER = 'Fine Offset Electronics WH3080 Weather Station'
     # 2017-05-15 11:58:08: Fine Offset Electronics WH3080 Weather Station
     # Msg type: 2
     # UV Sensor ID: 225
@@ -229,9 +228,6 @@ class FOWH3080Packet(Packet):
     # Lux: 120160.5
     # Watts / m: 175.93
     # Foot-candles: 11167.33
-
-    IDENTIFIER = 'Fine Offset Electronics WH3080 Weather Station'
-
     EXAMPLES = (
         {
             'time': '2017-05-15 17:21:07',
@@ -351,10 +347,8 @@ class FOWH5Packet(Packet):
 
 
 class FOWH24Packet(Packet):
-    # This is for a WH24 which is the sensor array for several station models
-
     IDENTIFIER = 'Fine Offset WH24'
-
+    # This is for a WH24 which is the sensor array for several station models
     EXAMPLES = (
         {
             'time': '2019-02-11 03:44:32',
@@ -589,6 +583,7 @@ class FOWH32Packet(Packet):
 
 
 class FOWH32BPacket(Packet):
+    IDENTIFIER = 'Fineoffset-WH32B'
     # This is for a WH32B which is the indoors sensor array for an Ambient
     # Weather WS-2902A. The same sensor array is used for several models.
 
@@ -600,9 +595,6 @@ class FOWH32BPacket(Packet):
     # Pressure  : 1001.2 hPa
     # Battery   : OK
     # Integrity : CHECKSUM
-
-    IDENTIFIER = 'Fineoffset-WH32B'
-
     EXAMPLES = (
         {
             'time': '2019-04-08 07:06:03',
@@ -652,10 +644,8 @@ class FOWH32BPacket(Packet):
 
 
 class FOWH45Packet(Packet):
-    # This is for a WH45 Air Quality Monitor
-
     IDENTIFIER = 'Fineoffset-WH45'
-
+    # This is for a WH45 Air Quality Monitor
     EXAMPLES = (
         {
             'time': '2023-07-08 13:06:14',
@@ -689,10 +679,8 @@ class FOWH45Packet(Packet):
 
 
 class FOWH51Packet(Packet):
-    # This is for a WH051 Soil Moisture Sensor (Fine Offset / Ecowitt WH51)
-
     IDENTIFIER = 'Fineoffset-WH51'
-
+    # This is for a WH051 Soil Moisture Sensor (Fine Offset / Ecowitt WH51)
     EXAMPLES = (
         {
             'time': '2021-04-15 15:07:05',
@@ -734,6 +722,7 @@ class FOWH51Packet(Packet):
 
 
 class FOWH65BPacket(Packet):
+    IDENTIFIER = 'Fine Offset WH65B'
     # This is for a WH65B which is the sensor array for an Ambient Weather
     # WS-2902A. The same sensor array is used for several models.
 
@@ -750,9 +739,6 @@ class FOWH65BPacket(Packet):
     # light_lux : 13454.000
     # battery : OK
     # mic : CRC
-
-    IDENTIFIER = 'Fine Offset WH65B'
-
     EXAMPLES = (
         {
             'time': '2018-10-10 13:37:02',
@@ -793,6 +779,7 @@ class FOWH65BPacket(Packet):
 
 
 class FOWH65BAltPacket(Packet):
+    IDENTIFIER = 'Fineoffset-WH65B'
     # This is for a WH65B sensor array that identifies itself as
     # Fineoffset-WH65B. Several mappings are also different from the other
     # WH65B. This configuration was tested on an Ambient Weather WS-2902A kit.
@@ -811,9 +798,6 @@ class FOWH65BAltPacket(Packet):
     # light_lux : 14616.000
     # battery_ok : OK
     # mic : CRC
-
-    IDENTIFIER = 'Fineoffset-WH65B'
-
     EXAMPLES = (
         {
             'time': '2020-04-26 19:41:10',
@@ -895,10 +879,8 @@ class FOWH65BAltPacket(Packet):
 
 
 class FOWH0290Packet(Packet):
-    # This is for a WH0290 Air Quality Monitor (Ambient Weather PM25)
-
     IDENTIFIER = 'Fineoffset-WH0290'
-
+    # This is for a WH0290 Air Quality Monitor (Ambient Weather PM25)
     EXAMPLES = (
         {
             'time': '@0.084044s',
@@ -935,10 +917,8 @@ class FOWH0290Packet(Packet):
 
 
 class FOWH31LPacket(Packet):
-    # This is for a WH31L lightning detector
-
     IDENTIFIER = 'FineOffset-WH31L'
-
+    # This is for a WH31L lightning detector
     EXAMPLES = (
         {
             'time': '2021-06-30 20:37:11',
@@ -969,10 +949,8 @@ class FOWH31LPacket(Packet):
 
 
 class FOWS80Packet(Packet):
-    # This is for a Fine Offset Electronics WS80 weather station
-
     IDENTIFIER = 'Fineoffset-WS80'
-
+    # This is for a Fine Offset Electronics WS80 weather station
     EXAMPLES = (
         {
             'time': '2022-07-06 21:06:18',
@@ -1013,6 +991,7 @@ class FOWS80Packet(Packet):
 
 
 class FOWS90Packet(Packet):
+    IDENTIFIER = 'Fineoffset-WS90'
     # time : 2020-04-26 23:21:42
     # model : Fineoffset-WS90
     # id : 16
@@ -1028,9 +1007,6 @@ class FOWS90Packet(Packet):
     # battery_ok: OK
     # battery_mV: 3280
     # mic : CRC
-
-    IDENTIFIER = 'Fineoffset-WS90'
-
     EXAMPLES = (
         {
             'time': '2023-03-08 22:00:38',

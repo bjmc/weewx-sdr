@@ -4,12 +4,10 @@ from ..packet import Packet
 
 
 class TSFT002Packet(Packet):
+    IDENTIFIER = 'TS-FT002'
     # time : 2019-12-22 16:57:58
     # model : TS-FT002 Id : 127
     # Depth : 186 Temperature: 20.9 C Transmit Interval: 180 Battery Flag?: 8 MIC : CHECKSUM
-
-    IDENTIFIER = 'TS-FT002'
-
     EXAMPLES = (
         {
             'time': '2019-12-22 22:54:58',

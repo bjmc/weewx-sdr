@@ -4,10 +4,8 @@ from ..packet import Packet
 
 
 class ProloguePacket(Packet):
-    # 2017-03-19 : Prologue Temperature and Humidity Sensor
-
     IDENTIFIER = 'Prologue sensor'
-
+    # 2017-03-19 : Prologue Temperature and Humidity Sensor
     EXAMPLES = (
         {
             'time': '2017-03-15 20:14:19',
@@ -37,9 +35,8 @@ class ProloguePacket(Packet):
 
 
 class PrologueTHPacket(Packet):
-    # 2021-09-03 : Prologue-TH Temperature and Humidity Sensor
-
     IDENTIFIER = 'Prologue-TH'
+    # 2021-09-03 : Prologue-TH Temperature and Humidity Sensor
     EXAMPLES = (
         {
             'time': '2021-09-02 23:47:40',

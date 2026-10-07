@@ -4,10 +4,8 @@ from ..packet import Packet
 
 
 class EsperanzaEWSPacket(Packet):
-    # This is for a Esperanza-EWS temperature humidity sensor
-
     IDENTIFIER = 'Esperanza-EWS'
-
+    # This is for a Esperanza-EWS temperature humidity sensor
     EXAMPLES = (
         {
             'time': '2022-06-30 08:29:25',

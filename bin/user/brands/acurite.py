@@ -117,10 +117,8 @@ class AcuriteAtlasPacket(Packet):
 
 
 class Acurite3n1PacketV2(Packet):
-    # sample json output from rtl_433
-
     IDENTIFIER = 'Acurite-3n1'
-
+    # sample json output from rtl_433
     EXAMPLES = (
         {
             'time': '2021-12-27 02:53:38',
@@ -232,6 +230,8 @@ class Acurite5n1Packet(Packet):
         return Acurite.insert_ids(pkt, Acurite5n1Packet.__name__)
 
     # sample json output from rtl_433 as of jan2017
+    # some changes to rtl_433 as of dec2017
+    # more changes to rtl_433 as of dec2018
     EXAMPLES = (
         {
             'time': '2017-01-16 02:34:12',
@@ -325,10 +325,6 @@ class Acurite5n1Packet(Packet):
         ),
     )
 
-    # some changes to rtl_433 as of dec2017
-
-    # more changes to rtl_433 as of dec2018
-
     @staticmethod
     def parse_json(obj):
         pkt = dict()
@@ -375,11 +371,8 @@ class Acurite5n1Packet(Packet):
 
 class Acurite5n1PacketV2(Packet):
     # Based on Acurite5n1Packet class, but implemented for unsupported format
-
-    # sample json output from rtl_433
-
     IDENTIFIER = 'Acurite-5n1'
-
+    # sample json output from rtl_433
     EXAMPLES = (
         {
             'time': '2019-07-29 07:46:22.482883',
@@ -535,6 +528,7 @@ class AcuriteTowerPacket(Packet):
             'humidity': 16,
             'battery_low': 0,
         },
+        # JSON format as of early 2017
         {
             'time': '2017-01-12 03:43:05',
             'model': 'Acurite tower sensor',
@@ -560,8 +554,6 @@ class AcuriteTowerPacket(Packet):
         ('2016-08-30 23:57:20 Acurite tower sensor 0x37FC Ch A: 26.7 C 80.1 F 16 % RH',),
     )
 
-    # JSON format as of early 2017
-
     @staticmethod
     def parse_json(obj):
         pkt = dict()
@@ -581,11 +573,8 @@ class AcuriteTowerPacket(Packet):
 
 class AcuriteTowerPacketV2(Packet):
     # Based on AcuriteTowerPacket type, but implemented for unsupported format
-
-    # Sample data:
-
     IDENTIFIER = 'Acurite-Tower'
-
+    # Sample data:
     EXAMPLES = (
         {
             'time': '2019-07-29 07:44:23.005624',
@@ -640,10 +629,8 @@ class AcuriteTowerPacketV2(Packet):
 
 
 class Acurite606TXPacket(Packet):
-    # 2017-03-20: Acurite 606TX Temperature Sensor
-
     IDENTIFIER = 'Acurite 606TX Sensor'
-
+    # 2017-03-20: Acurite 606TX Temperature Sensor
     EXAMPLES = (
         {
             'time': '2017-03-04 16:18:12',
@@ -670,10 +657,8 @@ class Acurite606TXPacket(Packet):
 
 
 class Acurite606TXPacketV2(Packet):
-    # 2021-02-23: Acurite 606TX Temperature Sensor
-
     IDENTIFIER = 'Acurite-606TX'
-
+    # 2021-02-23: Acurite 606TX Temperature Sensor
     EXAMPLES = (
         {
             'time': '2021-02-23 16:24:07',
@@ -709,10 +694,8 @@ class Acurite606TXPacketV2(Packet):
 
 
 class AcuriteRain899Packet(Packet):
-    # Sample data:
-
     IDENTIFIER = 'Acurite-Rain899'
-
+    # Sample data:
     EXAMPLES = (
         {
             'time': '2019-12-05 16:32:20',
@@ -1037,10 +1020,9 @@ class AcuriteWT450Packet(Packet):
 
 
 class Acurite515Packet(Packet):
+    IDENTIFIER = 'Acurite-515'
     # refrigerator (XR) and freezer (XF) sensors
     # X is one of A, B, or C
-
-    IDENTIFIER = 'Acurite-515'
     EXAMPLES = (
         {
             'time': '2022-01-21 21:55:54',

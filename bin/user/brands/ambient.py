@@ -27,6 +27,7 @@ class AmbientF007THPacket(Packet):
         pkt = Packet.add_identifiers(pkt, sensor_id, AmbientF007THPacket.__name__)
         return pkt
 
+    # as of 06feb2020:
     EXAMPLES = (
         {
             'time': '2017-01-21 13:01:30',
@@ -56,7 +57,6 @@ class AmbientF007THPacket(Packet):
             'Humidity: 13 %',
         ),
     )
-    # as of 06feb2020:
 
     @staticmethod
     def parse_json(obj):

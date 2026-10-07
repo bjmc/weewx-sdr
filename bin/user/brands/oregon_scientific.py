@@ -162,6 +162,8 @@ class OSBTHR968Packet(Packet):
         return OS.insert_ids(pkt, OSBTHR968Packet.__name__)
 
     # original rtl_433 output
+    # by 06mar2019
+    # by 03mar2022
     EXAMPLES = (
         {
             'time': '2017-01-18 14:56:03',
@@ -209,8 +211,6 @@ class OSBTHR968Packet(Packet):
             'Pressure:        1012 mbar',
         ),
     )
-    # by 06mar2019
-    # by 03mar2022
 
     @staticmethod
     def parse_json(obj):
@@ -284,10 +284,6 @@ class OSTHGR122NPacket(Packet):
 
 
 class OSTHGR810Packet(Packet):
-    # rtl_433 circa jul 2016 emits this
-
-    # rtl_433 circa nov 2016 emits this
-
     IDENTIFIER = 'THGR810'
     PARSEINFO = {
         'House Code': ['house_code', None, lambda x: int(x)],
@@ -306,6 +302,9 @@ class OSTHGR810Packet(Packet):
         pkt.update(Packet.parse_lines(lines, OSTHGR810Packet.PARSEINFO))
         return OS.insert_ids(pkt, OSTHGR810Packet.__name__)
 
+    # rtl_433 circa jul 2016 emits this
+
+    # rtl_433 circa nov 2016 emits this
     EXAMPLES = (
         {
             'time': '2020-06-06 20:08:12',
@@ -353,12 +352,6 @@ class OSTHGR810Packet(Packet):
 
 
 class OSTHR128Packet(Packet):
-    # 2019-04-30:   Thermo Sensor THR128
-    # House Code:      5
-    # Channel:         1
-    # Battery:         OK
-    # Temperature:     18.800 C
-
     IDENTIFIER = 'OSv1 Temperature Sensor'
     PARSEINFO = {
         'House Code': ['house_code', None, lambda x: int(x)],
@@ -375,6 +368,11 @@ class OSTHR128Packet(Packet):
         pkt.update(Packet.parse_lines(lines, OSTHR128Packet.PARSEINFO))
         return OS.insert_ids(pkt, OSTHR128Packet.__name__)
 
+    # 2019-04-30:   Thermo Sensor THR128
+    # House Code:      5
+    # Channel:         1
+    # Battery:         OK
+    # Temperature:     18.800 C
     EXAMPLES = (
         {
             'time': '2019-04-30 20:44:00',
@@ -464,6 +462,7 @@ class OSUV800Packet(Packet):
         pkt.update(Packet.parse_lines(lines, OSUV800Packet.PARSEINFO))
         return OS.insert_ids(pkt, OSUV800Packet.__name__)
 
+    # on 03mar2022
     EXAMPLES = (
         {
             'time': '2017-01-30 22:19:40',
@@ -492,7 +491,6 @@ class OSUV800Packet(Packet):
             'UV Index: 0',
         ),
     )
-    # on 03mar2022
 
     @staticmethod
     def parse_json(obj):

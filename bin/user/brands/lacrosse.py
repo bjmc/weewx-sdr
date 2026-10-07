@@ -6,10 +6,8 @@ from ..packet import Packet
 
 
 class LaCrosseBreezeProPacket(Packet):
-    # sample json output from rtl_433
-
     IDENTIFIER = 'LaCrosse-BreezePro'
-
+    # sample json output from rtl_433
     EXAMPLES = (
         {
             'time': '2020-12-14 22:22:21',

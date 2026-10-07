@@ -4,10 +4,8 @@ from ..packet import Packet
 
 
 class WT0124Packet(Packet):
-    # 2019-04-23: WT0124 Pool Thermometer
-
     IDENTIFIER = 'WT0124 Pool Thermometer'
-
+    # 2019-04-23: WT0124 Pool Thermometer
     EXAMPLES = (
         {
             'time': '2019-04-23 12:28:52',

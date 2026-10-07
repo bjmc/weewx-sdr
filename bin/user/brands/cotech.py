@@ -5,6 +5,7 @@ from ..units import to_C
 
 
 class Cotech367959Packet(Packet):
+    IDENTIFIER = 'Cotech-367959'
     # Cotech 36-7959 weather station
     # Also: SwitchDoc Labs Weather FT020T.
     # Also: Sainlogic Weather Station WS019T
@@ -14,9 +15,6 @@ class Cotech367959Packet(Packet):
     # Also: NicetyMeter Weather Station 0366 (without Lux or UV index)
     #
     # thanks to user gremlin205
-
-    IDENTIFIER = 'Cotech-367959'
-
     EXAMPLES = (
         {
             'time': '2022-03-01 14:11:42',
