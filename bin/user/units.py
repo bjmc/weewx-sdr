@@ -11,13 +11,13 @@ def to_C(v: int | float | None) -> float | None:
     return v
 
 
-def to_mph(v: int | float | None):
+def to_mph(v: int | float | None) -> float | None:
     if v is not None:
         v *= 0.621371
     return v
 
 
-def to_in(v: int | float | None):
+def to_in(v: int | float | None) -> float | None:
     if v is not None:
         v /= 25.4
     return v
