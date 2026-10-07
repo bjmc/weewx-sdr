@@ -463,7 +463,7 @@ wheels = [
 
 [[package]]
 name = "weewx-sdr"
-version = "0.96b1"
+version = "0.96b2"
 source = { virtual = "." }
 
 [package.dev-dependencies]

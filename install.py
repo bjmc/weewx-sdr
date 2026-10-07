@@ -4,7 +4,7 @@
 
 from weecfg.extension import ExtensionInstaller
 
-VERSION = '0.96b1'
+VERSION = '0.96b2'
 
 # Files to install, relative to the extension root.
 # This has to be a static list because weewx

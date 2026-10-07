@@ -6,6 +6,7 @@ Adapted from weewx's src/weecfg/tests/test_config.py (TestExtensionInstall).
 import importlib.util
 import shutil
 import tempfile
+import tomllib
 from pathlib import Path
 
 import pytest
@@ -13,6 +14,8 @@ import weecfg
 import weecfg.extension
 import weewx_data
 from weeutil.printer import Printer
+
+from user.core import DRIVER_VERSION
 
 # Read-only source of a sample weewx.conf and the framework's 'user' package.
 # Used only as a source; nothing under here is ever written to.
@@ -69,10 +72,13 @@ class TestExtensionInstall:
         assert INSTALL.FILES == actual
 
     def test_version_matches_pyproject(self):
-        """install.py's VERSION matches pyproject.toml's project version."""
-        tomllib = pytest.importorskip('tomllib')
+        """Every version in the tree matches pyproject.toml: install.py's VERSION and the
+        version the driver reports. Bump them together with scripts/bump_version.py."""
         pyproject = tomllib.loads((REPO_ROOT / 'pyproject.toml').read_text())
-        assert INSTALL.VERSION == pyproject['project']['version']
+        version = pyproject['project']['version']
+
+        assert INSTALL.VERSION == version, f'install.py says {INSTALL.VERSION}'
+        assert DRIVER_VERSION == version, f'the driver says {DRIVER_VERSION}'
 
     def test_install(self):
         assert Path(self.engine.root_dict['WEEWX_ROOT']).resolve() == self.weewx_root.resolve()

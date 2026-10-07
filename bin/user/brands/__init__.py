@@ -27,5 +27,4 @@ def _classes_defined_in_package():
 
 _classes = _classes_defined_in_package()
 globals().update(_classes)
-__all__ = sorted(_classes)
 del _classes

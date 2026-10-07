@@ -1,6 +1,6 @@
 [project]
 name = "weewx-sdr"
-version = "0.96b1"
+version = "0.96b2"
 description = "Weewx extension that captures data from software-defined radios."
 authors = [{ name = "Matthew Wall" }]
 readme = "README.md"

@@ -418,6 +418,16 @@ You can lint your code for style issues with
 uv run ruff check --fix && uv run ruff format
 ```
 
+The version is stated in three places - `pyproject.toml`, `install.py` and
+`bin/user/core.py` - and `tests/test_install.py` checks that they agree. Bump all
+three at once with
+
+```bash
+scripts/bump_version.py 0.96b3
+```
+
+and add the version to the changelog by hand.
+
 ## Historical notes
 
 When this driver was first created, most of the output from rtl_433 was only
