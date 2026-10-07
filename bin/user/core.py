@@ -201,6 +201,9 @@ class ProcManager(object):
             raise weewx.WeeWxIOError("failed to start process '%s': %s" % (cmd, e))
 
     def shutdown(self):
+        if self._process is None:
+            # startup() never succeeded, or we have already shut down
+            return
         loginf('shutdown process %s' % self._cmd)
         self._process.kill()
         logdbg('close stdout')
@@ -225,7 +228,7 @@ class ProcManager(object):
         loginf('shutdown complete')
 
     def running(self):
-        return self._process.poll() is None
+        return self._process is not None and self._process.poll() is None
 
     def get_stderr(self):
         lines = []

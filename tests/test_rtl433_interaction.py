@@ -123,3 +123,24 @@ def test_closePort_terminates_rtl_433(make_fake_rtl433, load_driver):
     driver.closePort()
 
     assert process.poll() is not None  # killed
+
+
+def test_closePort_can_be_called_twice(make_fake_rtl433, load_driver):
+    # closePort is the subject here too, so this test manages the driver itself
+    cmd = make_fake_rtl433(stay_alive=True)
+    driver = load_driver(cmd=cmd, sensor_map=TOWER_SENSOR_MAP)
+    process = driver._mgr._process
+
+    driver.closePort()
+    driver.closePort()  # a second close is a no-op, not an AttributeError
+
+    assert process.poll() is not None  # still killed
+
+
+def test_a_manager_that_never_started_shuts_down_safely(manager):
+    # shutdown() and running() must not assume that startup() succeeded
+    assert manager.running() is False
+
+    manager.shutdown()
+
+    assert manager.running() is False

@@ -6,8 +6,6 @@ from ..packet import Packet
 class Bresser5in1Packet(Packet):
     IDENTIFIER = 'Bresser-5in1'
 
-    IDENTIFIER = 'Bresser-5in1'
-
     EXAMPLES = (
         {
             'time': '2018-12-15 16:04:04',
