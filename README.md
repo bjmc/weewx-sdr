@@ -295,14 +295,17 @@ In the weewx configuration file, enter the rtl_433 options (if necessary) and
 the sensor map. Then run weewx directly in one shell while you monitor the
 weewx log in a separate shell:
 
-```
 in shell 1:
+
+````sh
 cd /home/weewx
 sudo ./bin/weewxd weewx.conf
 
 in shell 2:
+
+```sh
 tail -f /var/log/syslog
-```
+````
 
 At this point, verify that the mapping you made in the weewx configuration file
 is working as you intend. You should see data from your sensors in the weewx
@@ -412,7 +415,7 @@ to verify against a range of Python and WeeWx versions using [nox.](https://nox.
 You can lint your code for style issues with
 
 ```
-uv run ruff check --fix && ruff format
+uv run ruff check --fix && uv run ruff format
 ```
 
 ## Historical notes
