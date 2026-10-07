@@ -1,18 +1,20 @@
 """The driver as WeeWX sees it.
 
-WeeWX loads a driver through the module-level ``loader()`` and then drives it
-through the ``weewx.drivers.AbstractDevice`` interface.  These tests play the
-role of WeeWX: they check the packets the driver hands over, the way it signals
-that the device has gone away, and the configuration stanza it ships.
+WeeWX loads a driver by the name configured in weewx.conf - ``user.sdr`` - via the
+module-level ``loader()``, then drives it through the ``weewx.drivers.AbstractDevice``
+interface.  These tests play the role of WeeWX: they check the packets the driver
+hands over, the way it signals that the device has gone away, and the configuration
+stanza it ships.
 """
 
 import json
 
 import configobj
 import pytest
-import user.core as core
 import weewx
 import weewx.drivers
+
+import user.sdr as sdr
 from user.brands import Acurite5n1Packet
 
 # A real rtl_433 json line (the shape the driver's own captured examples use).
@@ -131,7 +133,7 @@ def test_a_cumulative_total_is_reported_as_a_per_period_delta(stub_rtl433, load_
 
 
 def test_confeditor_ships_a_usable_sdr_stanza():
-    editor = core.confeditor_loader()
+    editor = sdr.confeditor_loader()
     assert isinstance(editor, weewx.drivers.AbstractConfEditor)
 
     parsed = configobj.ConfigObj(editor.default_stanza.splitlines())

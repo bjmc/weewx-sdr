@@ -9,6 +9,7 @@ these cases catch any behaviour drift introduced by the refactor.
 import inspect
 
 import pytest
+
 import user.brands as brands
 from user.brands import (
     Acurite00275MPacket,

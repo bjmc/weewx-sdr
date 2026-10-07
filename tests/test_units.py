@@ -1,6 +1,7 @@
 """Unit tests for the conversions in bin/user/units.py."""
 
 import pytest
+
 from user.units import kmh_to_mps, to_C, to_F, to_in, to_mph, to_v
 
 FUNCS = [to_F, to_C, to_mph, to_in, to_v, kmh_to_mps]

@@ -5,8 +5,9 @@ the public ``loader()`` entry point and drive it through ``genLoopPackets()``.
 
 Two ways of standing in for rtl_433 are provided:
 
-* ``make_fake_rtl433`` - a real executable (``tests/fake_rtl433.py``) for tests
-  that need real pipes, real reader threads and a real process to kill.
+* ``make_fake_rtl433`` - the command line that runs a real executable
+  (``tests/fake_rtl433.py``), for tests that need real pipes, real reader
+  threads and a real process to kill.
 * ``stub_rtl433`` - a mocked process manager for tests about how the driver
   behaves, with no process at all.
 """
@@ -18,7 +19,9 @@ from pathlib import Path
 from unittest.mock import Mock
 
 import pytest
+
 import user.core as core
+import user.sdr as sdr
 
 FAKE_RTL433 = Path(__file__).parent / 'fake_rtl433.py'
 
@@ -28,27 +31,11 @@ FAKE_RTL433 = Path(__file__).parent / 'fake_rtl433.py'
 # ---------------------------------------------------------------------------
 
 
-class FakeRTL433:
-    """A fake rtl_433 executable and the command line that runs it."""
-
-    def __init__(self, cmd, record):
-        self.cmd = cmd
-        self._record = record
-
-    def record(self):
-        """What the executable saw (argv, pid, env), or None before it starts."""
-        try:
-            return json.loads(self._record.read_text())
-        except FileNotFoundError:
-            return None
-
-
 @pytest.fixture
-def make_fake_rtl433(tmp_path, monkeypatch):
-    """Build a fake rtl_433 that emits the requested output."""
+def make_fake_rtl433(monkeypatch):
+    """Return the command line of a fake rtl_433 that emits the output asked for."""
 
     def make(stdout=(), stderr=(), stay_alive=False):
-        record = tmp_path / 'fake_rtl433.json'
         monkeypatch.setenv(
             'FAKE_RTL433_SPEC',
             json.dumps(
@@ -56,11 +43,10 @@ def make_fake_rtl433(tmp_path, monkeypatch):
                     'stdout': list(stdout),
                     'stderr': list(stderr),
                     'stay_alive': stay_alive,
-                    'record': str(record),
                 }
             ),
         )
-        return FakeRTL433('%s %s' % (sys.executable, FAKE_RTL433), record)
+        return '%s %s' % (sys.executable, FAKE_RTL433)
 
     return make
 
@@ -92,6 +78,8 @@ def stub_rtl433(monkeypatch):
         manager.shutdown.side_effect = lambda: state.update(shutdown=True)
         return manager
 
+    # The driver looks ProcManager up in user.core's globals, so the stub must
+    # be installed there; patching the user.sdr re-export would do nothing.
     monkeypatch.setattr(core, 'ProcManager', build)
     return state
 
@@ -105,12 +93,13 @@ def stub_rtl433(monkeypatch):
 def load_driver():
     """Load the driver through the module-level ``loader()``, as WeeWX does.
 
-    The driver is not closed for you; prefer ``open_driver`` unless the test is
-    itself about shutting the driver down.
+    WeeWX imports the driver by the name in weewx.conf, ``user.sdr``, so that is
+    the module the tests go through.  The driver is not closed for you; prefer
+    ``open_driver`` unless the test is itself about shutting the driver down.
     """
 
     def load(**stanza):
-        return core.loader({'SDR': stanza}, None)
+        return sdr.loader({'SDR': stanza}, None)
 
     return load
 

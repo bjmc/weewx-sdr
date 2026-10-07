@@ -84,15 +84,15 @@ def test_the_driver_passes_path_and_ld_library_path(fp, open_driver, monkeypatch
 
 
 def test_it_notices_when_the_process_is_gone(make_fake_rtl433, manager):
-    fake = make_fake_rtl433()  # exits immediately
-    manager.startup(fake.cmd)
+    cmd = make_fake_rtl433()  # exits immediately
+    manager.startup(cmd)
 
     assert wait_until(lambda: not manager.running())
 
 
 def test_stderr_from_rtl_433_is_surfaced(make_fake_rtl433, manager):
-    fake = make_fake_rtl433(stderr=['rtl_433: no tuner'], stay_alive=True)
-    manager.startup(fake.cmd)
+    cmd = make_fake_rtl433(stderr=['rtl_433: no tuner'], stay_alive=True)
+    manager.startup(cmd)
 
     lines = collect_until(manager.get_stderr)
 
@@ -100,9 +100,9 @@ def test_stderr_from_rtl_433_is_surfaced(make_fake_rtl433, manager):
 
 
 def test_a_packet_is_read_end_to_end_from_rtl_433(make_fake_rtl433, open_driver):
-    fake = make_fake_rtl433(stdout=TOWER_TEXT, stay_alive=True)
+    cmd = make_fake_rtl433(stdout=TOWER_TEXT, stay_alive=True)
 
-    with open_driver(cmd=fake.cmd, sensor_map=TOWER_SENSOR_MAP) as driver:
+    with open_driver(cmd=cmd, sensor_map=TOWER_SENSOR_MAP) as driver:
         packets = list(itertools.islice(driver.genLoopPackets(), 1))
 
     assert packets[0]['outTemp'] == pytest.approx(26.7)
@@ -114,8 +114,8 @@ def test_a_packet_is_read_end_to_end_from_rtl_433(make_fake_rtl433, open_driver)
 
 def test_closePort_terminates_rtl_433(make_fake_rtl433, load_driver):
     # closePort is the subject here, so this test manages the driver itself
-    fake = make_fake_rtl433(stay_alive=True)
-    driver = load_driver(cmd=fake.cmd, sensor_map=TOWER_SENSOR_MAP)
+    cmd = make_fake_rtl433(stay_alive=True)
+    driver = load_driver(cmd=cmd, sensor_map=TOWER_SENSOR_MAP)
 
     process = driver._mgr._process
     assert process.poll() is None  # running
