@@ -4,7 +4,20 @@ Historically all of this lived in ``user.sdr``.  It now re-exports the
 driver implementation from :mod:`user.core`, the base ``Packet`` class
 from :mod:`user.packet`, and every sensor class from :mod:`user.brands`,
 so existing ``from user.sdr import ...`` imports keep working.
+
+This module is also the entry point for running the driver directly
+(``python3 sdr.py``), hence the bootstrap below.
 """
+
+if __name__ == '__main__' and __package__ in (None, ''):
+    # Running this file as a script rather than as part of its package: put the
+    # directory that contains the 'user' package on the path and tell the import
+    # system what the parent package is, so the relative imports below resolve.
+    import os
+    import sys
+
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    __package__ = 'user'
 
 from .brands import (
     OS,
