@@ -31,7 +31,7 @@ except ImportError:
     import syslog
 
     def logmsg(level, msg):
-        syslog.syslog(level, 'sdr: %s: %s' % (threading.currentThread().getName(), msg))
+        syslog.syslog(level, 'sdr: %s: %s' % (threading.current_thread().name, msg))
 
     def logdbg(msg):
         logmsg(syslog.LOG_DEBUG, msg)
