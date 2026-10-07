@@ -385,9 +385,35 @@ non-json output:
 unparsed: ['2016-11-04 16:12:39 :\tFine Offset Electronics, WH2 Temperature/Humidity sensor\n', '\tID:\t 38\n', '\tTemperature:\t 54.4 C\n', '\tHumidity:\t 55 %\n']
 ```
 
+If you are comfortable writing Python, you can write your own parser by adding a
+new `Packet` subclass following example of the existing ones in the `bin/usr/brands/` folder. Add the JSON output you captured to `EXAMPLES` for your parser and then
+add a test case in `tests/test_examples.py` to verify.
+
 If you are not comfortable writing your own parser, post the output to the
 issues section of the weewx-sdr repository and some helpful person might write
 the parser for you.
+
+## Development
+
+The pyproject.toml file that specifies the development/testing environment. If you have a Python [project manager like `uv`](https://docs.astral.sh/uv/getting-started/installation/) or similar installed you can run the tests with
+
+```bash
+uv run pytest
+```
+
+or
+
+```bash
+uv run nox
+```
+
+to verify against a range of Python and WeeWx versions using [nox.](https://nox.thea.codes/en/stable/index.html)
+
+You can lint your code for style issues with
+
+```
+uv run ruff check --fix && ruff format
+```
 
 ## Historical notes
 
