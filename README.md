@@ -401,7 +401,7 @@ the parser for you.
 The pyproject.toml file that specifies the development/testing environment. If you have a Python [project manager like `uv`](https://docs.astral.sh/uv/getting-started/installation/) or similar installed you can run the tests with
 
 ```bash
-uv run pytest
+make test
 ```
 
 or
@@ -412,10 +412,16 @@ uv run nox
 
 to verify against a range of Python and WeeWx versions using [nox.](https://nox.thea.codes/en/stable/index.html)
 
-You can lint your code for style issues with
+You can check your code for style issues with
 
+```bash
+make lint
 ```
-uv run ruff check --fix && uv run ruff format
+
+and fix them with
+
+```bash
+make format
 ```
 
 The version is stated in three places - `pyproject.toml`, `install.py` and
@@ -423,10 +429,25 @@ The version is stated in three places - `pyproject.toml`, `install.py` and
 three at once with
 
 ```bash
-scripts/bump_version.py 0.96b3
+make bump VERSION=0.96b3
 ```
 
 and add the version to the changelog by hand.
+
+To build the archive that a user installs, run
+
+```bash
+make zip
+```
+
+which writes `dist/weewx-sdr-<version>.zip`. The archive puts relevant files
+inside a `weewx-sdr-<version>/` directory, because the weewx
+installer expects one common top-level directory and looks for `install.py`
+at the root of it. Install it the same way a user would:
+
+```bash
+weectl extension install dist/weewx-sdr-0.96b2.zip
+```
 
 ## Historical notes
 
